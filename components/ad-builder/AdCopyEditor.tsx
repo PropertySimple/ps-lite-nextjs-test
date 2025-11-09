@@ -1,0 +1,180 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Camera } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
+import OpenHouseScheduler, { OpenHouseEvent } from "./OpenHouseScheduler";
+import type { AdFormat, CallToActionOption } from "@/types/adBuilder";
+
+interface AdCopyEditorProps {
+  /** Current ad copy text */
+  adCopy: string;
+  /** Currently selected call-to-action */
+  callToAction: string;
+  /** Open house events */
+  openHouses: OpenHouseEvent[];
+  /** Callback when ad copy changes */
+  onAdCopyChange: (copy: string) => void;
+  /** Callback when call-to-action changes */
+  onCallToActionChange: (cta: string) => void;
+  /** Callback when open houses change */
+  onOpenHousesChange: (openHouses: OpenHouseEvent[]) => void;
+  /** Callback to proceed to next step */
+  onContinue: () => void;
+}
+
+/**
+ * AdCopyEditor component for Step 2 of the Ad Builder
+ * Allows users to review and edit ad copy with AI assistance
+ */
+const AdCopyEditor = ({ 
+  adCopy, 
+  callToAction, 
+  openHouses,
+  onAdCopyChange, 
+  onCallToActionChange, 
+  onOpenHousesChange,
+  onContinue 
+}: AdCopyEditorProps) => {
+  const [phoneNumber, setPhoneNumber] = useState("(777) 777-9999");
+  const [headshotUrl, setHeadshotUrl] = useState("/lovable-uploads/gray-wooden-house.jpg");
+
+  const handleChangePhoto = () => {
+    toast({
+      title: "Change Photo",
+      description: "Photo selection coming soon...",
+    });
+  };
+
+  const handleUploadHeadshot = () => {
+    toast({
+      title: "Upload Headshot",
+      description: "Headshot upload coming soon...",
+    });
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {/* Left side - Ad Preview */}
+      <div className="space-y-4">
+        {/* Ad Preview Card */}
+        <Card className="overflow-hidden border-0 shadow-sm">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-10 h-10 bg-slate-800 text-white rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-medium">PS</span>
+              </div>
+              <div>
+                <div className="font-semibold text-sm">PropertySimple</div>
+                <div className="text-xs text-muted-foreground">Sponsored</div>
+              </div>
+            </div>
+            
+            <div className="relative mb-3">
+              <Image
+                src="/listing-images/white-house-listing.jpg"
+                alt="Listing"
+                width={600}
+                height={600}
+                className="w-full aspect-square object-cover rounded-lg"
+              />
+              <Button 
+                variant="secondary"
+                size="sm"
+                className="absolute bottom-3 right-3 bg-white/95 hover:bg-white text-black"
+                onClick={handleChangePhoto}
+              >
+                <Camera className="w-4 h-4 mr-2" />
+                Change Photo
+              </Button>
+            </div>
+            
+            <div className="text-sm text-foreground mb-3 line-clamp-2">
+              {adCopy || "PRICE REDUCTION!✅ Janelle Markgren just reduced the price of this property in Graham, NC to $699,000..."}
+            </div>
+            
+            <Button 
+              size="sm" 
+              className="w-full bg-slate-800 hover:bg-slate-900 text-white"
+            >
+              Learn More
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Right side - Form */}
+      <div className="space-y-6">
+        <p className="text-muted-foreground text-sm">
+          Our system suggested high-converting copy. Review and make any changes you need.
+        </p>
+        
+        <div className="space-y-6">
+          <div>
+            <label htmlFor="ad-copy" className="text-sm font-semibold mb-2 block">
+              Your Ad Copy
+            </label>
+            <Textarea 
+              id="ad-copy"
+              value={adCopy}
+              onChange={(e) => onAdCopyChange(e.target.value)}
+              className="min-h-32 resize-none"
+              placeholder="PRICE REDUCTION!✅ Janelle Markgren just reduced the price of this property in Graham, NC to $699,000."
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="phone" className="text-sm font-semibold mb-2 block">
+              Confirm Your Cell Phone Number
+            </label>
+            <Input 
+              id="phone"
+              type="tel"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder="(777) 777-9999"
+            />
+          </div>
+
+          <div className="flex flex-col items-center gap-3 py-4">
+            <div
+              className="w-24 h-24 rounded-full overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={handleUploadHeadshot}
+            >
+              <Image
+                src={headshotUrl}
+                alt="Headshot"
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={handleUploadHeadshot}
+              className="text-sm font-semibold"
+            >
+              Upload Headshot
+            </Button>
+          </div>
+        </div>
+
+        <Button 
+          onClick={onContinue}
+          size="lg"
+          className="w-full bg-slate-900 hover:bg-slate-800 text-white"
+        >
+          Continue to Photos Selection
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default AdCopyEditor;
