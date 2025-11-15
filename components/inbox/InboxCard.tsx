@@ -1,7 +1,6 @@
 "use client";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -20,7 +19,6 @@ import { ChevronDown, Sparkles, Lightbulb, Trash2 } from "lucide-react";
 import { ChannelBadge } from "./ChannelBadge";
 import { AIDecisionBadge } from "./AIDecisionBadge";
 import { useState } from "react";
-import { toast } from "sonner";
 
 interface RecentMessage {
   timestamp: string;
@@ -63,16 +61,16 @@ export const InboxCard = ({
   timestamp,
   previewSnippet,
   aiSummary,
-  recentMessagesPreview,
+  recentMessagesPreview: _recentMessagesPreview,
   suggestedAction,
-  aiSuggestedReply,
+  aiSuggestedReply: _aiSuggestedReply,
   aiDecision,
   onViewFull,
-  onTakeAction,
+  onTakeAction: _onTakeAction,
   onDismiss,
-  onSendSMS,
-  onSendEmail,
-  onCall,
+  onSendSMS: _onSendSMS,
+  onSendEmail: _onSendEmail,
+  onCall: _onCall,
 }: InboxCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showDismissConfirm, setShowDismissConfirm] = useState(false);

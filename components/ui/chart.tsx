@@ -110,10 +110,14 @@ const ChartTooltipContent = React.forwardRef<
       nameKey?: string
       labelKey?: string
       active?: boolean
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       payload?: any[]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       label?: any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       labelFormatter?: (value: any, payload: any[]) => React.ReactNode
       labelClassName?: string
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       formatter?: (value: any) => React.ReactNode
       color?: string
     }
@@ -268,6 +272,7 @@ const ChartLegendContent = React.forwardRef<
   React.ComponentProps<"div"> & {
       hideIcon?: boolean
       nameKey?: string
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
       payload?: any[]
       verticalAlign?: "top" | "bottom" | "middle"
     }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import ContactDetail from "@/pages-src/ContactDetail";
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params: _params }: { params: { id: string } }): Promise<Metadata> {
   return {
     title: `Contact Details | PropertySimple`,
     description: "View and manage contact information",

@@ -1,5 +1,4 @@
 import { Play } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 interface MusicTrack {
@@ -27,10 +26,10 @@ const musicTracks: MusicTrack[] = [
   { id: "10", name: "Vivaldi Concerto", genres: ["Classical", "Orchestral"] },
 ];
 
-export default function MusicSelector({ 
-  selectedMusicId, 
+export default function MusicSelector({
+  selectedMusicId,
   onMusicSelect,
-  onContinue 
+  onContinue: _onContinue
 }: MusicSelectorProps) {
   return (
     <div className="space-y-6">

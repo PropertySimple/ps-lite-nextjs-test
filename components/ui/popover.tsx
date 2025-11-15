@@ -2,6 +2,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 // NOTE: @radix-ui/react-popover stub
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Popover = ({ children }: any) => <div>{children}</div>
 
 interface PopoverTriggerProps extends React.HTMLAttributes<HTMLDivElement> {

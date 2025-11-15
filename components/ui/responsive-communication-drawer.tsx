@@ -29,7 +29,7 @@ export function ResponsiveCommunicationDrawer({
   onOpenChange,
   title,
   description,
-  type,
+  type: _type,
   children,
 }: ResponsiveDrawerProps) {
   const isMobile = useIsMobile();

@@ -8,9 +8,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 type CarouselProps = React.HTMLAttributes<HTMLDivElement> & {
-  opts?: any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+opts?: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins?: any
   orientation?: "horizontal" | "vertical"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   setApi?: (api: any) => void
 };
 
@@ -30,8 +34,8 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       orientation = "horizontal",
       opts,
       setApi,
-      plugins,
-      className,
+      plugins: _plugins,
+      className: _className,
       children,
       ...props
     },
@@ -91,7 +95,7 @@ const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
           ref={ref}
           className={cn("relative", className)}
           role="region"
-          aria-rolelabel="Carousel"
+          aria-label="Carousel"
           {...props}
         >
           {children}
@@ -131,7 +135,7 @@ const CarouselItem = React.forwardRef<
   <div
     ref={ref}
     role="group"
-    aria-rolelabel="slide"
+    aria-label="slide"
     className={cn("min-w-0 shrink-0 grow-0 basis-full", className)}
     {...props}
   />

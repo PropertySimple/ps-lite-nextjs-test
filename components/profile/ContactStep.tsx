@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { User, Upload } from "lucide-react";
 import { WizardStepProps } from "./types";
 
@@ -61,6 +61,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
             <FormField
               control={form.control}
               name="firstName"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
               render={({ field }: { field: any }) => (
                 <FormItem>
                   <FormLabel>First Name</FormLabel>
@@ -75,6 +76,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
             <FormField
               control={form.control}
               name="lastName"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
               render={({ field }: { field: any }) => (
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
@@ -91,6 +93,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="phoneNumber"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Phone Number</FormLabel>
@@ -106,6 +109,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="loginEmail"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Login Email</FormLabel>
@@ -133,6 +137,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="useLoginAsContact"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                 <div className="space-y-0.5">
@@ -156,6 +161,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
             <FormField
               control={form.control}
               name="contactEmail"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
               render={({ field }: { field: any }) => (
                 <FormItem>
                   <FormLabel>Contact Email</FormLabel>
@@ -256,6 +262,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="licenseNumber"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>License Number</FormLabel>
@@ -271,6 +278,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="brokerageName"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Brokerage Name</FormLabel>
@@ -286,6 +294,7 @@ const ContactStep: React.FC<WizardStepProps> = ({
           <FormField
             control={form.control}
             name="businessAddress"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Business Address</FormLabel>

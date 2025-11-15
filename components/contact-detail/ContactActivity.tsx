@@ -1,22 +1,20 @@
 "use client";
 
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
 import AISuggestedNextSteps from "./AISuggestedNextSteps";
 import { Activity } from "@/types/activity";
-import { 
-  UserPlus, 
-  Info, 
-  MessageSquare, 
-  Mail, 
+import {
+  UserPlus,
+  Info,
+  MessageSquare,
+  Mail,
   StickyNote,
-  Phone,
   PhoneIncoming,
   PhoneOutgoing,
   Bot,
@@ -26,7 +24,6 @@ import {
   Edit,
   Trash2,
   MapPin,
-  Clock,
   Plus
 } from "lucide-react";
 
@@ -37,7 +34,7 @@ interface ContactActivityProps {
   onCallClick?: () => void;
 }
 
-const ContactActivity = ({ contactId, contactName, additionalActivities = [], onCallClick }: ContactActivityProps) => {
+const ContactActivity = ({ contactId: _contactId, contactName, additionalActivities = [], onCallClick }: ContactActivityProps) => {
   const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState<Activity | null>(null);
   const [noteContent, setNoteContent] = useState("");
@@ -150,7 +147,7 @@ const ContactActivity = ({ contactId, contactName, additionalActivities = [], on
   ]);
 
   // Combine mock activities with additional activities passed from parent
-  const allActivities = [...additionalActivities, ...activities];
+  const allActivities = useMemo(() => [...additionalActivities, ...activities], [additionalActivities, activities]);
 
   // Auto-scroll to bottom when activities change
   useEffect(() => {
@@ -189,7 +186,7 @@ const ContactActivity = ({ contactId, contactName, additionalActivities = [], on
     }
   };
 
-  const getActivityColor = (type: Activity["type"]) => {
+  const _getActivityColor = (type: Activity["type"]) => {
     switch (type) {
       case "lead_created":
         return "bg-emerald-50 text-emerald-600 border-emerald-200";

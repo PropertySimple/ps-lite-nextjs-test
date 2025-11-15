@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -14,7 +14,7 @@ import {
   Sparkles,
   MessageSquare,
   Phone as PhoneIcon,
-  Copy,
+
   Mail,
   Activity,
   Edit,
@@ -23,7 +23,7 @@ import {
   Save,
   X
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
@@ -52,11 +52,11 @@ type LeadInfoPanelProps = {
 };
 
 export const LeadInfoPanel = ({
-  contactId,
+  contactId: _contactId,
   contactName,
   email,
   phone,
-  status,
+  status: _status,
   source,
   interestedProperty,
   interestedProperties = [],
@@ -75,7 +75,7 @@ export const LeadInfoPanel = ({
   const [internalIsLeadInfoModalOpen, setInternalIsLeadInfoModalOpen] = useState(false);
   const [backgroundInfo, setBackgroundInfo] = useState("Jennifer and her husband are pre-approved for $650k and looking for a 4-bedroom home in a good school district. They have two children and prioritize outdoor space.");
   const [isEditingBackground, setIsEditingBackground] = useState(false);
-  const [reminders, setReminders] = useState<Array<{ date: string; text: string }>>(reminder ? [reminder] : []);
+  const [reminders] = useState<Array<{ date: string; text: string }>>(reminder ? [reminder] : []);
   
   // Qualifying questions and answers from AI
   const qualifyingQuestions = [
@@ -122,12 +122,12 @@ export const LeadInfoPanel = ({
     closing: "I'd love to help you find the perfect home. When would be a good time for us to chat more in depth or schedule a showing?"
   };
 
-  const handleCopy = (text: string) => {
+  const _handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     toast.success("Copied to clipboard");
   };
 
-  const getStatusBadgeVariant = (status: string) => {
+  const _getStatusBadgeVariant = (status: string) => {
     switch (status) {
       case "New Lead":
         return "secondary";

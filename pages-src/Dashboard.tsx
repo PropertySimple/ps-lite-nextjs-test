@@ -8,14 +8,14 @@ import AssistantActivityCard from "@/components/dashboard/AssistantActivityCard"
 import PageLayout from "@/components/layout/PageLayout";
 import { runningAds } from "@/data/mockData";
 import { toast } from "@/hooks/use-toast";
-import { memo, useState } from "react";
+import { memo } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { logger } from "@/lib/logger";
 const Dashboard = memo(() => {
   const router = useRouter();
-  const [isChatOpen, setIsChatOpen] = useState(false);
+
 
   const handleCreateNewAd = () => {
     router.push('/create-new-ad');

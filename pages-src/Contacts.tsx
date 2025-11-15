@@ -15,7 +15,7 @@ import ContactsTable from "@/components/contacts/ContactsTable";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
 import { LeadImportModal } from "@/components/concierge/LeadImportModal";
-import { Search, Upload, Filter } from "lucide-react";
+import { Search, Upload } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const Contacts = memo(() => {

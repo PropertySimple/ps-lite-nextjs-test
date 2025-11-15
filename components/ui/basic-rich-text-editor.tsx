@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Bold, Italic, Underline, Type, Palette } from "lucide-react"
 import { Toggle } from "@/components/ui/toggle"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -101,16 +101,16 @@ const BasicRichTextEditor = React.forwardRef<HTMLDivElement, BasicRichTextEditor
     }
 
     // Handle selection changes to update button states
-    const handleSelectionChange = () => {
+    const handleSelectionChange = React.useCallback(() => {
       if (document.activeElement === editorRef.current) {
         updateButtonStates()
       }
-    }
+    }, [editorRef, updateButtonStates])
 
     React.useEffect(() => {
       document.addEventListener('selectionchange', handleSelectionChange)
       return () => document.removeEventListener('selectionchange', handleSelectionChange)
-    }, [])
+    }, [handleSelectionChange])
 
     return (
       <div className={cn("space-y-2", className)} {...props}>

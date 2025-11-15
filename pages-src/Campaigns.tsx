@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, TrendingUp, DollarSign, Target, BarChart3, BarChart } from "lucide-react";
+import { Plus, TrendingUp, BarChart3, BarChart } from "lucide-react";
 import AdCard from "@/components/dashboard/AdCard";
 import PageLayout from "@/components/layout/PageLayout";
 import { runningAds, pastAds } from "@/data/mockData";
@@ -31,10 +31,10 @@ const Campaigns = memo(() => {
   );
 
   // Calculate aggregate stats for past ads
-  const totalCampaigns = pastAds.length;
+  const _totalCampaigns = pastAds.length;
   const totalLeads = pastAds.reduce((sum, ad) => sum + ad.leads, 0);
   const totalSpent = pastAds.reduce((sum, ad) => sum + (ad.adSpend || 0), 0);
-  const avgCostPerLead = totalLeads > 0 ? totalSpent / totalLeads : 0;
+  const _avgCostPerLead = totalLeads > 0 ? totalSpent / totalLeads : 0;
 
   return (
     <>

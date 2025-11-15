@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
 import { AIPhoneNumber } from "@/components/concierge/AIPhoneNumber";
@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 const AIAutomation = () => {
   const { toast } = useToast();
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleApplyTemplate = (template: any) => {
     toast({
       title: "Template Applied",

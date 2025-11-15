@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 
 // NOTE: @radix-ui/react-dialog (sheet variant) stub
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Sheet = ({ children, open, onOpenChange }: any) => <div>{children}</div>
 
 const SheetTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

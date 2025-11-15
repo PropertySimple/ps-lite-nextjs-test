@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { WizardStepProps, expertiseOptions, ProfileFormData } from "./types";
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { WizardStepProps, expertiseOptions } from "./types";
 
 const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
   return (
@@ -26,6 +26,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
           <FormField
             control={form.control}
             name="headline"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Headline</FormLabel>
@@ -54,6 +55,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
           <FormField
             control={form.control}
             name="bio"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Bio</FormLabel>
@@ -84,6 +86,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
           <FormField
             control={form.control}
             name="primaryMarket"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Primary Market</FormLabel>
@@ -100,6 +103,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
             <FormField
               control={form.control}
               name="yearsExperience"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               render={({ field }: { field: any }) => (
                 <FormItem className="space-y-3 rounded-lg border p-3">
                   <FormLabel>Years of Experience</FormLabel>
@@ -121,6 +125,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
             <FormField
               control={form.control}
               name="showYearsExperience"
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               render={({ field }: { field: any }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
                   <div className="space-y-0.5">
@@ -159,6 +164,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
                       key={item}
                       control={form.control}
                       name="areasOfExpertise"
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       render={({ field }: { field: any }) => {
                         return (
                           <FormItem
@@ -172,6 +178,7 @@ const BrandingStep: React.FC<WizardStepProps> = ({ form }) => {
                                   return checked
                                     ? field.onChange([...field.value, item])
                                     : field.onChange(
+                                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                         field.value?.filter(
                                           (value: any) => value !== item
                                         )

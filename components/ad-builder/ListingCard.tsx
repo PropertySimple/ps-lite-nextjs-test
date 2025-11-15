@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, Lock } from "lucide-react";
+import { Edit, Lock } from "lucide-react";
 import type { ListingData } from "@/types/adBuilder";
 
 interface ListingCardProps {
@@ -11,7 +11,7 @@ interface ListingCardProps {
   onDelete: (listingId: string) => void;
 }
 
-export const ListingCard = ({ listing, onEdit, onDelete }: ListingCardProps) => {
+export const ListingCard = ({ listing, onEdit, onDelete: _onDelete }: ListingCardProps) => {
   const primaryImage = listing.images[listing.primaryImageIndex] || listing.images[0];
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',

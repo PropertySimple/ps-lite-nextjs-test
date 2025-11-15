@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Phone, Mail, Globe, Facebook, Megaphone, Upload, MapPin, ChevronUp, ChevronDown, ArrowUpDown, CheckCircle, XCircle, Trash2, Home, MessageSquare } from "lucide-react";
+import { Phone, Mail, Globe, Facebook, Megaphone, Upload, MapPin, ChevronUp, ChevronDown, ArrowUpDown, CheckCircle, XCircle, Trash2 } from "lucide-react";
 import ContactsPagination from "./ContactsPagination";
 import { mockLeads, type Lead } from "@/data/mockLeads";
 import { formatDistanceToNow } from "date-fns";
@@ -57,7 +57,7 @@ const ContactsTable = ({ searchQuery, managedByFilter, sourceFilter, statusFilte
     }
   };
 
-  const getStatusIcon = (status: string) => {
+  const _getStatusIcon = (status: string) => {
     switch (status) {
       case "Subscribed":
         return CheckCircle;
@@ -70,7 +70,7 @@ const ContactsTable = ({ searchQuery, managedByFilter, sourceFilter, statusFilte
     }
   };
 
-  const getStatusColor = (status: string) => {
+  const _getStatusColor = (status: string) => {
     switch (status) {
       case "Subscribed":
         return "text-green-600";

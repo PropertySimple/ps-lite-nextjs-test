@@ -1,14 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Edit, Play, Sparkles } from "lucide-react";
+import { Download, Edit, Sparkles } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 
 export const CampaignVideos = () => {
   const router = useRouter();
   const { id: campaignId } = useParams();
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   const videos = [
     {

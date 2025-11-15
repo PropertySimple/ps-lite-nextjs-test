@@ -48,7 +48,7 @@ export function ListingHero({ images, address, price, status }: ListingHeroProps
           text: `Check out this property for ${new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price)}`,
           url: window.location.href
         });
-      } catch (err) {
+      } catch (_err) {
         // User cancelled or share failed
         console.log('Share cancelled');
       }

@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 // NOTE: vaul (drawer library) stub
 // This component is stubbed as the drawer library is not installed
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Drawer = ({ children, open, onOpenChange }: any) => (
   <div>{children}</div>
 )

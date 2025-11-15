@@ -9,6 +9,7 @@ declare module 'react-facebook-pixel' {
     content_ids?: string[];
     value?: number;
     currency?: string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
   }
 
@@ -21,6 +22,7 @@ declare module 'react-facebook-pixel' {
     trackSingleCustom(pixelId: string, event: string, data?: EventData): void;
     grantConsent(): void;
     revokeConsent(): void;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
     fbq(...args: any[]): void;
   }
 

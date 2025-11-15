@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, Save, X, Sparkles, CheckCircle2, Check, Clock } from "lucide-react";
-import { useRouter } from "next/navigation";
+
 import { Badge } from "@/components/ui/badge";
 import Logo from "@/components/Logo";
 import PhotoSelector from "@/components/ad-builder/PhotoSelector";
@@ -34,7 +34,7 @@ import { campaignData } from "@/data/mockData";
  * 4. Choose Music - Pick background music for videos
  */
 const AdBuilder = () => {
-  const router = useRouter();
+
   const { state, isEditMode, campaignId, actions } = useAdBuilder();
   const [isAddListingModalOpen, setIsAddListingModalOpen] = useState(false);
   const [editingListing, setEditingListing] = useState<ListingData | null>(null);
@@ -80,12 +80,12 @@ const AdBuilder = () => {
   const progressPercentage = (completedSteps / totalSteps) * 100;
   const estimatedMinutes = Math.max(1, (totalSteps - completedSteps) * 2.5);
 
-  const handleEditListing = (listing: ListingData) => {
+  const _handleEditListing = (listing: ListingData) => {
     setEditingListing(listing);
     setIsAddListingModalOpen(true);
   };
 
-  const handleAddNewListing = () => {
+  const _handleAddNewListing = () => {
     setEditingListing(null);
     setIsAddListingModalOpen(true);
   };

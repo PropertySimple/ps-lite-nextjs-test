@@ -66,7 +66,7 @@ export const useAdBuilder = () => {
       openStep: "step1", // Start with first step open in edit mode
       listings: [],
     });
-  }, [toast, router]);
+  }, [router]);
 
   // Load existing campaign data in edit mode
   useEffect(() => {

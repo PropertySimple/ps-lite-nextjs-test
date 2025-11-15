@@ -6,12 +6,12 @@ import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { logger } from "@/lib/logger";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ResponsiveCommunicationDrawer } from "@/components/ui/responsive-communication-drawer";
@@ -31,7 +31,7 @@ import {
   Phone,
   Mail,
   MapPin,
-  Calendar,
+
   Ban,
   Sparkles,
   Bot,
@@ -241,14 +241,14 @@ Best regards`;
     setIsGeneratingEmail(false);
   };
 
-  const handleApproveAIPlan = () => {
+  const _handleApproveAIPlan = () => {
     toast({
       title: "AI Plan Approved",
       description: "Sarah will execute the strategy automatically"
     });
   };
 
-  const handleModifyAIPlan = () => {
+  const _handleModifyAIPlan = () => {
     toast({
       title: "Modify Plan",
       description: "Opening plan editor..."

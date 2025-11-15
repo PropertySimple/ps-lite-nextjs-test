@@ -11,7 +11,7 @@ interface SocialMediaPostProps {
   likes: string;
 }
 
-const SocialMediaPost = ({ platform, username, image, caption, likes }: SocialMediaPostProps) => {
+const SocialMediaPost = ({ platform: _platform, username, image, caption, likes }: SocialMediaPostProps) => {
   return (
     <Card className="max-w-sm mx-auto overflow-hidden">
       {/* Post Header */}

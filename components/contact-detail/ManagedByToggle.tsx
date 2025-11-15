@@ -1,6 +1,4 @@
 import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Bot, User } from "lucide-react";
 import { toast } from "sonner";
 
 interface ManagedByToggleProps {

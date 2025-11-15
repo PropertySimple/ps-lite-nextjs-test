@@ -4,12 +4,13 @@ import { useState } from "react";
 import PageLayout from "@/components/layout/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -19,20 +20,20 @@ import {
   Volume2,
   Check,
   Calendar,
-  Bot,
+
   Shield,
-  FileText,
-  RefreshCw,
-  User,
+
+
+
   Sparkles,
   Play,
   Edit,
   CheckCircle2,
-  Bell,
+
   MessageSquare,
-  Mail,
+
   Send,
-  Settings,
+
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

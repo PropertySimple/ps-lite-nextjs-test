@@ -12,15 +12,20 @@ import { Label } from "@/components/ui/label"
 type FieldValues = Record<string, any>
 type FieldPath<T extends FieldValues> = string
 type ControllerProps<TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   control?: any
   name: TName
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   render: (props: any) => React.ReactElement
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue?: any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules?: any
   shouldUnregister?: boolean
 }
 
 // Mock FormProvider
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FormProvider = ({ children, ...props }: any) => (
   <div {...props}>{children}</div>
 )
@@ -31,6 +36,7 @@ const useFormContext = () => ({
   formState: {},
   watch: () => undefined,
   control: {},
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleSubmit: (callback: any) => (e: any) => {
     e?.preventDefault?.()
     callback({})

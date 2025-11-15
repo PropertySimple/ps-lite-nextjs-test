@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { logger } from "@/lib/logger";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Play, Calendar, TrendingUp, CheckCircle, Minus, AlertTriangle, XCircle, ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { Play, TrendingUp, CheckCircle, Minus, AlertTriangle, XCircle, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { Ad } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -38,7 +38,7 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
     logger.log("Running ad again:", ad.title);
   };
 
-  const formatDateRange = () => {
+  const _formatDateRange = () => {
     if (!ad.startDate || !ad.endDate) return null;
 
     const start = new Date(ad.startDate);

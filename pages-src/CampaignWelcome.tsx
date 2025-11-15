@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Mail, TrendingUp, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Sparkles, Mail, TrendingUp } from "lucide-react";
 
 const CampaignWelcome = () => {
   const { campaignId } = useParams();

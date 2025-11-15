@@ -29,7 +29,7 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(defaultTheme)
-  const [mounted, setMounted] = useState(false)
+  const [mounted] = useState(false)
 
   // Load theme from localStorage after mount (client-side only)
   useEffect(() => {

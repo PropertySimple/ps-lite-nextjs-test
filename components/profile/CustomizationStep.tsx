@@ -53,6 +53,7 @@ const CustomizationStep: React.FC<WizardStepProps> = ({ form }) => {
           <FormField
             control={form.control}
             name="backgroundColor"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
             render={({ field }: { field: any }) => (
               <FormItem>
                 <FormLabel>Background Color</FormLabel>

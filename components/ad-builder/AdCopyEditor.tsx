@@ -8,8 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Camera } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import OpenHouseScheduler, { OpenHouseEvent } from "./OpenHouseScheduler";
-import type { AdFormat, CallToActionOption } from "@/types/adBuilder";
+import { OpenHouseEvent } from "./OpenHouseScheduler";
 
 interface AdCopyEditorProps {
   /** Current ad copy text */
@@ -32,17 +31,17 @@ interface AdCopyEditorProps {
  * AdCopyEditor component for Step 2 of the Ad Builder
  * Allows users to review and edit ad copy with AI assistance
  */
-const AdCopyEditor = ({ 
-  adCopy, 
-  callToAction, 
-  openHouses,
-  onAdCopyChange, 
-  onCallToActionChange, 
-  onOpenHousesChange,
-  onContinue 
+const AdCopyEditor = ({
+  adCopy,
+  callToAction: _callToAction,
+  openHouses: _openHouses,
+  onAdCopyChange,
+  onCallToActionChange: _onCallToActionChange,
+  onOpenHousesChange: _onOpenHousesChange,
+  onContinue
 }: AdCopyEditorProps) => {
   const [phoneNumber, setPhoneNumber] = useState("(777) 777-9999");
-  const [headshotUrl, setHeadshotUrl] = useState("/lovable-uploads/gray-wooden-house.jpg");
+  const [headshotUrl] = useState("/lovable-uploads/gray-wooden-house.jpg");
 
   const handleChangePhoto = () => {
     toast({

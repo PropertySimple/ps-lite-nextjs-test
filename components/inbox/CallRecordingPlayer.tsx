@@ -14,10 +14,10 @@ interface CallRecordingPlayerProps {
   onClose?: () => void;
 }
 
-export const CallRecordingPlayer = ({ 
-  transcript, 
+export const CallRecordingPlayer = ({
+  transcript,
   duration = 720, // Default 12 minutes (720 seconds)
-  onClose 
+  onClose: _onClose
 }: CallRecordingPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);

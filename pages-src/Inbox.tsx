@@ -4,14 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+
+
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+
+
+
+
 import { AlertCircle, Filter } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { toast } from "sonner";
@@ -240,16 +240,16 @@ const needsAttentionItems: InboxItem[] = [
 export default function Inbox() {
   const router = useRouter();
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
-  const [replyText, setReplyText] = useState("");
+
   const [callModalOpen, setCallModalOpen] = useState(false);
   const [callInProgressOpen, setCallInProgressOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<InboxItem | null>(null);
   const [viewFilter, setViewFilter] = useState<"attention" | "all">("attention");
 
-  const selectedItem = needsAttentionItems.find(item => item.id === selectedItemId);
+  const _selectedItem = needsAttentionItems.find(item => item.id === selectedItemId);
   
 
-  const handleSendReply = () => {
+  const _handleSendReply = () => {
     toast("Message Sent", {
       description: "Your reply has been sent successfully."
     });
@@ -257,7 +257,7 @@ export default function Inbox() {
     setSelectedItemId(null);
   };
 
-  const handleMarkComplete = () => {
+  const _handleMarkComplete = () => {
     toast("Task Completed", {
       description: "This item has been marked as complete."
     });

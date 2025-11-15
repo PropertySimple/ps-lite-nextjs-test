@@ -70,7 +70,7 @@ export function CallInProgress({
 
   // Generate AI call transcript based on context
   const generateTranscript = () => {
-    const action = suggestedAction || "discuss their interest";
+    const _action = suggestedAction || "discuss their interest";
     
     return `You: "Hi ${contactName}, this is [Your Name]. Do you have a moment?"
 

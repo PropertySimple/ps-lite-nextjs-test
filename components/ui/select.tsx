@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 
 // NOTE: @radix-ui/react-select stub
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Select = ({ children, ...props }: any) => <div {...props}>{children}</div>
 
 const SelectTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -19,6 +20,7 @@ const SelectTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTML
 )
 SelectTrigger.displayName = "SelectTrigger"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SelectValue = ({ placeholder }: any) => <span>{placeholder}</span>
 
 const SelectContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -49,6 +51,7 @@ const SelectItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
 )
 SelectItem.displayName = "SelectItem"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SelectGroup = ({ children }: any) => <div>{children}</div>
 
 const SelectLabel = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (

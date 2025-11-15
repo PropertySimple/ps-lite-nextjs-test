@@ -52,7 +52,9 @@ function Calendar({
         ...classNames,
       }}
       components={{
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
         IconLeft: ({ ..._props }: any) => <ChevronLeft className="h-4 w-4" />,
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
         IconRight: ({ ..._props }: any) => <ChevronRight className="h-4 w-4" />,
       } as any}
       {...props}

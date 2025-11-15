@@ -13,7 +13,7 @@ interface AISuggestedNextStepsProps {
   onSkip: () => void;
 }
 
-const AISuggestedNextSteps = ({ contactName, onSendText, onSendEmail, onCall, onSkip }: AISuggestedNextStepsProps) => {
+const AISuggestedNextSteps = ({ contactName, onSendText, onSendEmail: _onSendEmail, onCall: _onCall, onSkip }: AISuggestedNextStepsProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [suggestedText, setSuggestedText] = useState(
     `Hi ${contactName}! I saw you're interested in 116 DELLWOOD Avenue. Great timing - the home is in a family-friendly neighborhood with excellent schools nearby. Would you like to schedule a viewing this week? I have openings on Thursday at 4pm or Saturday morning.`
