@@ -5,7 +5,7 @@ import { ArrowRight, Play } from "lucide-react";
 import { useState } from "react";
 
 export function Hero() {
-  const [isVideoPlaying] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-blue-950 via-blue-900 to-background">
