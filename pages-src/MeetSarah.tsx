@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AssistantAvatar } from "@/components/AssistantAvatar";
 import { Badge } from "@/components/ui/badge";
-import { Phone, MessageSquare, Send, CheckCircle, Calendar, Shield, Copy } from "lucide-react";
+import { Phone, CheckCircle, Copy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";

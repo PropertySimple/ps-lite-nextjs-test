@@ -1,12 +1,10 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
 import { useState } from "react";
-import { Bed, Bath, Plus, Edit, Trash2, CheckCircle, PlayCircle, PartyPopper, Home, Package } from "lucide-react";
+import { Plus, PartyPopper, Home, Package } from "lucide-react";
 import { ListingCard } from "@/components/listing-manager/ListingCard";
 import { AddListingModal } from "@/components/ad-builder/AddListingModal";
 import { useAdBuilder } from "@/hooks/useAdBuilder";
@@ -17,7 +15,6 @@ import { AdTypeSelectionModal } from "@/components/ad-builder/AdTypeSelectionMod
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { logger } from "@/lib/logger";
-import { PageHelper } from "@/components/common/PageHelper";
 import { SectionHeader } from "@/components/common/SectionHeader";
 
 interface Listing {
@@ -128,7 +125,7 @@ const ListingManager = () => {
     setIsSaleDetailsModalOpen(true);
   };
 
-  const handleSaveSaleDetails = (saleData: { salePrice: string; closingDate: Date }) => {
+  const handleSaveSaleDetails = (_saleData: { salePrice: string; closingDate: Date }) => {
     if (selectedListingForSale) {
       setSoldListings(prev => new Set([...prev, selectedListingForSale.id]));
       toast({
@@ -347,7 +344,6 @@ const ListingManager = () => {
             if (isListingData) {
               const listingData = listing as ListingData;
               const primaryImage = listingData.images[listingData.primaryImageIndex] || listingData.images[0];
-              const websiteListing = convertToWebsiteListing(listingData);
 
               return (
                 <ListingCard

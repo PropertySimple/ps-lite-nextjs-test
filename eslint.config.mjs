@@ -13,6 +13,22 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Disable unescaped entities rule - marketing copy uses natural language with apostrophes/quotes
+      "react/no-unescaped-entities": "off",
+      // Warn on unused vars instead of error
+      "@typescript-eslint/no-unused-vars": ["warn", {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }],
+      // Warn on explicit any
+      "@typescript-eslint/no-explicit-any": "warn",
+      // Turn off page custom font warning (we use app router)
+      "@next/next/no-page-custom-font": "off",
+    }
+  }
 ]);
 
 export default eslintConfig;

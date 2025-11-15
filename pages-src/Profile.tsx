@@ -22,13 +22,17 @@ const Profile = () => {
   // Simulate auto-save
   useEffect(() => {
     if (hasChanges) {
-      setSaveStatus('saving');
-      const timer = setTimeout(() => {
+      // Set saving status immediately but asynchronously to avoid cascading renders
+      const savingTimer = setTimeout(() => setSaveStatus('saving'), 0);
+      const saveTimer = setTimeout(() => {
         setLastSaved(new Date());
         setSaveStatus('saved');
         setHasChanges(false);
       }, 1000);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(savingTimer);
+        clearTimeout(saveTimer);
+      };
     }
   }, [hasChanges]);
 
