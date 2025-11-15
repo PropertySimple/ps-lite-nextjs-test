@@ -33,11 +33,13 @@ export function ThemeProvider({
 
   // Load theme from localStorage after mount (client-side only)
   useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem(storageKey) as Theme
-    if (stored) {
-      setTheme(stored)
-    }
+    setTimeout(() => {
+      setMounted(true)
+      const stored = localStorage.getItem(storageKey) as Theme
+      if (stored) {
+        setTheme(stored)
+      }
+    }, 0)
   }, [storageKey])
 
   useEffect(() => {

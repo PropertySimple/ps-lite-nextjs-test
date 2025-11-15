@@ -19,7 +19,8 @@ export function OnboardingWizard() {
     // Check if onboarding has been completed
     const completed = localStorage.getItem("onboarding_completed");
     if (!completed) {
-      setOpen(true);
+      // Async setState to avoid cascading renders
+      setTimeout(() => setOpen(true), 0);
     }
   }, []);
 

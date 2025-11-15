@@ -43,22 +43,25 @@ export function TaskEditModal({ open, onOpenChange, task, onSave, mode = "edit" 
   const [showLeadDropdown, setShowLeadDropdown] = useState(false);
 
   useEffect(() => {
-    if (task && mode === "edit") {
-      setTaskTitle(task.taskTitle);
-      setTaskDescription(task.taskDescription);
-      setDueDate(new Date());
-      setSelectedLead(task.leadId || null);
-      if (task.leadId) {
-        const lead = mockLeads.find(l => l.id === task.leadId);
-        if (lead) setLeadSearch(lead.name);
+    // Batch state updates to avoid cascading renders
+    setTimeout(() => {
+      if (task && mode === "edit") {
+        setTaskTitle(task.taskTitle);
+        setTaskDescription(task.taskDescription);
+        setDueDate(new Date());
+        setSelectedLead(task.leadId || null);
+        if (task.leadId) {
+          const lead = mockLeads.find(l => l.id === task.leadId);
+          if (lead) setLeadSearch(lead.name);
+        }
+      } else {
+        setTaskTitle("");
+        setTaskDescription("");
+        setDueDate(undefined);
+        setLeadSearch("");
+        setSelectedLead(null);
       }
-    } else {
-      setTaskTitle("");
-      setTaskDescription("");
-      setDueDate(undefined);
-      setLeadSearch("");
-      setSelectedLead(null);
-    }
+    }, 0);
   }, [task, mode, open]);
 
   const filteredLeads = mockLeads.filter(lead => 

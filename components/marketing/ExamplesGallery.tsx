@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import Link from "next/link";
 
 const videos = [
   {
@@ -137,12 +138,12 @@ export function ExamplesGallery() {
             >
               View Pricing
             </a>
-            <a
+            <Link
               href="/"
               className="inline-flex items-center justify-center px-8 py-3 rounded-full border-2 border-blue-500/30 hover:border-blue-500 hover:bg-blue-500/10 font-semibold transition-colors"
             >
               Learn More
-            </a>
+            </Link>
           </div>
         </div>
       </div>

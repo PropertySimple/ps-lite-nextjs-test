@@ -54,7 +54,8 @@ export function CallInProgress({
         setCallDuration(prev => prev + 1);
       }, 1000);
     } else {
-      setCallDuration(0);
+      // Reset call duration when dialog closes
+      setTimeout(() => setCallDuration(0), 0);
     }
 
     return () => {
