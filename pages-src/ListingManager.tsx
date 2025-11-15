@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
 import { useState } from "react";
-import { Bed, Bath, Plus, Edit, Trash2, CheckCircle, PlayCircle } from "lucide-react";
+import { Bed, Bath, Plus, Edit, Trash2, CheckCircle, PlayCircle, PartyPopper, Home, Package } from "lucide-react";
 import { ListingCard } from "@/components/listing-manager/ListingCard";
 import { AddListingModal } from "@/components/ad-builder/AddListingModal";
 import { useAdBuilder } from "@/hooks/useAdBuilder";
@@ -281,7 +281,7 @@ const ListingManager = () => {
       {soldListingsData.length > 0 && (
         <div className="space-y-4">
           <SectionHeader
-            icon="🎉"
+            IconComponent={PartyPopper}
             title="Sold"
             count={soldListingsData.length}
             description="Properties you've successfully sold. Create 'Just Sold' ads to attract new seller leads in the neighborhood."
@@ -333,7 +333,7 @@ const ListingManager = () => {
       {/* Active Listings */}
       <div className="space-y-4">
         <SectionHeader
-          icon="🏠"
+          IconComponent={Home}
           title="Active Listings"
           count={activeListings.length}
           description="Your current for-sale properties. Click 'Start New Campaign' to create video ads that drive buyer interest."
@@ -391,7 +391,7 @@ const ListingManager = () => {
       {inactiveListings.length > 0 && (
         <div className="space-y-4 mt-8">
           <SectionHeader
-            icon="📦"
+            IconComponent={Package}
             title="Off-Market"
             count={inactiveListings.length}
             description="Listings no longer active. Create 'Just Sold' ads or hide listings you don't want to see anymore."

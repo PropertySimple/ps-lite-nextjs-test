@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ResponsiveCommunicationDrawer } from "@/components/ui/responsive-communication-drawer";
 import {
@@ -299,7 +300,13 @@ Best regards`;
                       </Button>
                     </>
                   )}
-                  <Button variant="outline" size="sm" className="gap-2" onClick={handleUnsubscribeContact}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                    onClick={handleUnsubscribeContact}
+                    disabled={isUnsubscribed}
+                  >
                     <Ban className="w-4 h-4" />
                     <span className="hidden sm:inline">Unsubscribe</span>
                   </Button>
@@ -314,14 +321,13 @@ Best regards`;
 
                 {/* Unsubscribed Warning - Full Width */}
                 {isUnsubscribed && (
-                  <div className="bg-red-50 dark:bg-red-950/20 border-l-4 border-red-400 p-4 rounded-r-md">
-                    <div className="flex items-center gap-2">
-                      <Ban className="w-5 h-5 text-red-500" />
-                      <p className="text-sm text-red-700 dark:text-red-400 font-medium">
-                        This contact has been unsubscribed from all communications
-                      </p>
-                    </div>
-                  </div>
+                  <Alert variant="destructive" className="border-l-4 border-red-500">
+                    <Ban className="w-5 h-5" />
+                    <AlertTitle>Contact Unsubscribed</AlertTitle>
+                    <AlertDescription>
+                      This contact has been unsubscribed from all communications. All action buttons are disabled.
+                    </AlertDescription>
+                  </Alert>
                 )}
 
                 {/* Mobile: Collapsible Contact Info */}
@@ -475,9 +481,21 @@ Best regards`;
                       <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-950/20">
                         <CardContent className="py-6">
                           <div className="space-y-4">
-                            <div className="flex items-center gap-2">
-                              <User className="w-5 h-5 text-amber-600 dark:text-amber-500" />
-                              <div className="font-medium">You're now handling this lead</div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <User className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                                <div className="font-medium">You're now handling this lead</div>
+                              </div>
+                              {/* Hand Back to AI Button */}
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleToggleAI(true)}
+                                className="gap-2"
+                              >
+                                <Bot className="w-4 h-4" />
+                                Hand Back to AI
+                              </Button>
                             </div>
                             <div className="text-sm text-muted-foreground">
                               Choose how you'd like to reach out:
@@ -487,6 +505,7 @@ Best regards`;
                                 onClick={() => setIsTextDrawerOpen(true)}
                                 className="w-full"
                                 size="lg"
+                                disabled={isUnsubscribed}
                               >
                                 <MessageSquare className="w-4 h-4 mr-2" />
                                 Send Text
@@ -496,6 +515,7 @@ Best regards`;
                                 variant="outline"
                                 size="lg"
                                 className="w-full"
+                                disabled={isUnsubscribed}
                               >
                                 <Mail className="w-4 h-4 mr-2" />
                                 Send Email
@@ -505,6 +525,7 @@ Best regards`;
                                 variant="outline"
                                 size="lg"
                                 className="w-full"
+                                disabled={isUnsubscribed}
                               >
                                 <Phone className="w-4 h-4 mr-2" />
                                 Call

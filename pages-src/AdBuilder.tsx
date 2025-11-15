@@ -1,10 +1,11 @@
 "use client";
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowLeft, Save, X, Sparkles, CheckCircle2 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { ArrowLeft, Save, X, Sparkles, CheckCircle2, Check, Clock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import Logo from "@/components/Logo";
@@ -37,10 +38,35 @@ const AdBuilder = () => {
   const { state, isEditMode, campaignId, actions } = useAdBuilder();
   const [isAddListingModalOpen, setIsAddListingModalOpen] = useState(false);
   const [editingListing, setEditingListing] = useState<ListingData | null>(null);
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | null>(null);
+
+  // Auto-save simulation
+  useEffect(() => {
+    if (state.adCopy || state.selectedPhotos.length > 0) {
+      setSaveStatus('saving');
+      const timer = setTimeout(() => {
+        setLastSaved(new Date());
+        setSaveStatus('saved');
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [state.adCopy, state.selectedPhotos, state.selectedActors, state.selectedMusicId]);
 
   // Get campaign property name for edit mode
   const campaign = isEditMode && campaignId ? campaignData[campaignId as keyof typeof campaignData] : null;
   const propertyName = campaign?.property || "Your Property";
+
+  // Calculate progress
+  const totalSteps = 4;
+  const completedSteps = [
+    state.adCopy ? 1 : 0,
+    state.selectedPhotos.length > 0 ? 1 : 0,
+    state.selectedActors.length > 0 ? 1 : 0,
+    state.selectedMusicId ? 1 : 0
+  ].reduce((a, b) => a + b, 0);
+  const progressPercentage = (completedSteps / totalSteps) * 100;
+  const estimatedMinutes = Math.max(1, (totalSteps - completedSteps) * 2.5);
 
   const handleEditListing = (listing: ListingData) => {
     setEditingListing(listing);
@@ -78,8 +104,29 @@ const AdBuilder = () => {
               <Logo />
             </div>
 
-            {/* Action Buttons */}
+            {/* Auto-save indicator & Action Buttons */}
             <div className="flex items-center gap-3">
+              {/* Auto-save status */}
+              {saveStatus && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {saveStatus === 'saving' ? (
+                    <>
+                      <Clock className="w-4 h-4 animate-pulse" />
+                      <span className="hidden md:inline">Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
+                      <span className="hidden md:inline">
+                        Saved {lastSaved && new Date().getTime() - lastSaved.getTime() < 60000
+                          ? `${Math.floor((new Date().getTime() - lastSaved.getTime()) / 1000)}s ago`
+                          : 'just now'}
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
+
               <Button
                 variant="outline"
                 onClick={actions.handleCancel}
@@ -114,11 +161,26 @@ const AdBuilder = () => {
           <h1 className="text-3xl sm:text-4xl font-bold mb-2">
             {isEditMode ? `Edit Campaign: ${propertyName}` : "Build Your Ad Campaign"}
           </h1>
-          <p className="text-muted-foreground text-base sm:text-lg">
+          <p className="text-muted-foreground text-base sm:text-lg mb-4">
             {isEditMode
               ? "Review and customize the AI-generated campaign below. All changes are saved automatically when you click 'Save Changes'."
               : "Follow the steps below to create your ad campaign. AI will help you craft compelling copy and videos."}
           </p>
+
+          {/* Progress Indicator */}
+          {!isEditMode && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium">
+                  Step {completedSteps} of {totalSteps} completed
+                </span>
+                <span className="text-muted-foreground">
+                  ~{Math.ceil(estimatedMinutes)} min remaining
+                </span>
+              </div>
+              <Progress value={progressPercentage} className="h-2" />
+            </div>
+          )}
         </div>
 
         <div className="border-t border-border mb-8" />

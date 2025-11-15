@@ -223,7 +223,7 @@ const needsAttentionItems: InboxItem[] = [
         type: "email",
         from: "ai",
         subject: "Property Details: 234 Elm Street",
-        message: "Hi Michael,\n\nThank you for your interest in 234 Elm Street!\n\n🏡 Property Highlights:\n• 3 bedrooms, 2.5 bathrooms\n• 2,100 square feet\n• Modern open-concept kitchen\n• Finished basement\n• 2-car garage\n• Built in 2018\n\n💰 Pricing: $545,000\n\nI've attached photos and details. Would you like to schedule a showing?\n\nBest regards,\nAI Assistant",
+        message: "Hi Michael,\n\nThank you for your interest in 234 Elm Street!\n\nProperty Highlights:\n• 3 bedrooms, 2.5 bathrooms\n• 2,100 square feet\n• Modern open-concept kitchen\n• Finished basement\n• 2-car garage\n• Built in 2018\n\nPricing: $545,000\n\nI've attached photos and details. Would you like to schedule a showing?\n\nBest regards,\nAI Assistant",
         timestamp: "2 days ago"
       },
       {

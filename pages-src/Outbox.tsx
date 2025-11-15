@@ -49,7 +49,7 @@ const scheduledMessages: ScheduledMessage[] = [
     id: 1,
     to: "David Martinez",
     messageType: "sms",
-    message: "Hi David! Just checking in - have you had a chance to review the property information I sent over? Let me know if you'd like to schedule a viewing. 🏡",
+    message: "Hi David! Just checking in - have you had a chance to review the property information I sent over? Let me know if you'd like to schedule a viewing.",
     scheduledFor: "Today at 3:00 PM"
   },
   {
@@ -84,7 +84,7 @@ const recentlySentMessages: SentMessage[] = [
     id: 2,
     to: "Rachel Green",
     messageType: "sms",
-    message: "Hi Rachel! Just following up on the property details I sent yesterday. Let me know if you'd like to schedule a viewing! 🏡",
+    message: "Hi Rachel! Just following up on the property details I sent yesterday. Let me know if you'd like to schedule a viewing!",
     sentAt: "5 hours ago"
   },
   {

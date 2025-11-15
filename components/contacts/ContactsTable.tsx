@@ -23,9 +23,10 @@ interface ContactsTableProps {
   managedByFilter: string;
   sourceFilter: string;
   statusFilter: string;
+  onFilteredCountChange?: (filteredCount: number, totalCount: number) => void;
 }
 
-const ContactsTable = ({ searchQuery, managedByFilter, sourceFilter, statusFilter }: ContactsTableProps) => {
+const ContactsTable = ({ searchQuery, managedByFilter, sourceFilter, statusFilter, onFilteredCountChange }: ContactsTableProps) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortField, setSortField] = useState<string | null>('lastContact');
@@ -161,6 +162,13 @@ const ContactsTable = ({ searchQuery, managedByFilter, sourceFilter, statusFilte
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentContacts = sortedContacts.slice(startIndex, endIndex);
+
+  // Notify parent component of filtered count changes
+  useEffect(() => {
+    if (onFilteredCountChange) {
+      onFilteredCountChange(sortedContacts.length, allContacts.length);
+    }
+  }, [sortedContacts.length, allContacts.length, onFilteredCountChange]);
 
 
   return (

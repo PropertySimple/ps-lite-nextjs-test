@@ -52,11 +52,11 @@ const PageLayout = ({ children, headerActions, pageContext }: PageLayoutProps) =
             </Button>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 lg:p-8 pt-0">
+        <main id="main-content" className="flex flex-1 flex-col gap-4 p-4 lg:p-8 pt-0">
           <div className="max-w-screen-2xl mx-auto w-full py-6 lg:py-8">
             {children}
           </div>
-        </div>
+        </main>
       </SidebarInset>
 
       <ChatWithAssistant

@@ -18,6 +18,7 @@ export interface Ad {
   endDate?: string;
   adSpend?: number;
   reach?: number;
+  status?: 'running' | 'paused' | 'ended';
 }
 
 export interface Campaign {

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { getAvatarColor } from "@/lib/utils/getAvatarColor";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,11 +16,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { ChevronDown, Sparkles, Lightbulb, MessageSquare, Mail, Phone, Send, X, Trash2 } from "lucide-react";
+import { ChevronDown, Sparkles, Lightbulb, Trash2 } from "lucide-react";
 import { ChannelBadge } from "./ChannelBadge";
 import { AIDecisionBadge } from "./AIDecisionBadge";
 import { useState } from "react";
@@ -78,54 +75,14 @@ export const InboxCard = ({
   onCall,
 }: InboxCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [editMode, setEditMode] = useState<"sms" | "email" | null>(null);
-  const [smsMessage, setSmsMessage] = useState("");
-  const [emailSubject, setEmailSubject] = useState("");
-  const [emailMessage, setEmailMessage] = useState("");
   const [showDismissConfirm, setShowDismissConfirm] = useState(false);
-  const [showActionButtons, setShowActionButtons] = useState(true);
   
   const initials = contactName
     .split(" ")
     .map((n) => n[0])
     .join("");
 
-  const handleStartSMS = () => {
-    setEditMode("sms");
-    setSmsMessage(aiSuggestedReply || "");
-    setShowActionButtons(false);
-  };
-
-  const handleStartEmail = () => {
-    setEditMode("email");
-    setEmailSubject(`RE: ${previewSnippet.substring(0, 50)}`);
-    setEmailMessage(aiSuggestedReply || "");
-    setShowActionButtons(false);
-  };
-
-  const handleSendSMS = () => {
-    toast("SMS Sent", {
-      description: `Your message to ${contactName} has been sent.`
-    });
-    setEditMode(null);
-    onSendSMS(id);
-  };
-
-  const handleSendEmail = () => {
-    toast("Email Sent", {
-      description: `Your email to ${contactName} has been sent.`
-    });
-    setEditMode(null);
-    onSendEmail(id);
-  };
-
-  const handleCancelEdit = () => {
-    setEditMode(null);
-    setShowActionButtons(false);
-    setSmsMessage("");
-    setEmailSubject("");
-    setEmailMessage("");
-  };
+  const avatarColor = getAvatarColor(contactName);
 
   const handleDismissClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -145,7 +102,9 @@ export const InboxCard = ({
             <div className="flex items-start gap-4">
               {/* Avatar */}
               <Avatar className="h-11 w-11 shrink-0">
-                <AvatarFallback className="text-base">{initials}</AvatarFallback>
+                <AvatarFallback className="text-base text-white" style={{ backgroundColor: avatarColor }}>
+                  {initials}
+                </AvatarFallback>
               </Avatar>
 
               <div className="flex-1 min-w-0">
@@ -161,11 +120,19 @@ export const InboxCard = ({
                   "{previewSnippet}"
                 </p>
 
-                {/* Suggested Action Preview - Collapsed State */}
+                {/* AI Decision or Suggested Action Preview - Collapsed State */}
                 {!isOpen && (
-                  <div className="flex items-center gap-1.5 mt-2 text-xs text-blue-600 dark:text-blue-400">
-                    <Lightbulb className="h-3 w-3 shrink-0" />
-                    <span className="font-medium truncate">Next: {suggestedAction.title}</span>
+                  <div className="flex flex-col gap-1.5 mt-2">
+                    {aiDecision && (
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <Sparkles className="h-3 w-3 shrink-0" />
+                        <span className="font-medium truncate">AI: {aiDecision.reason}</span>
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400">
+                      <Lightbulb className="h-3 w-3 shrink-0" />
+                      <span className="font-medium truncate">Next: {suggestedAction.title}</span>
+                    </div>
                   </div>
                 )}
               </div>
@@ -214,152 +181,30 @@ export const InboxCard = ({
               </div>
             </div>
 
-            {/* Inline SMS Editor */}
-            {editMode === "sms" && (
-              <div className="space-y-3 bg-muted/20 rounded-lg p-4 border">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4 text-primary" />
-                    <p className="text-sm font-medium">Send SMS to {contactName}</p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={handleCancelEdit}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-                <Separator />
-                <div>
-                  <Textarea
-                    value={smsMessage}
-                    onChange={(e) => setSmsMessage(e.target.value)}
-                    placeholder="Type your message..."
-                    className="min-h-[120px] resize-none"
-                  />
-                  <p className="text-xs text-muted-foreground mt-2">
-                    {smsMessage.length} characters
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={handleSendSMS}
-                    className="gap-2"
-                  >
-                    <Send className="h-4 w-4" />
-                    Send SMS
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleCancelEdit}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {/* Inline Email Editor */}
-            {editMode === "email" && (
-              <div className="space-y-3 bg-muted/20 rounded-lg p-4 border">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-primary" />
-                    <p className="text-sm font-medium">Send Email to {contactName}</p>
-                  </div>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={handleCancelEdit}
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                </div>
-                <Separator />
-                <div>
-                  <Label htmlFor={`subject-${id}`} className="text-xs font-medium">
-                    Subject
-                  </Label>
-                  <Input
-                    id={`subject-${id}`}
-                    value={emailSubject}
-                    onChange={(e) => setEmailSubject(e.target.value)}
-                    placeholder="Email subject..."
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor={`message-${id}`} className="text-xs font-medium">
-                    Message
-                  </Label>
-                  <Textarea
-                    id={`message-${id}`}
-                    value={emailMessage}
-                    onChange={(e) => setEmailMessage(e.target.value)}
-                    placeholder="Type your message..."
-                    className="min-h-[150px] resize-none mt-1"
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={handleSendEmail}
-                    className="gap-2"
-                  >
-                    <Send className="h-4 w-4" />
-                    Send Email
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={handleCancelEdit}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {/* Actions */}
-            {!editMode && (
-              <div className="flex items-center gap-2 pt-3 border-t mt-3">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onViewFull(id);
-                  }}
-                  variant="default"
-                  size="sm"
-                  className="flex-1"
-                >
-                  View & Reply
-                </Button>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onCall(id);
-                  }}
-                  variant="outline"
-                  size="sm"
-                  className="gap-2"
-                >
-                  <Phone className="h-4 w-4" />
-                  <span className="hidden sm:inline">Call</span>
-                </Button>
-                <Button
-                  onClick={handleDismissClick}
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2 text-muted-foreground hover:text-destructive"
-                >
-                  <Trash2 className="h-4 w-4" />
-                  <span className="sr-only">Dismiss</span>
-                </Button>
-              </div>
-            )}
+            {/* Actions - Simplified to View & Reply only */}
+            <div className="flex items-center gap-2 pt-3 border-t mt-3">
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onViewFull(id);
+                }}
+                variant="default"
+                size="sm"
+                className="flex-1"
+              >
+                View & Reply
+              </Button>
+              <Button
+                onClick={handleDismissClick}
+                variant="ghost"
+                size="sm"
+                className="gap-2 text-muted-foreground hover:text-destructive"
+                aria-label="Dismiss this item"
+              >
+                <Trash2 className="h-4 w-4" />
+                <span className="sr-only">Dismiss</span>
+              </Button>
+            </div>
           </div>
         </CollapsibleContent>
       </Card>

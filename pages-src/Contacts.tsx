@@ -24,6 +24,13 @@ const Contacts = memo(() => {
   const [sourceFilter, setSourceFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
   const [importModalOpen, setImportModalOpen] = useState(false);
+  const [filteredCount, setFilteredCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
+
+  const handleFilteredCountChange = (filtered: number, total: number) => {
+    setFilteredCount(filtered);
+    setTotalCount(total);
+  };
 
   const managedByOptions = ["All", "AI Concierge", "You"];
   const sourceOptions = ["All", "Website", "Social Media", "Ad", "Imported", "ZIP Code"];
@@ -116,8 +123,21 @@ const Contacts = memo(() => {
           </div>
         </div>
 
+        {/* Filter result count */}
+        {totalCount > 0 && (
+          <div className="text-sm text-muted-foreground">
+            Showing <span className="font-semibold text-foreground">{filteredCount}</span> of <span className="font-semibold text-foreground">{totalCount}</span> contacts
+          </div>
+        )}
+
         <Card>
-          <ContactsTable searchQuery={searchQuery} managedByFilter={managedByFilter} sourceFilter={sourceFilter} statusFilter={statusFilter} />
+          <ContactsTable
+            searchQuery={searchQuery}
+            managedByFilter={managedByFilter}
+            sourceFilter={sourceFilter}
+            statusFilter={statusFilter}
+            onFilteredCountChange={handleFilteredCountChange}
+          />
         </Card>
 
         <LeadImportModal open={importModalOpen} onOpenChange={setImportModalOpen} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, TrendingUp, DollarSign, Target, BarChart3 } from "lucide-react";
+import { Plus, TrendingUp, DollarSign, Target, BarChart3, BarChart } from "lucide-react";
 import AdCard from "@/components/dashboard/AdCard";
 import PageLayout from "@/components/layout/PageLayout";
 import { runningAds, pastAds } from "@/data/mockData";
@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { CampaignHero } from "@/components/campaigns/CampaignHero";
 import { SectionHeader } from "@/components/common/SectionHeader";
+import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 
 const Campaigns = memo(() => {
   const router = useRouter();
@@ -36,10 +37,11 @@ const Campaigns = memo(() => {
   const avgCostPerLead = totalLeads > 0 ? totalSpent / totalLeads : 0;
 
   return (
-    <PageLayout headerActions={headerActions} pageContext="dashboard">
-      <div className="space-y-6">
-        {/* Hero Section - Always visible on both tabs */}
-        <CampaignHero />
+    <>
+      <PageLayout headerActions={headerActions} pageContext="dashboard">
+        <div className="space-y-6">
+          {/* Hero Section - Always visible on both tabs */}
+          <CampaignHero />
 
         <div className="border-t border-border my-8" />
 
@@ -52,7 +54,7 @@ const Campaigns = memo(() => {
           {/* Current Campaigns Tab */}
           <TabsContent value="current" className="space-y-4 mt-6">
             <SectionHeader
-              icon="📊"
+              IconComponent={BarChart}
               title="Active Campaigns"
               count={runningAds.length}
               description="Campaigns currently running on Facebook and Instagram. Click any campaign to view detailed analytics and performance metrics."
@@ -84,7 +86,7 @@ const Campaigns = memo(() => {
           {/* Past Campaigns Tab */}
           <TabsContent value="past" className="space-y-6 mt-6">
             <SectionHeader
-              icon="📈"
+              IconComponent={TrendingUp}
               title="Past Campaigns"
               count={pastAds.length}
               description="Completed campaigns and their final performance metrics. Review what worked to optimize your future campaigns."
@@ -114,6 +116,10 @@ const Campaigns = memo(() => {
         </Tabs>
       </div>
     </PageLayout>
+
+    {/* Onboarding Wizard */}
+    <OnboardingWizard />
+    </>
   );
 });
 

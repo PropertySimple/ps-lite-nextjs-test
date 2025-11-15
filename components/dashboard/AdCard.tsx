@@ -4,7 +4,9 @@ import Image from "next/image";
 import { logger } from "@/lib/logger";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play, Calendar, TrendingUp, CheckCircle, Minus, AlertTriangle, XCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Play, Calendar, TrendingUp, CheckCircle, Minus, AlertTriangle, XCircle, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { Ad } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -18,6 +20,9 @@ interface AdCardProps {
 const AdCard = ({ ad, isPast = false }: AdCardProps) => {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Determine campaign status
+  const campaignStatus: 'running' | 'paused' | 'ended' = ad.status || (isPast ? 'ended' : 'running');
 
   const handleCardClick = () => {
     router.push(`/campaign-detail/${ad.id}`);
@@ -44,6 +49,19 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
 
   // Calculate cost per lead and performance status
   const costPerLead = ad.adSpend && ad.leads > 0 ? ad.adSpend / ad.leads : 0;
+
+  // Industry benchmarks
+  const industryAverage = 180; // Industry average cost per lead
+  const getBenchmarkComparison = () => {
+    if (costPerLead === 0) return null;
+    const difference = ((industryAverage - costPerLead) / industryAverage) * 100;
+    return {
+      percentage: Math.abs(Math.round(difference)),
+      isBetter: difference > 0,
+      badge: difference > 20 ? 'EXCELLENT' : difference > 0 ? 'GOOD' : 'NEEDS ATTENTION'
+    };
+  };
+  const benchmark = getBenchmarkComparison();
 
   const getPerformanceStatus = () => {
     if (ad.leads === 0) return {
@@ -181,7 +199,7 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
   };
 
   return (
-    <Card className="overflow-hidden transition-all hover:shadow-lg group cursor-pointer" onClick={handleCardClick}>
+    <Card className="overflow-hidden transition-all hover:shadow-lg group cursor-pointer p-0" onClick={handleCardClick}>
       <div className="flex flex-col sm:flex-row">
         {/* Media Preview */}
         <div className="w-full sm:w-48 sm:h-48 shrink-0 relative overflow-hidden">
@@ -189,18 +207,31 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
         </div>
 
         {/* Content - Lead First */}
-        <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between">
-          {/* Top: Property info + Lead count */}
-          <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
+          {/* Top: Property info + Lead count + Status Badge */}
+          <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-base sm:text-lg mb-1 truncate">{ad.title}</h3>
+              <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                <h3 className="font-semibold text-base sm:text-lg truncate">{ad.title}</h3>
+                {/* Campaign Status Badge - Prominent */}
+                <Badge
+                  variant={
+                    campaignStatus === 'running' ? 'default' :
+                    campaignStatus === 'paused' ? 'outline' :
+                    'secondary'
+                  }
+                  className={
+                    campaignStatus === 'running' ? 'bg-green-500 hover:bg-green-600 text-white' :
+                    campaignStatus === 'paused' ? 'border-yellow-500 text-yellow-700 dark:text-yellow-400' :
+                    ''
+                  }
+                >
+                  {campaignStatus === 'running' ? 'Running' :
+                   campaignStatus === 'paused' ? 'Paused' :
+                   'Ended'}
+                </Badge>
+              </div>
               <p className="text-sm text-muted-foreground truncate">{ad.address}</p>
-              {formatDateRange() && (
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-1">
-                  <Calendar className="w-3 h-3" />
-                  <span>{formatDateRange()}</span>
-                </div>
-              )}
             </div>
 
             {/* Lead Count - Hero Metric */}
@@ -210,34 +241,62 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
             </div>
           </div>
 
-          {/* Bottom: Performance + Actions */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-4">
+          {/* Key Metrics - Always Visible */}
+          <div className="flex flex-col gap-2.5 mt-3">
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              {/* Cost per lead */}
+              {/* Cost per lead with benchmark tooltip */}
               {ad.adSpend && ad.leads > 0 && (
-                <div className="flex items-baseline gap-1">
-                  <span className="text-base sm:text-lg font-semibold">${Math.round(costPerLead)}</span>
-                  <span className="text-xs text-muted-foreground">per lead</span>
-                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="flex items-baseline gap-1 cursor-help">
+                        <span className="text-base sm:text-lg font-semibold">${Math.round(costPerLead)}</span>
+                        <span className="text-xs text-muted-foreground">per lead</span>
+                        <Info className="w-3 h-3 text-muted-foreground ml-1" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs">
+                      <div className="space-y-2">
+                        <p className="font-semibold">Cost Per Lead Benchmark</p>
+                        <div className="space-y-1 text-sm">
+                          <p>Your cost: ${Math.round(costPerLead)}/lead</p>
+                          <p>Industry average: ${industryAverage}/lead</p>
+                          {benchmark && (
+                            <p className={benchmark.isBetter ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-orange-600 dark:text-orange-400 font-semibold'}>
+                              {benchmark.isBetter ? `${benchmark.percentage}% better than average` : `${benchmark.percentage}% above average`}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               )}
 
-              {/* Performance badge */}
-              <div className={`px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 ${performance.bgColor} ${performance.color}`}>
-                <performance.icon className="w-3 h-3" />
-                {performance.text}
-              </div>
-
-              {/* Days left - mobile and desktop */}
-              {!isPast && ad.daysLeft && (
-                <div className="flex items-baseline gap-1 text-muted-foreground">
-                  <span className="text-sm font-semibold">{ad.daysLeft}</span>
-                  <span className="text-xs">day{ad.daysLeft !== 1 ? 's' : ''} left</span>
-                </div>
-              )}
+              {/* Performance badge with tooltip */}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className={`px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 cursor-help ${performance.bgColor} ${performance.color}`}>
+                      <performance.icon className="w-3 h-3" />
+                      {performance.text}
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="text-sm">
+                      {performance.text === 'EXCEPTIONAL' && 'Outstanding performance! Cost per lead under $150'}
+                      {performance.text === 'EXCELLENT' && 'Great results! Cost per lead under $400'}
+                      {performance.text === 'GOOD' && 'Solid performance! Cost per lead under $600'}
+                      {performance.text === 'REVIEW' && 'Cost per lead is high. Consider optimizing your campaign.'}
+                      {performance.text === 'NO LEADS' && 'This campaign has not generated any leads yet.'}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 pt-1">
               <Button
                 variant="default"
                 size="sm"
