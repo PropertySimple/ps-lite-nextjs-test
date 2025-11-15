@@ -1,50 +1,48 @@
 @import "tailwindcss";
-@import "@fontsource/geist-sans";
-@import "@fontsource/geist-mono";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light Mode - Optional (kept for users who prefer it) */
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(0 0% 10%);
+  /* Light Mode - Warm, Trustworthy Palette */
+  --background: hsl(35 30% 96%);
+  --foreground: hsl(25 20% 12%);
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(0 0% 10%);
+  --card-foreground: hsl(25 20% 12%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(0 0% 10%);
+  --popover-foreground: hsl(25 20% 12%);
 
-  /* Primary - Purple brand */
-  --primary: hsl(250 70% 55%);
+  /* Primary - Terracotta (warm, inviting, home-focused) */
+  --primary: hsl(15 65% 52%);
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(0 0% 96%);
-  --secondary-foreground: hsl(0 0% 10%);
-  --muted: hsl(0 0% 96%);
-  --muted-foreground: hsl(0 0% 45%);
-  --accent: hsl(250 70% 55%);
+  --secondary: hsl(35 25% 92%);
+  --secondary-foreground: hsl(25 20% 12%);
+  --muted: hsl(35 20% 88%);
+  --muted-foreground: hsl(25 15% 35%);
+  --accent: hsl(45 85% 48%);
   --accent-foreground: hsl(0 0% 100%);
 
   /* Semantic colors */
   --destructive: hsl(0 72% 51%);
   --destructive-foreground: hsl(0 0% 98%);
-  --success: hsl(142 71% 45%);
+  --success: hsl(142 55% 40%);
   --success-foreground: hsl(0 0% 98%);
   --warning: hsl(38 92% 50%);
   --warning-foreground: hsl(0 0% 10%);
-  --info: hsl(199 89% 48%);
+  --info: hsl(15 65% 55%);
   --info-foreground: hsl(0 0% 98%);
 
   /* UI Elements */
-  --border: hsl(0 0% 90%);
-  --input: hsl(0 0% 90%);
-  --ring: hsl(250 70% 55%);
-  --radius: 0.75rem; /* 12px - premium feel */
+  --border: hsl(35 20% 82%);
+  --input: hsl(35 20% 82%);
+  --ring: hsl(15 65% 55%);
+  --radius: 0.75rem;
 
-  /* Chart colors */
-  --chart-1: hsl(250 70% 60%);
-  --chart-2: hsl(173 80% 40%);
-  --chart-3: hsl(43 96% 56%);
-  --chart-4: hsl(332 80% 58%);
-  --chart-5: hsl(142 76% 46%);
+  /* Chart colors - warm palette */
+  --chart-1: hsl(15 65% 55%);
+  --chart-2: hsl(45 75% 55%);
+  --chart-3: hsl(142 55% 40%);
+  --chart-4: hsl(25 75% 45%);
+  --chart-5: hsl(195 60% 45%);
 
   /* Sidebar */
   --sidebar: hsl(0 0% 100%);
@@ -154,11 +152,12 @@
   --width-sidebar: 16rem;
   --width-sidebar-icon: 3rem;
 
-  /* Typography */
-  --font-sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
-  --font-size-base: 15px;
-  --line-height-tight: 1.25;
+  /* Typography - Distinctive font pairing */
+  --font-display: "Cabinet Grotesk", system-ui, -apple-system, sans-serif;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", monospace;
+  --font-size-base: 16px;
+  --line-height-tight: 1.15;
   --line-height-snug: 1.375;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
@@ -180,22 +179,23 @@
     line-height: var(--line-height-normal);
   }
 
-  /* Typography improvements - tighter tracking for premium feel */
+  /* Typography - use display font for headings */
   h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
     line-height: var(--line-height-tight);
-    font-weight: 600;
-    letter-spacing: -0.025em; /* Tighter for sophistication */
+    font-weight: 700;
+    letter-spacing: -0.035em; /* Tighter for modern, bold look */
   }
 
   h1 {
-    @apply text-5xl lg:text-6xl font-bold;
-    letter-spacing: -0.03em;
+    @apply text-5xl lg:text-7xl font-black;
+    letter-spacing: -0.045em; /* Extra tight for display impact */
   }
-  h2 { @apply text-3xl lg:text-4xl font-bold; }
-  h3 { @apply text-2xl lg:text-3xl font-semibold; }
+  h2 { @apply text-3xl lg:text-5xl font-bold; }
+  h3 { @apply text-2xl lg:text-4xl font-bold; }
   h4 { @apply text-xl lg:text-2xl font-semibold; }
-  h5 { @apply text-lg lg:text-xl; }
-  h6 { @apply text-base lg:text-lg; }
+  h5 { @apply text-lg lg:text-xl font-semibold; }
+  h6 { @apply text-base lg:text-lg font-medium; }
 
   /* Better focus indicators for accessibility */
   *:focus-visible {
@@ -225,6 +225,21 @@
 }
 
 @layer utilities {
+  /* Grain Texture Overlay - Premium feel */
+  .grain-texture {
+    position: relative;
+  }
+
+  .grain-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
   /* Glass Morphism Effects */
   .glass-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
@@ -249,10 +264,11 @@
 
   /* Gradient Text Effects */
   .gradient-text {
-    background: linear-gradient(135deg, hsl(250 70% 60%) 0%, hsl(250 70% 70%) 100%);
+    background: linear-gradient(135deg, hsl(15 65% 45%) 0%, hsl(45 90% 42%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: hsl(var(--primary)); /* Fallback for browsers that don't support background-clip */
   }
 
   .gradient-text-shimmer {
