@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
-import { ExamplesGallery } from "@/components/marketing/ExamplesGallery";
+
+// Lazy load examples gallery for better initial page load
+const ExamplesGallery = dynamic(() => import("@/components/marketing/ExamplesGallery").then(mod => ({ default: mod.ExamplesGallery })), {
+  loading: () => <div className="h-[1000px] bg-muted/30 animate-pulse" />,
+  ssr: true, // Keep SSR for SEO
+});
 
 export const metadata: Metadata = {
   title: "Video Ad Examples - PropertySimple | See Real Estate Video Ads in Action",

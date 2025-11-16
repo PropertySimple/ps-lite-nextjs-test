@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
-import { PricingTiers } from "@/components/marketing/PricingTiers";
-import { PricingFAQ } from "@/components/marketing/PricingFAQ";
+
+// Lazy load pricing components for better initial page load
+const PricingTiers = dynamic(() => import("@/components/marketing/PricingTiers").then(mod => ({ default: mod.PricingTiers })), {
+  loading: () => <div className="h-[800px] bg-muted/30 animate-pulse" />,
+  ssr: true, // Keep SSR for SEO
+});
+
+const PricingFAQ = dynamic(() => import("@/components/marketing/PricingFAQ").then(mod => ({ default: mod.PricingFAQ })), {
+  loading: () => <div className="h-[600px] bg-muted/30 animate-pulse" />,
+  ssr: true,
+});
 
 export const metadata: Metadata = {
   title: "Pricing - PropertySimple Video Ads | $147 Per Listing or $97/mo Subscription",
