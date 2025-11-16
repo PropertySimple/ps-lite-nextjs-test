@@ -18,7 +18,6 @@ interface ListingMapProps {
 }
 
 export function ListingMap({ address, coordinates }: ListingMapProps) {
-  // Mock map - in production would use Mapbox or Google Maps
   const getDirectionsUrl = () => {
     const addressString = `${address.street}, ${address.city}, ${address.state} ${address.zip}`;
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(addressString)}`;
@@ -26,6 +25,18 @@ export function ListingMap({ address, coordinates }: ListingMapProps) {
 
   const viewOnMapUrl = () => {
     return `https://www.google.com/maps/search/?api=1&query=${coordinates.lat},${coordinates.lng}`;
+  };
+
+  // Build map URL using our secure API proxy (prevents token exposure)
+  const getMapImageUrl = () => {
+    const params = new URLSearchParams({
+      lng: coordinates.lng.toString(),
+      lat: coordinates.lat.toString(),
+      zoom: '13',
+      width: '800',
+      height: '600',
+    });
+    return `/api/map?${params.toString()}`;
   };
 
   return (
@@ -56,13 +67,13 @@ export function ListingMap({ address, coordinates }: ListingMapProps) {
         </div>
       </div>
 
-      {/* Mock Map Placeholder */}
+      {/* Map Image */}
       <div className="relative w-full h-96 bg-muted rounded-lg overflow-hidden border-2 border-border">
-        {/* Static map image - in production, replace with actual map component */}
+        {/* Static map image via secure API proxy */}
         <div
           className="w-full h-full bg-cover bg-center"
           style={{
-            backgroundImage: `url(https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-l-home+D2691E(${coordinates.lng},${coordinates.lat})/${coordinates.lng},${coordinates.lat},13,0/800x600@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw)`
+            backgroundImage: `url(${getMapImageUrl()})`
           }}
         />
 

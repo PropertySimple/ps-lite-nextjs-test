@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect, useRef } from 'react';
 import { MessageCircle, CheckCircle, Loader2, Smartphone } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,19 +27,53 @@ export function ListingContactForm({ address, agentName }: ListingContactFormPro
   const [showTyping, setShowTyping] = useState(false);
   const [showSmsPreview, setShowSmsPreview] = useState(false);
 
+  // Store timeout IDs for cleanup
+  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const smsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Cleanup timeouts on unmount or when success screen is closed
+  useEffect(() => {
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+      if (smsTimeoutRef.current) {
+        clearTimeout(smsTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Clear timeouts when success screen is closed
+  useEffect(() => {
+    if (!showSuccess) {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = null;
+      }
+      if (smsTimeoutRef.current) {
+        clearTimeout(smsTimeoutRef.current);
+        smsTimeoutRef.current = null;
+      }
+    }
+  }, [showSuccess]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    // Clear any existing timeouts
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+    if (smsTimeoutRef.current) clearTimeout(smsTimeoutRef.current);
 
     // Step 1: Show success
     setShowSuccess(true);
 
     // Step 2: Show typing indicator after 2s
-    setTimeout(() => {
+    typingTimeoutRef.current = setTimeout(() => {
       setShowTyping(true);
     }, 2000);
 
     // Step 3: Show SMS preview after 12s total
-    setTimeout(() => {
+    smsTimeoutRef.current = setTimeout(() => {
       setShowTyping(false);
       setShowSmsPreview(true);
     }, 12000);

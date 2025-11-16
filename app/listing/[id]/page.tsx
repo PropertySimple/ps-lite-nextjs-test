@@ -13,6 +13,7 @@ import { ListingNeighborhood } from '@/components/listing/ListingNeighborhood';
 import { ListingSimilar } from '@/components/listing/ListingSimilar';
 import { ListingOpenHouse } from '@/components/listing/ListingOpenHouse';
 import { ListingPageClient } from './ListingPageClient';
+import { PixelTracker } from './PixelTracker';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -123,6 +124,9 @@ export default async function ListingPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
+
+      {/* Facebook Pixel Tracker - Initializes once per page */}
+      <PixelTracker listingId={id} price={listing.price} />
 
       <div className="min-h-screen bg-background">
         {/* Navigation */}

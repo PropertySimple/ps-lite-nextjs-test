@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { ListingStickyCTA } from '@/components/listing/ListingStickyCTA';
 import { ListingContactForm } from '@/components/listing/ListingContactForm';
 import { ListingAgent } from '@/components/listing/ListingAgent';
@@ -33,37 +32,8 @@ export function ListingPageClient({
   address,
   agent,
 }: ListingPageClientProps) {
-  const hasTrackedPageView = useRef(false);
-
-  useEffect(() => {
-    // Initialize Facebook Pixel only once
-    if (!hasTrackedPageView.current) {
-      hasTrackedPageView.current = true;
-
-      // Dynamically import Facebook Pixel
-      import('react-facebook-pixel')
-        .then((x) => x.default)
-        .then((ReactPixel) => {
-          const pixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID || 'PLACEHOLDER_PIXEL_ID';
-          ReactPixel.init(pixelId);
-          ReactPixel.pageView();
-
-          // Track ViewContent event for property listing
-          if (price) {
-            const contentId = window.location.pathname.split('/').pop() || 'unknown';
-            ReactPixel.track('ViewContent', {
-              content_type: 'property',
-              content_ids: [contentId],
-              value: price,
-              currency: 'USD',
-            });
-          }
-        })
-        .catch((err) => {
-          console.error('Failed to load Facebook Pixel:', err);
-        });
-    }
-  }, [price]);
+  // Pixel tracking moved to PixelTracker component in page.tsx
+  // This prevents triple-firing from multiple component instances
 
   const scrollToContact = () => {
     const contactElement = document.getElementById('contact-form');

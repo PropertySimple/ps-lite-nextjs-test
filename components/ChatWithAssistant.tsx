@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { AssistantAvatar } from "@/components/AssistantAvatar";
 import { cn } from "@/lib/utils";
 
@@ -58,13 +57,14 @@ export const ChatWithAssistant = ({
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom - scroll the Viewport, not the Root
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (viewportRef.current) {
+      // The Viewport is the actual scrollable element
+      viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
     }
   }, [messages, isTyping]);
 
@@ -145,8 +145,9 @@ export const ChatWithAssistant = ({
         </div>
 
         {/* Messages */}
-        <ScrollArea className="flex-1 p-6" ref={scrollRef}>
-          <div className="space-y-6">
+        <div className="flex-1 relative overflow-hidden">
+          <div ref={viewportRef} className="h-full w-full overflow-y-auto rounded-[inherit] p-6">
+            <div className="space-y-6">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -185,8 +186,9 @@ export const ChatWithAssistant = ({
                 </div>
               </div>
             )}
+            </div>
           </div>
-        </ScrollArea>
+        </div>
 
         {/* Input */}
         <div className="p-6 border-t">
