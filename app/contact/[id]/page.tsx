@@ -70,8 +70,8 @@ export default function ContactDetailPage() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [isAiHandling, setIsAiHandling] = useState(true);
   const [isReminderModalOpen, setIsReminderModalOpen] = useState(false);
-  const [reminder, setReminder] = useState<{ date: string; text: string } | null>(null);
-  const [isInsightsExpanded, setIsInsightsExpanded] = useState(true);
+  const [_reminder, _setReminder] = useState<{ date: string; text: string } | null>(null);
+  const [_isInsightsExpanded, _setIsInsightsExpanded] = useState(true);
   const [isContactInfoExpanded, setIsContactInfoExpanded] = useState(false);
 
   // Mock data - in a real app, this would come from an API

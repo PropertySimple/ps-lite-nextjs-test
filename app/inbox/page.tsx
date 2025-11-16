@@ -263,11 +263,11 @@ export default function InboxPage() {
     setSelectedItemId(null);
   };
 
-  const handleSendSMS = (id: number) => {
+  const handleSendSMS = (_id: number) => {
     // SMS is handled inline in InboxCard
   };
 
-  const handleSendEmail = (id: number) => {
+  const handleSendEmail = (_id: number) => {
     // Email is handled inline in InboxCard
   };
 
@@ -335,12 +335,12 @@ export default function InboxPage() {
                     onViewFull={(id) => {
                       router.push(`/contact/${id}`);
                     }}
-                    onTakeAction={(id) => {
+                    onTakeAction={(_id) => {
                       toast("Action Started", {
                         description: "Opening task for this contact."
                       });
                     }}
-                    onDismiss={(id) => {
+                    onDismiss={(_id) => {
                       toast("Item Dismissed", {
                         description: "This item has been removed from your inbox."
                       });

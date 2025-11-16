@@ -1,7 +1,7 @@
 "use client";
 
 
-import { useState, memo } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -16,7 +16,6 @@ import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
 import { LeadImportModal } from "@/components/concierge/LeadImportModal";
 import { Search, Upload } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
 
 export default function ContactsPage() {
   const [searchQuery, setSearchQuery] = useState("");

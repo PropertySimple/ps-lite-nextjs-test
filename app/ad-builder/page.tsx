@@ -14,7 +14,6 @@ import AdCopyEditor from "@/components/ad-builder/AdCopyEditor";
 import ActorScriptEditor from "@/components/ad-builder/ActorScriptEditor";
 import MusicSelector from "@/components/ad-builder/MusicSelector";
 import { AddListingModal } from "@/components/ad-builder/AddListingModal";
-import { ListingCard } from "@/components/ad-builder/ListingCard";
 import { useAdBuilder } from "@/hooks/useAdBuilder";
 import type { ListingData } from "@/types/adBuilder";
 import { campaignData } from "@/data/mockData";

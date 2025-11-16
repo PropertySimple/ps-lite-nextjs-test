@@ -5,7 +5,6 @@ import { Plus, TrendingUp, BarChart3, BarChart } from "lucide-react";
 import AdCard from "@/components/dashboard/AdCard";
 import PageLayout from "@/components/layout/PageLayout";
 import { runningAds, pastAds } from "@/data/mockData";
-import { memo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
