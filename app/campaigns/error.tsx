@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AlertCircle } from 'lucide-react';
+import { logger } from '@/lib/logger';
 
 export default function CampaignsError({
   error,
@@ -12,7 +13,7 @@ export default function CampaignsError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('Campaigns error:', error);
+    logger.error('Campaigns error:', error);
   }, [error]);
 
   return (

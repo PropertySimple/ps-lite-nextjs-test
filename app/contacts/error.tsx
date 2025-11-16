@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AlertCircle } from 'lucide-react';
+import { logger } from '@/lib/logger';
 
 export default function ContactsError({
   error,
@@ -12,7 +13,7 @@ export default function ContactsError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('Contacts error:', error);
+    logger.error('Contacts error:', error);
   }, [error]);
 
   return (

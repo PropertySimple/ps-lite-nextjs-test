@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AlertCircle } from 'lucide-react';
+import { logger } from '@/lib/logger';
 
 export default function DashboardError({
   error,
@@ -12,8 +13,8 @@ export default function DashboardError({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log error to console in development
-    console.error('Dashboard error:', error);
+    // Log error using centralized logger
+    logger.error('Dashboard error:', error);
 
     // TODO: Log to error tracking service (Sentry) in production
     // if (process.env.NODE_ENV === 'production') {

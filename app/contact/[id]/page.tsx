@@ -661,7 +661,7 @@ Best regards`;
         onOpenChange={setIsReminderModalOpen}
         contactName={contact.name}
         onCreateReminder={(newReminder) => {
-          setReminder(newReminder);
+          _setReminder(newReminder);
           setActivities([
             {
               id: Date.now().toString(),

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { initFacebookPixel, trackViewContent } from '@/lib/analytics/fbPixel';
+import { logger } from '@/lib/logger';
 
 interface PixelTrackerProps {
   listingId: string;
@@ -20,7 +21,7 @@ export function PixelTracker({ listingId, price }: PixelTrackerProps) {
         trackViewContent(listingId, price);
       })
       .catch((err) => {
-        console.error('Pixel initialization failed:', err);
+        logger.error('Pixel initialization failed:', err);
       });
   }, [listingId, price]);
 

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { AlertCircle } from 'lucide-react';
+import { logger } from '@/lib/logger';
 
 export default function InboxError({
   error,
@@ -12,7 +13,7 @@ export default function InboxError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('Inbox error:', error);
+    logger.error('Inbox error:', error);
   }, [error]);
 
   return (

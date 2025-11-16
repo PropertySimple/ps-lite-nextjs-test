@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { logger } from '@/lib/logger';
 
 /**
  * Mapbox Static API Proxy
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
     const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || process.env.MAPBOX_TOKEN;
 
     if (!mapboxToken) {
-      console.error('MAPBOX_TOKEN not configured');
+      logger.error('MAPBOX_TOKEN not configured');
       return NextResponse.json(
         { error: 'Map service temporarily unavailable' },
         { status: 503 }
@@ -60,7 +61,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!mapResponse.ok) {
-      console.error('Mapbox API error:', mapResponse.status, await mapResponse.text());
+      logger.error('Mapbox API error:', mapResponse.status, await mapResponse.text());
       return NextResponse.json(
         { error: 'Failed to fetch map' },
         { status: mapResponse.status }
@@ -79,7 +80,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Map proxy error:', error);
+    logger.error('Map proxy error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
