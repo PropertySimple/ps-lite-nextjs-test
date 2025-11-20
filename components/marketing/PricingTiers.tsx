@@ -53,11 +53,7 @@ export function PricingTiers() {
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">AI assistant for this campaign</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">Basic CRM access</span>
+                    <span className="text-sm">Campaign analytics dashboard</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
@@ -70,7 +66,7 @@ export function PricingTiers() {
                 </div>
 
                 <Button className="w-full bg-primary hover:bg-primary/90" size="lg">
-                  Get Started
+                  Get My Videos
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">
@@ -99,7 +95,7 @@ export function PricingTiers() {
               <CardContent className="p-8 space-y-6 mt-4">
                 <div className="space-y-2">
                   <h3 className="text-2xl font-bold">AutoAds Subscription</h3>
-                  <p className="text-muted-foreground">Never miss a lead + save 25% on every ad</p>
+                  <p className="text-muted-foreground">Automate your listing ads + save 25%</p>
                 </div>
 
                 <div className="space-y-1">
@@ -111,13 +107,6 @@ export function PricingTiers() {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Zap className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <div>
-                      <div className="font-semibold">24/7 AI Assistant for Everything</div>
-                      <div className="text-sm text-muted-foreground">Use on signs, business cards, flyers, websites—unlimited calls & texts!</div>
-                    </div>
-                  </div>
                   <div className="flex items-start gap-3">
                     <Zap className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
                     <div>
@@ -133,12 +122,15 @@ export function PricingTiers() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">Everything in Pay-Per-Ad</span>
+                    <Zap className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-semibold">Priority Support</div>
+                      <div className="text-sm text-muted-foreground">Fast response times and dedicated help when you need it</div>
+                    </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">Full CRM access</span>
+                    <span className="text-sm">Everything in Pay-Per-Ad</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
@@ -183,27 +175,17 @@ export function PricingTiers() {
                   <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-success mx-auto" /></td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-4">AI Assistant for Campaigns</td>
+                  <td className="py-4 px-4">Campaign Analytics</td>
                   <td className="text-center py-4 px-4"><Check className="w-5 h-5 text-success mx-auto" /></td>
                   <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-success mx-auto" /></td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-4 font-semibold">AI Phone Number for Everything</td>
-                  <td className="text-center py-4 px-4 text-muted-foreground">—</td>
-                  <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-accent mx-auto" /></td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-4 font-semibold">Use on Signs, Cards, Flyers</td>
-                  <td className="text-center py-4 px-4 text-muted-foreground">—</td>
-                  <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-accent mx-auto" /></td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-4 font-semibold">Unlimited AI Calls & Texts</td>
-                  <td className="text-center py-4 px-4 text-muted-foreground">—</td>
-                  <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-accent mx-auto" /></td>
-                </tr>
-                <tr>
                   <td className="py-4 px-4 font-semibold">Auto-Run on New Listings</td>
+                  <td className="text-center py-4 px-4 text-muted-foreground">—</td>
+                  <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-accent mx-auto" /></td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4 font-semibold">Priority Support</td>
                   <td className="text-center py-4 px-4 text-muted-foreground">—</td>
                   <td className="text-center py-4 px-4 bg-accent/5"><Check className="w-5 h-5 text-accent mx-auto" /></td>
                 </tr>

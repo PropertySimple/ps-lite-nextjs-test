@@ -42,8 +42,8 @@ export default function CampaignsError({
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button onClick={reset}>Try again</Button>
-          <Button onClick={() => window.location.href = '/dashboard'} variant="outline">
-            Back to Dashboard
+          <Button onClick={() => window.location.href = '/campaigns'} variant="outline">
+            Back to Campaigns
           </Button>
         </div>
       </div>

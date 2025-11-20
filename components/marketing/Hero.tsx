@@ -37,7 +37,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-            We create stunning video ads for your listings, post them on Instagram & Facebook, and give you an AI assistant to answer every call. You just close deals.
+            We create stunning video ads for your listings and post them on Instagram & Facebook automatically. You just close deals.
           </p>
 
           {/* Value Props */}
@@ -58,7 +58,7 @@ export function Hero() {
               <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>AI Answers Your Calls</span>
+              <span>Leads Sent to You</span>
             </div>
           </div>
 

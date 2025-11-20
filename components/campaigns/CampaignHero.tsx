@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Plus, TrendingUp, Sparkles } from "lucide-react";
+import { Plus, TrendingUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const CampaignHero = () => {
@@ -81,19 +81,13 @@ export const CampaignHero = () => {
 
           {/* Right: Content */}
           <div className="space-y-6 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-primary-foreground">
-              <Sparkles className="w-4 h-4" />
-              <span className="text-xs font-semibold uppercase tracking-wide">AI-POWERED ADS</span>
-            </div>
-
             <div className="space-y-3">
               <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight leading-tight text-gray-900 dark:text-white">
-                Turn Listings Into Leads 🚀
+                Ready to Create Your Next Ad
               </h1>
               <p className="text-base lg:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Create stunning AI-powered video campaigns in minutes.
-                <span className="font-semibold text-gray-900 dark:text-white"> In just a few clicks your new campaign is running automatically</span> across
-                Facebook and Instagram. Just pick a listing and watch the leads roll in!
+                Pick a listing and we'll create professional video ads for Facebook and Instagram.
+                <span className="font-semibold text-gray-900 dark:text-white"> Your ad is live by tomorrow.</span>
               </p>
             </div>
 

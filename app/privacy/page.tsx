@@ -73,8 +73,7 @@ export default function PrivacyPage() {
               <li>Service delivery (creating videos, running ads, managing campaigns)</li>
               <li>User communication (updates, support, notifications)</li>
               <li>Account management</li>
-              <li>AI assistant functionality (answering calls/texts on your behalf)</li>
-              <li>CRM features (lead management and tracking)</li>
+              <li>Lead capture and forwarding to your email/phone</li>
             </ul>
           </section>
 

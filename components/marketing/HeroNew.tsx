@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Play, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 export function HeroNew() {
@@ -25,18 +25,7 @@ export function HeroNew() {
 
           {/* LEFT: Content */}
           <div className="space-y-8 lg:pr-8">
-            {/* Eyebrow - Social proof */}
-            <div
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-success/10 border border-success/20 backdrop-blur-sm transition-all duration-700 ${
-                isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-              style={{ transitionDelay: '100ms' }}
-            >
-              <Sparkles className="w-4 h-4 text-success" />
-              <span className="text-sm font-semibold text-success">Join 30,000+ Agents Getting More Leads</span>
-            </div>
-
-            {/* Headline - Problem-focused */}
+            {/* Headline - Outcome focused */}
             <div className="space-y-4">
               <h1
                 className={`text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-none transition-all duration-700 ${
@@ -44,9 +33,8 @@ export function HeroNew() {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <span className="text-foreground">Tired of Spending</span>{' '}
-                <span className="gradient-text inline-block">$1000s on Ads</span>{' '}
-                <span className="text-foreground">That Don't Work?</span>
+                <span className="gradient-text inline-block">Your Next Client</span>{' '}
+                <span className="text-foreground">Is Scrolling Right Now</span>
               </h1>
 
               <p
@@ -55,13 +43,12 @@ export function HeroNew() {
                 }`}
                 style={{ transitionDelay: '400ms' }}
               >
-                We create scroll-stopping <strong className="text-foreground">video ads</strong> for your listings,
-                run them on Facebook & Instagram, and give you an <strong className="text-foreground">AI assistant</strong> to
-                qualify every lead—all for less than one dinner out.
+                We create the video. We run the ad. You get the calls.{' '}
+                <strong className="text-foreground">That's it.</strong>
               </p>
             </div>
 
-            {/* Value bullets - Benefit focused */}
+            {/* Simple value props */}
             <div
               className={`space-y-3 transition-all duration-700 ${
                 isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
@@ -69,27 +56,24 @@ export function HeroNew() {
               style={{ transitionDelay: '600ms' }}
             >
               {[
-                { text: "Videos created in 5 minutes", sub: "Both property tours & influencer-style" },
-                { text: "Ads posted automatically to FB & IG", sub: "Ad spend included for 7 days" },
-                { text: "AI answers calls & texts 24/7", sub: "Only sends you hot, ready-to-buy leads" },
+                "Your ad is live by tomorrow",
+                "You never touch Facebook Ads Manager",
+                "Keep your videos forever",
               ].map((item, i) => (
                 <div
                   key={i}
-                  className={`flex items-start gap-3 transition-all duration-500`}
+                  className={`flex items-center gap-3 transition-all duration-500`}
                   style={{ transitionDelay: `${700 + i * 100}ms` }}
                 >
-                  <CheckCircle2 className="w-6 h-6 text-success flex-shrink-0 mt-0.5" />
-                  <div>
-                    <div className="font-semibold text-foreground">{item.text}</div>
-                    <div className="text-sm text-muted-foreground">{item.sub}</div>
-                  </div>
+                  <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />
+                  <span className="font-medium text-foreground">{item}</span>
                 </div>
               ))}
             </div>
 
-            {/* CTA Buttons - Direct response */}
+            {/* CTA - ONE button */}
             <div
-              className={`flex flex-col sm:flex-row items-start gap-4 pt-4 transition-all duration-1000 ${
+              className={`pt-4 transition-all duration-1000 ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
               }`}
               style={{
@@ -97,48 +81,24 @@ export function HeroNew() {
                 transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}
             >
-              <div className="space-y-3">
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white px-10 py-7 text-lg font-bold rounded-full shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:scale-105"
-                >
-                  Get Your First Ad FREE
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground pl-2">
-                  <CheckCircle2 className="w-4 h-4 text-success" />
-                  <span>48-hour money-back guarantee • Keep the videos</span>
-                </div>
+              {/* Guarantee ABOVE the button */}
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span>48-hour money-back guarantee • Keep the videos forever</span>
               </div>
 
               <Button
                 size="lg"
-                variant="outline"
-                className="border-2 border-primary/30 hover:border-primary bg-transparent hover:bg-primary/10 text-foreground px-8 py-7 text-lg rounded-full backdrop-blur-sm font-semibold"
+                className="bg-primary hover:bg-primary/90 text-white px-12 py-7 text-xl font-bold rounded-full shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:scale-105"
               >
-                <Play className="mr-2 h-5 w-5" />
-                See How It Works (90s)
+                Get My Videos
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </div>
 
-            {/* Trust indicators - Risk reversal */}
-            <div
-              className={`grid grid-cols-3 gap-4 pt-6 border-t border-border transition-all duration-700 ${
-                isLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-              style={{ transitionDelay: '1200ms' }}
-            >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">$147</div>
-                <div className="text-xs text-muted-foreground">One-time payment</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">48hrs</div>
-                <div className="text-xs text-muted-foreground">Money-back</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">5★</div>
-                <div className="text-xs text-muted-foreground">5,000+ reviews</div>
+              {/* Price - clear and confident */}
+              <div className="mt-6 flex items-baseline gap-3">
+                <span className="text-4xl font-bold text-primary">$147</span>
+                <span className="text-muted-foreground">one-time • 7 days ad spend included</span>
               </div>
             </div>
           </div>
@@ -173,7 +133,7 @@ export function HeroNew() {
                 </div>
               </div>
 
-              {/* Right video - AI Influencer */}
+              {/* Right video - Presenter Style */}
               <div
                 className="relative w-44 sm:w-52 lg:w-60 transform rotate-6 translate-y-8 hover:rotate-0 transition-transform duration-500"
                 style={{ transformOrigin: 'center center' }}
@@ -191,20 +151,9 @@ export function HeroNew() {
                   </div>
                 </div>
                 <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-accent text-foreground text-sm font-bold whitespace-nowrap shadow-lg">
-                  AI Influencer
+                  Presenter Style
                 </div>
               </div>
-            </div>
-
-            {/* Floating stat cards */}
-            <div className="absolute -left-4 top-1/4 bg-card border-2 border-primary/20 rounded-2xl p-4 shadow-xl backdrop-blur-sm">
-              <div className="text-3xl font-bold text-primary">10x</div>
-              <div className="text-xs text-muted-foreground whitespace-nowrap">More Engagement</div>
-            </div>
-
-            <div className="absolute -right-4 bottom-1/4 bg-card border-2 border-success/20 rounded-2xl p-4 shadow-xl backdrop-blur-sm">
-              <div className="text-3xl font-bold text-success">3x</div>
-              <div className="text-xs text-muted-foreground whitespace-nowrap">More Leads</div>
             </div>
           </div>
         </div>

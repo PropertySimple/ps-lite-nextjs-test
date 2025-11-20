@@ -4,8 +4,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.propertysimple.com'),
-  title: "PropertySimple - AI-Powered Real Estate Marketing",
-  description: "Run smarter real estate campaigns with AI assistance",
+  title: "PropertySimple - Real Estate Video Ads",
+  description: "Professional video ads for your listings on Facebook & Instagram. $147 per listing with ad spend included.",
   openGraph: {
     siteName: "PropertySimple",
     type: "website",

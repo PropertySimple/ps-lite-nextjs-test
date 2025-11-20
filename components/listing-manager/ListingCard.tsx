@@ -17,7 +17,7 @@ interface ListingCardProps {
   onDelete?: () => void;
   onHide?: () => void;
   onMarkAsSold?: () => void;
-  primaryActionLabel: string;
+  primaryActionLabel?: string;
   primaryActionVariant?: "default" | "orange";
   showEditDelete?: boolean;
   showHide?: boolean;
@@ -66,7 +66,7 @@ export const ListingCard = ({
     >
       <div className="flex flex-col sm:flex-row">
         {/* Image */}
-        <div className="w-full sm:w-48 sm:h-48 shrink-0 relative overflow-hidden">
+        <div className="w-full h-48 sm:w-48 sm:h-48 shrink-0 relative overflow-hidden">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -110,7 +110,7 @@ export const ListingCard = ({
           </div>
 
           {/* Actions */}
-          <div className="flex gap-2 mt-4">
+          <div className="flex flex-wrap gap-2 mt-4">
             {showEditDelete ? (
               <>
                 <Button
@@ -122,7 +122,8 @@ export const ListingCard = ({
                   }}
                 >
                   <Plus className="w-4 h-4" />
-                  Start New Campaign
+                  <span className="hidden sm:inline">Start New Campaign</span>
+                  <span className="sm:hidden">New</span>
                 </Button>
                 <Button
                   size="sm"
@@ -199,7 +200,7 @@ export const ListingCard = ({
                   Hide
                 </Button>
               </>
-            ) : (
+            ) : primaryActionLabel ? (
               <Button
                 size="sm"
                 className={`gap-2 ${primaryActionVariant === "orange" ? "bg-orange-600 hover:bg-orange-700" : ""}`}
@@ -212,7 +213,7 @@ export const ListingCard = ({
                 {primaryActionVariant === "orange" ? <PlayCircle className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 {primaryActionLabel}
               </Button>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

@@ -70,7 +70,7 @@ export default function ProfilePage() {
     <PageLayout headerActions={headerActions}>
       <PageHeader
         title="Your Profile"
-        description="This is how you appear to leads and on your campaigns. Click any field to edit. Sarah auto-filled this using your brokerage and listing history."
+        description="This is how you appear on your campaigns. Click any field to edit."
       />
 
       <Alert className="my-6 border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-800">

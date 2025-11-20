@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import Logo from "@/components/Logo";
 import { SidebarModeToggle } from "@/components/sidebar-mode-toggle";
-import { BarChart3, Users, User, MessageSquare, FolderOpen, LogOut } from "lucide-react";
-import { AssistantAvatar } from "@/components/AssistantAvatar";
+import { BarChart3, User, FolderOpen, LogOut } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 const getProfileCompletionStatus = () => {
@@ -28,27 +27,6 @@ const advertisingItems = [
     title: "Listings",
     href: "/listing-manager",
     icon: FolderOpen
-  }
-];
-
-// LEADS - Handle leads pipeline
-const leadsItems = [
-  {
-    title: "Inbox",
-    href: "/inbox",
-    icon: MessageSquare,
-    badge: 4 // Number of items needing attention
-  },
-  {
-    title: "Contacts",
-    href: "/contacts",
-    icon: Users
-  },
-  {
-    title: "Sarah", // TODO: Make dynamic based on selected rep
-    href: "/ai-automation",
-    icon: null, // Will use AssistantAvatar instead
-    isAssistant: true
   }
 ];
 
@@ -85,9 +63,8 @@ export function AppSidebar() {
       </SidebarHeader>
       
       <SidebarContent>
-        {/* ADVERTISING Section */}
+        {/* Main Navigation */}
         <SidebarGroup>
-          <SidebarGroupLabel>ADVERTISING</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {advertisingItems.map(item => {
@@ -112,53 +89,8 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* LEADS Section */}
+        {/* User Section */}
         <SidebarGroup>
-          <SidebarGroupLabel>LEADS</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {leadsItems.map(item => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                const showBadge = item.badge && item.badge > 0;
-                const isAssistant = item.isAssistant;
-
-                return (
-                  <SidebarMenuItem key={item.href}>
-                    <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
-                      <Link href={item.href}>
-                        <div className="relative">
-                          {isAssistant ? (
-                            <AssistantAvatar rep="sarah" size="sm" className="h-4 w-4" />
-                          ) : Icon ? (
-                            <>
-                              <Icon size={16} />
-                              {showBadge && (
-                                <div className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-orange-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                                  {item.badge}
-                                </div>
-                              )}
-                            </>
-                          ) : null}
-                        </div>
-                        <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
-                        {showBadge && (
-                          <span className="ml-auto text-xs font-semibold text-orange-500 bg-orange-50 dark:bg-orange-950 px-2 py-0.5 rounded-full group-data-[collapsible=icon]:hidden">
-                            {item.badge}
-                          </span>
-                        )}
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        {/* YOU Section */}
-        <SidebarGroup>
-          <SidebarGroupLabel>YOU</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {youItems.map(item => {

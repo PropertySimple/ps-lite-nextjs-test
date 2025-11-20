@@ -26,14 +26,14 @@ const FAQ = dynamic(() => import("@/components/marketing/FAQ").then(mod => ({ de
 
 export const metadata: Metadata = {
   title: "Stop Wasting Money on Ads That Don't Work | PropertySimple Video Ads",
-  description: "$147 gets you professional video ads + AI assistant + 7 days of ad spend. 48-hour money-back guarantee. Join 30,000+ agents getting more leads with less work.",
-  keywords: "real estate video ads, AI real estate marketing, Instagram ads for realtors, Facebook ads for real estate, listing videos, real estate ISA, AI inside sales agent",
+  description: "$147 gets you professional video ads + 7 days of ad spend included. 48-hour money-back guarantee. Join 30,000+ agents getting more leads with less work.",
+  keywords: "real estate video ads, real estate marketing, Instagram ads for realtors, Facebook ads for real estate, listing videos, property video ads",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Stop Wasting Money on Ads That Don't Work | PropertySimple Video Ads",
-    description: "$147 gets you professional video ads + AI assistant + 7 days of ad spend. 48-hour money-back guarantee. Join 30,000+ agents getting more leads with less work.",
+    description: "$147 gets you professional video ads + 7 days of ad spend included. 48-hour money-back guarantee. Join 30,000+ agents getting more leads with less work.",
     url: "/",
     siteName: "PropertySimple",
     type: "website",
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "PropertySimple - AI-Powered Real Estate Video Ads",
+        alt: "PropertySimple - Professional Real Estate Video Ads",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Stop Wasting Money on Ads That Don't Work | PropertySimple",
-    description: "$147 gets you professional video ads + AI assistant + 7 days of ad spend. 48-hour money-back guarantee.",
+    description: "$147 gets you professional video ads + 7 days of ad spend included. 48-hour money-back guarantee.",
     images: ["/og-image.png"],
     site: "@PropertySimple",
     creator: "@PropertySimple",
@@ -86,7 +86,7 @@ export default function MarketingPage() {
       "name": "PropertySimple Video Ads",
       "price": "147",
       "priceCurrency": "USD",
-      "description": "Professional video ads + AI assistant + 7 days of ad spend"
+      "description": "Professional video ads + 7 days of ad spend included"
     }
   };
 

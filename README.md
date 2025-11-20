@@ -1,6 +1,6 @@
-# PropertySimple - AI-Powered Real Estate Marketing
+# PropertySimple Ads - Real Estate Video Ad Platform
 
-A modern Next.js application for real estate professionals to manage marketing campaigns, contacts, and listings with AI assistance.
+A modern Next.js application for real estate professionals to create video ads and manage marketing campaigns.
 
 ## Tech Stack
 
@@ -22,7 +22,7 @@ A modern Next.js application for real estate professionals to manage marketing c
 - Modern marketing website with conversion-optimized design
 - Public listing detail pages with:
   - Photo galleries with fullscreen mode and swipe gestures
-  - Instant response contact forms with AI assistant
+  - Contact forms for lead capture
   - Mortgage calculators and property details
   - School ratings and neighborhood information
   - Interactive maps (Mapbox ready)
@@ -30,16 +30,12 @@ A modern Next.js application for real estate professionals to manage marketing c
   - Open house scheduling
 
 ### Application Features
-- AI-powered campaign creation and management
-- Contact and lead management with performance tracking
-- Listing management with detailed property information
-- Real-time analytics and performance tracking
-- Inbox/Outbox messaging with AI assistant (Sarah)
-- Campaign performance dashboards with industry benchmarks
 - Video ad creation and management
+- Campaign creation and performance tracking
+- Listing management with detailed property information
+- Campaign analytics dashboards
 - Dark mode support
 - Responsive design with mobile-first approach
-- Onboarding wizard for new users
 
 ## Getting Started
 
@@ -79,6 +75,8 @@ npm start
 ```
 /app              - Next.js App Router pages and layouts
   /listing/[id]   - Public listing detail pages
+  /campaigns      - Campaign management
+  /ad-builder     - Ad creation wizard
   /about          - Marketing about page
   /how-it-works   - Marketing features page
   /pricing        - Marketing pricing page
@@ -88,16 +86,13 @@ npm start
   /marketing      - Marketing site components (nav, footer, hero, etc.)
   /listing        - Listing detail page components
   /listing-manager - Listing management components
-  /dashboard      - Dashboard-specific components
   /campaign-detail - Campaign detail components
-  /contact-detail - Contact detail components
   /ad-builder     - Ad creation components
   /profile        - Profile and settings components
   /common         - Shared components (PageHelper, SectionHeader, etc.)
-/pages-src        - Page-level components (legacy from migration)
 /hooks            - Custom React hooks
 /lib              - Utility functions and helpers
-/data             - Mock data, types, and listing data
+/data             - Mock data and types
 /types            - TypeScript type definitions
 /public           - Static assets (images, videos, fonts)
 /docs             - Project documentation
@@ -109,7 +104,7 @@ This project uses:
 - **next/font** for optimized font loading (Cabinet Grotesk, Outfit, Geist)
 - **Error boundaries** for graceful error handling
 - **Loading states** with Next.js loading.tsx files
-- **Metadata generation** for SEO and LLMO optimization
+- **Metadata generation** for SEO optimization
 - **JSON-LD Schema** for rich snippets on listing pages
 - **TypeScript** with strict type checking
 - **Logger utility** for development logging
@@ -120,6 +115,7 @@ This project uses:
 
 Required environment variables:
 - `NEXT_PUBLIC_FB_PIXEL_ID` - Facebook Pixel ID for tracking (optional)
+- `MAPBOX_TOKEN` - Mapbox API key for maps (optional)
 
 See `.env.example` for the complete list of environment variables.
 
@@ -135,14 +131,13 @@ The application uses a warm, modern design system:
 ## Key Pages
 
 - **Marketing Site**: `/` (homepage), `/pricing`, `/how-it-works`, `/examples`, `/about`
-- **Application**: `/dashboard`, `/inbox`, `/listings`, `/profile`, `/campaigns`
+- **Application**: `/campaigns`, `/listing-manager`, `/profile`, `/ad-builder`
 - **Public Listings**: `/listing/[id]` - SEO-optimized property detail pages
 - **Campaign Details**: `/campaign-detail/[id]`
-- **Contact Details**: `/contact/[id]`
 
 ## Deploy on Vercel
 
-The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new).
 
 Current deployment: **https://ps-ads.vercel.app**
 
@@ -150,8 +145,7 @@ Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Documentation
 
-- `IMPLEMENTATION_SUMMARY.md` - Application UX redesign details
-- `LISTING_PAGE_SUMMARY.md` - Listing detail page overview
-- `LISTING_COMPONENTS_GUIDE.md` - Listing components documentation
-- `docs/FULL_PRODUCTION_PLAN.md` - Next.js 16 migration plan
-- `MIGRATION.md` - Migration notes
+- `docs/ARCHITECTURE_PLAN.md` - Technical architecture and implementation plan
+- `docs/FULL_PRODUCTION_PLAN.md` - Production roadmap
+- `docs/PROPERTY_ONBOARDING_FLOWS.md` - Property import flows
+- `docs/ERROR_HANDLING.md` - Error handling patterns

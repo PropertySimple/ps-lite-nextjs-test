@@ -104,9 +104,9 @@ export default function CampaignWelcomePage() {
             className="flex-1 h-12 sm:h-11"
             asChild
           >
-            <Link href="/dashboard">
+            <Link href="/campaigns">
               <ArrowRight className="w-4 h-4 mr-2" />
-              Go to Dashboard
+              Go to Campaigns
             </Link>
           </Button>
 

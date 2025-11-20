@@ -2,19 +2,19 @@ import type { Metadata } from "next";
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Upload, Wand2, MessageSquare, BarChart3 } from "lucide-react";
+import { ArrowRight, Upload, Wand2, BarChart3 } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "How It Works - PropertySimple | Simple AI Video Ads in 4 Steps",
-  description: "See how easy it is to create AI-powered video ads for your listings. Buy, create, AI handles everything, you close deals. That's it!",
-  keywords: "how video ads work, AI real estate marketing process, automated video ads",
+  title: "How It Works - PropertySimple | Video Ads in 3 Simple Steps",
+  description: "See how easy it is to create video ads for your listings. Buy, we create & place, you get leads. That's it!",
+  keywords: "how video ads work, real estate marketing process, automated video ads",
   alternates: {
     canonical: "/how-it-works",
   },
   openGraph: {
-    title: "How It Works - Simple AI Video Ads in 4 Steps | PropertySimple",
-    description: "Four simple steps to AI-powered video ads. Buy, create, AI handles everything, you close deals. No tech skills or video editing required.",
+    title: "How It Works - Video Ads in 3 Simple Steps | PropertySimple",
+    description: "Three simple steps to professional video ads. Buy, we create & place, you get leads. No tech skills or video editing required.",
     url: "/how-it-works",
     siteName: "PropertySimple",
     type: "website",
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "PropertySimple - How It Works in 4 Simple Steps",
+        alt: "PropertySimple - How It Works in 3 Simple Steps",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "How It Works in 4 Simple Steps | PropertySimple",
-    description: "Buy, create, AI handles everything, you close deals. No tech skills needed. See how easy AI video ads can be.",
+    title: "How It Works in 3 Simple Steps | PropertySimple",
+    description: "Buy, we create & place, you get leads. No tech skills needed. See how easy video ads can be.",
     images: ["/og-image.png"],
     site: "@PropertySimple",
     creator: "@PropertySimple",
@@ -49,7 +49,7 @@ export default function HowItWorksPage() {
             So Simple, It's <span className="gradient-text">Effortless</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Four simple steps. No tech skills. No video editing. Just more leads.
+            Three simple steps. No tech skills. No video editing. Just more leads.
           </p>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function HowItWorksPage() {
               <div className="order-2 md:order-1">
                 <div className="aspect-video rounded-2xl bg-gradient-to-br from-success to-primary p-1 shadow-lg shadow-success/20">
                   <div className="h-full bg-background rounded-xl flex items-center justify-center">
-                    <MessageSquare className="w-24 h-24 text-success" />
+                    <BarChart3 className="w-24 h-24 text-success" />
                   </div>
                 </div>
               </div>
@@ -120,32 +120,9 @@ export default function HowItWorksPage() {
                   </div>
                   <div className="h-1 w-12 bg-gradient-to-r from-success to-primary rounded-full" />
                 </div>
-                <h3 className="text-3xl font-bold">AI Answers Everything</h3>
+                <h3 className="text-3xl font-bold">You Get Leads & Close Deals</h3>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  Your AI assistant handles every call and text 24/7. Qualifies leads, answers questions, books showings. You only hear from serious buyers ready to move forward.
-                </p>
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="order-2">
-                <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary to-success p-1 shadow-lg shadow-primary/20">
-                  <div className="h-full bg-background rounded-xl flex items-center justify-center">
-                    <BarChart3 className="w-24 h-24 text-primary" />
-                  </div>
-                </div>
-              </div>
-              <div className="order-1 space-y-4">
-                <div className="inline-flex items-center gap-3">
-                  <div className="text-6xl font-bold gradient-text">
-                    04
-                  </div>
-                  <div className="h-1 w-12 bg-gradient-to-r from-primary to-success rounded-full" />
-                </div>
-                <h3 className="text-3xl font-bold">You Close Deals</h3>
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  Jump in anytime to see your leads, export your list, or respond personally. All conversations are in your simple CRM. You focus on what matters: closing deals.
+                  Track your campaign performance with real-time analytics. See views, clicks, and leads as they come in. Keep your videos forever to use anywhere. You focus on what matters: closing deals.
                 </p>
               </div>
             </div>

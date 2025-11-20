@@ -1,28 +1,23 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { X, TrendingDown, Clock, DollarSign, PhoneOff } from "lucide-react";
+import { X, TrendingDown, Clock, DollarSign } from "lucide-react";
 
 const problems = [
   {
+    icon: TrendingDown,
+    problem: "Losing listings to agents with better marketing",
+    pain: "...sellers choose the agent who looks like they can actually sell their home",
+  },
+  {
     icon: DollarSign,
-    problem: "Spending $500-2000/month on ads",
+    problem: "Spending $500-2000/month on ads that don't work",
     pain: "...and getting maybe 2-3 lukewarm leads (if you're lucky)",
   },
   {
     icon: Clock,
-    problem: "Wasting hours trying to learn Facebook Ads",
-    pain: "...when you should be out showing homes and closing deals",
-  },
-  {
-    icon: PhoneOff,
-    problem: "Missing calls from buyers",
-    pain: "...because you're busy or it's 10 PM and you have a life",
-  },
-  {
-    icon: TrendingDown,
-    problem: "Losing listings to agents with better marketing",
-    pain: "...sellers want proof you can actually sell their home",
+    problem: "Wasting hours learning Facebook Ads Manager",
+    pain: "...when you should be showing homes and closing deals",
   },
 ];
 
@@ -73,9 +68,9 @@ export function ProblemAgitate() {
             Here's the truth: <span className="text-primary">You don't have time to become a marketing expert.</span>
           </p>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            You're a real estate agent, not a videographer, ad manager, or 24/7 answering service.
+            You're a real estate agent, not a videographer or ad manager.
             <br />
-            <strong className="text-foreground">You need something that just works—without the learning curve, tech headaches, or massive budget.</strong>
+            <strong className="text-foreground">You need professional marketing that just works—without the learning curve or massive budget.</strong>
           </p>
         </div>
       </div>

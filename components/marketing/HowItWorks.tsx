@@ -22,7 +22,7 @@ const steps = [
     number: "03",
     icon: TrendingUp,
     title: "Get Qualified Leads",
-    description: "Your AI assistant handles inquiries 24/7. You get texts with serious buyers ready to view.",
+    description: "Interested buyers fill out your lead forms. You get notifications with serious buyers ready to view.",
     visual: "from-green-500 to-emerald-500",
   },
 ];

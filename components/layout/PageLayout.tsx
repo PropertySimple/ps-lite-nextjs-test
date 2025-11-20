@@ -7,27 +7,18 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { ReactNode, useState } from "react";
-import { AssistantAvatar } from "@/components/AssistantAvatar";
-import { ChatWithAssistant } from "@/components/ChatWithAssistant";
-import { Button } from "@/components/ui/button";
+import { ReactNode } from "react";
 
 interface PageLayoutProps {
   children: ReactNode;
   headerActions?: ReactNode;
-  pageContext?: string; // For context-aware chat
 }
 
 /**
  * Main layout component that provides the sidebar, header, and content area
  * Used across all main application pages
  */
-const PageLayout = ({ children, headerActions, pageContext }: PageLayoutProps) => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  // TODO: Get selected rep from global state/context
-  const selectedRep = "sarah";
-  const selectedRepName = "Sarah";
-
+const PageLayout = ({ children, headerActions }: PageLayoutProps) => {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -41,15 +32,6 @@ const PageLayout = ({ children, headerActions, pageContext }: PageLayoutProps) =
                 {headerActions}
               </div>
             )}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsChatOpen(true)}
-              className="shrink-0"
-              aria-label="Chat with assistant"
-            >
-              <AssistantAvatar rep={selectedRep} size="sm" pulse={false} />
-            </Button>
           </div>
         </header>
         <main id="main-content" className="flex flex-1 flex-col gap-4 p-4 lg:p-8 pt-0">
@@ -58,14 +40,6 @@ const PageLayout = ({ children, headerActions, pageContext }: PageLayoutProps) =
           </div>
         </main>
       </SidebarInset>
-
-      <ChatWithAssistant
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-        rep={selectedRep}
-        repName={selectedRepName}
-        context={pageContext}
-      />
     </SidebarProvider>
   );
 };

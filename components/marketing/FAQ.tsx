@@ -9,52 +9,24 @@ import {
 
 const faqs = [
   {
-    question: "Do I need any tech skills or video editing experience?",
-    answer: "Not at all! That's the whole point. You just upload your listing photos and details. Our AI handles all the video creation, ad writing, and posting. If you can upload a photo to Facebook, you can use PropertySimple.",
-  },
-  {
     question: "How much does it cost?",
-    answer: "Plans start at $99/month for unlimited video ads on one active listing. We also offer pay-per-listing options starting at $49. Your first campaign is free so you can see results before committing. No hidden fees, no ad spend minimums.",
+    answer: "$147 per listing, which includes 7 days of ad spend. That's it. We have a 48-hour money-back guarantee so you can try risk-free.",
   },
   {
-    question: "Do I have to pay for Facebook and Instagram ads separately?",
-    answer: "Yes, you'll need a Facebook Ads account (which is free to create), and you control your ad budget. We recommend starting with $10-20/day per listing. The good news: our AI optimizes your ads to keep your cost per lead low—typically 50% lower than DIY ads.",
-  },
-  {
-    question: "How does the AI assistant answer calls and texts?",
-    answer: "We give you a dedicated phone number for your ads. When someone calls or texts, our AI assistant responds instantly—answering questions about the property, checking if they're pre-approved, and booking showings on your calendar. You get a text summary of every conversation with a 'hot lead' rating.",
-  },
-  {
-    question: "What if the AI says something wrong or doesn't know an answer?",
-    answer: "The AI is trained on real estate conversations and knows when to escalate to you. If someone asks something it can't answer, it says 'Let me connect you with the agent' and sends you a notification. You can also customize responses and add property-specific details.",
+    question: "How long until my ad is live?",
+    answer: "Your videos are ready in about 5 minutes. After you approve them, your ad is usually live on Facebook and Instagram within 24 hours.",
   },
   {
     question: "Can I see the video before it goes live?",
-    answer: "Absolutely! We show you a preview of every video and ad before posting. You can request edits, change the script, swap the actor, or adjust the music. Once you approve, we post it for you.",
+    answer: "Yes. We show you a preview of every video before posting. You can request edits, change the script, swap the presenter, or adjust the music. Once you approve, we post it.",
   },
   {
-    question: "How long does it take to create a video ad?",
-    answer: "Our AI creates your first draft in about 5 minutes. After your approval and any edits, it's usually live on Facebook and Instagram within 24 hours.",
+    question: "Is there a contract?",
+    answer: "No contracts. No commitments. Pay per listing, or cancel your subscription anytime with one click.",
   },
   {
-    question: "What if I already have someone managing my ads?",
-    answer: "Many agents use PropertySimple alongside their existing marketing. Our video ads tend to get higher engagement than static images, so they complement what you're already doing. Plus, the AI assistant works 24/7—something most teams can't offer.",
-  },
-  {
-    question: "Is there a contract or can I cancel anytime?",
-    answer: "No contracts. Cancel anytime with one click. We only make money if we keep delivering value, so we work hard to keep you happy.",
-  },
-  {
-    question: "What makes your video ads better than just posting photos?",
-    answer: "Video ads get 10x more engagement on social media. They stop the scroll, showcase properties better, and build emotional connections. Our AI creates professional-quality videos that look like you hired a production crew—for a fraction of the cost and time.",
-  },
-  {
-    question: "Do I need to give you access to my Facebook account?",
-    answer: "We use Facebook's official integration, so you grant limited permissions through Facebook's secure process—similar to how you'd connect any app. You maintain full control and can revoke access anytime. We never post anything without your approval.",
-  },
-  {
-    question: "Can I use this for open houses or just listings?",
-    answer: "Both! You can create video ads for new listings, price reductions, open houses, or even personal branding content. The AI adapts the script and style based on what you're promoting.",
+    question: "Why video ads instead of photos?",
+    answer: "Video ads get 10x more engagement on social media. They showcase properties better and build emotional connections. We create professional-quality videos that look like you hired a production crew—for a fraction of the cost.",
   },
 ];
 
