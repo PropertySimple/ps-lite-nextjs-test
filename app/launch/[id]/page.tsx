@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -21,6 +21,7 @@ const campaignData = {
 
 export default function LaunchPage() {
   const { id } = useParams();
+  const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'apple' | 'google' | 'card' | null>(null);
@@ -33,8 +34,7 @@ export default function LaunchPage() {
     // In production: Initialize Stripe Payment Request API
     // This would trigger the native Apple Pay sheet
     setTimeout(() => {
-      setIsProcessing(false);
-      // Redirect to success or show confirmation
+      router.push('/campaigns');
     }, 2000);
   };
 
@@ -43,7 +43,7 @@ export default function LaunchPage() {
     setIsProcessing(true);
     // In production: Initialize Stripe Payment Request API
     setTimeout(() => {
-      setIsProcessing(false);
+      router.push('/campaigns');
     }, 2000);
   };
 
@@ -52,7 +52,7 @@ export default function LaunchPage() {
     setIsProcessing(true);
     // In production: Show Stripe card element or redirect to checkout
     setTimeout(() => {
-      setIsProcessing(false);
+      router.push('/campaigns');
     }, 2000);
   };
 
