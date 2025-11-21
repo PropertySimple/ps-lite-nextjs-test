@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+"use client";
+
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
 import { MarketingPageContent } from "@/components/marketing/MarketingPageContent";
+import { LoginModalProvider } from "@/components/marketing/LoginModalContext";
 
-export const metadata: Metadata = {
+/* export const metadata: Metadata = {
   title: "Stop Wasting Money on Ads That Don't Work | PropertySimple Video Ads",
   description: "$147 gets you professional video ads + 7 days of ad spend included. 48-hour money-back guarantee. Join 30,000+ agents getting more leads with less work.",
   keywords: "real estate video ads, real estate marketing, Instagram ads for realtors, Facebook ads for real estate, listing videos, property video ads",
@@ -33,10 +35,10 @@ export const metadata: Metadata = {
     site: "@PropertySimple",
     creator: "@PropertySimple",
   },
-};
+}; */
 
 export default function MarketingPage() {
-  const organizationSchema = {
+  /* const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "PropertySimple",
@@ -67,19 +69,21 @@ export default function MarketingPage() {
       "priceCurrency": "USD",
       "description": "Professional video ads + 7 days of ad spend included"
     }
-  };
+  }; */
 
   return (
     <>
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <main className="min-h-screen bg-background grain-texture">
-        <MarketingNav />
-        <MarketingPageContent />
-        <MarketingFooter />
-      </main>
+      /> */}
+      <LoginModalProvider>
+        <main className="min-h-screen bg-background grain-texture">
+          <MarketingNav />
+          <MarketingPageContent />
+          <MarketingFooter />
+        </main>
+      </LoginModalProvider>
     </>
   );
 }
