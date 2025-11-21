@@ -1,7 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Home, ArrowRight } from "lucide-react";
+import { Home, Plus, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface OnboardingListingProps {
   onNext: () => void;
@@ -9,46 +10,60 @@ interface OnboardingListingProps {
 }
 
 export function OnboardingListing({ onNext, onSkip }: OnboardingListingProps) {
+  const router = useRouter();
+
+  const handleAddListing = () => {
+    // Close onboarding and go to listing manager
+    localStorage.setItem("onboarding_completed", "true");
+    router.push("/listing-manager?addListing=true");
+  };
+
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-          <Home className="w-6 h-6 text-primary" />
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+          <Home className="w-7 h-7 text-primary" />
         </div>
-        <div>
-          <div className="text-sm text-muted-foreground">Step 2 of 5</div>
-          <h2 className="text-xl font-bold">Import Your Listings</h2>
-        </div>
+        <h2 className="text-2xl font-bold">Add More Listings?</h2>
+        <p className="text-muted-foreground text-sm">
+          Want to create campaigns for other properties?
+        </p>
       </div>
 
-      <p className="text-muted-foreground">
-        Connect to your MLS or manually add properties to start creating campaigns.
-      </p>
-
-      <div className="grid grid-cols-1 gap-4">
-        <div className="border rounded-lg p-4 hover:bg-muted/50 transition-colors">
-          <h3 className="font-medium mb-2">Connect MLS</h3>
-          <p className="text-sm text-muted-foreground">
-            Automatically sync your active listings
-          </p>
-        </div>
-        <div className="border rounded-lg p-4 hover:bg-muted/50 transition-colors">
-          <h3 className="font-medium mb-2">Add Manually</h3>
-          <p className="text-sm text-muted-foreground">
-            Enter property details yourself
-          </p>
-        </div>
-      </div>
-
-      <div className="flex gap-3 justify-end mt-8">
-        <Button variant="ghost" onClick={onSkip}>
-          Skip
-        </Button>
-        <Button onClick={onNext} className="gap-2">
-          Continue
-          <ArrowRight className="w-4 h-4" />
+      {/* Options */}
+      <div className="space-y-3">
+        <Button
+          variant="outline"
+          className="w-full h-auto py-4 justify-start gap-3"
+          onClick={handleAddListing}
+        >
+          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+            <Plus className="w-5 h-5 text-primary" />
+          </div>
+          <div className="text-left">
+            <div className="font-medium">Add a Listing</div>
+            <div className="text-sm text-muted-foreground">Import another property</div>
+          </div>
         </Button>
       </div>
+
+      {/* Step indicator */}
+      <div className="flex items-center justify-center gap-1.5 pt-2">
+        <div className="w-2 h-2 rounded-full bg-primary" />
+        <div className="w-2 h-2 rounded-full bg-primary" />
+        <div className="w-2 h-2 rounded-full bg-muted" />
+      </div>
+
+      {/* Action */}
+      <Button
+        onClick={onSkip}
+        className="w-full gap-2"
+        size="lg"
+      >
+        Skip for Now
+        <ArrowRight className="w-4 h-4" />
+      </Button>
     </div>
   );
 }

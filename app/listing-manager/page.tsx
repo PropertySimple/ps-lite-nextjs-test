@@ -3,14 +3,14 @@
 import { Button } from "@/components/ui/button";
 import PageLayout from "@/components/layout/PageLayout";
 import PageHeader from "@/components/layout/PageHeader";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, Home, Package } from "lucide-react";
 import { ListingCard } from "@/components/listing-manager/ListingCard";
 import { AddListingModal } from "@/components/ad-builder/AddListingModal";
 import { useAdBuilder } from "@/hooks/useAdBuilder";
 import type { ListingData } from "@/types/adBuilder";
 import { AdTypeSelectionModal } from "@/components/ad-builder/AdTypeSelectionModal";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { logger } from "@/lib/logger";
 import { SectionHeader } from "@/components/common/SectionHeader";
 
@@ -86,6 +86,17 @@ export default function ListingManagerPage() {
   const [editingListing, setEditingListing] = useState<ListingData | null>(null);
   const [adTypeModalOpen, setAdTypeModalOpen] = useState(false);
   const [selectedListingForCampaign, setSelectedListingForCampaign] = useState<Listing | null>(null);
+  const searchParams = useSearchParams();
+
+  // Auto-open modal when coming from onboarding
+  useEffect(() => {
+    const shouldOpenModal = searchParams.get("addListing");
+    if (shouldOpenModal === "true") {
+      setAddListingModalOpen(true);
+      // Clean up the URL parameter
+      router.replace("/listing-manager");
+    }
+  }, [searchParams, router]);
 
   const handleEditListing = (listing: ListingData) => {
     setEditingListing(listing);
@@ -134,9 +145,9 @@ export default function ListingManagerPage() {
   const handleAdTypeSelect = (adTypeId: string) => {
     logger.log("Selected ad type:", adTypeId, "for listing:", selectedListingForCampaign);
     setAdTypeModalOpen(false);
-    // Navigate to welcome page after campaign creation
-    const mockCampaignId = "1";
-    router.push(`/campaign-welcome/${mockCampaignId}`);
+    // Navigate to purchase page with listing info
+    const listingId = selectedListingForCampaign?.id || "new";
+    router.push(`/launch/${listingId}?adType=${adTypeId}`);
   };
 
   const formatPrice = (price: number) => {
@@ -201,6 +212,7 @@ export default function ListingManagerPage() {
                   bathrooms={listingData.bathrooms}
                   imageUrl={primaryImage}
                   status="active"
+                  listingType={listingData.listingType?.toLowerCase().includes("rent") ? "rent" : "sale"}
                   listingId="345-rim-shadows-dr-sedona"
                   primaryActionLabel="Start New Campaign"
                   onPrimaryAction={() => handleStartCampaign(listingData)}
@@ -222,6 +234,7 @@ export default function ListingManagerPage() {
                 bathrooms={mockListing.bathrooms}
                 imageUrl={mockListing.imageUrl}
                 status="active"
+                listingType={mockListing.listingType}
                 listingId="345-rim-shadows-dr-sedona"
                 primaryActionLabel="Start New Campaign"
                 onPrimaryAction={() => handleStartCampaign(mockListing)}
@@ -257,6 +270,7 @@ export default function ListingManagerPage() {
                     bathrooms={listingData.bathrooms}
                     imageUrl={primaryImage}
                     status="inactive"
+                    listingType={listingData.listingType?.toLowerCase().includes("rent") ? "rent" : "sale"}
                     listingId="345-rim-shadows-dr-sedona"
                   />
                 );
@@ -272,6 +286,7 @@ export default function ListingManagerPage() {
                   bathrooms={mockListing.bathrooms}
                   imageUrl={mockListing.imageUrl}
                   status="inactive"
+                  listingType={mockListing.listingType}
                   listingId="345-rim-shadows-dr-sedona"
                 />
               );

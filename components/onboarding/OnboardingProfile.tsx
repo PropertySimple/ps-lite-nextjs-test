@@ -1,49 +1,114 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { User, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Phone, ArrowRight } from "lucide-react";
 
 interface OnboardingProfileProps {
   onNext: () => void;
-  onSkip: () => void;
 }
 
-export function OnboardingProfile({ onNext, onSkip }: OnboardingProfileProps) {
+export function OnboardingProfile({ onNext }: OnboardingProfileProps) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [brokerage, setBrokerage] = useState("");
+
+  const isValid = firstName.trim() && lastName.trim() && phone.trim() && brokerage.trim();
+
+  const handleSubmit = () => {
+    if (isValid) {
+      // TODO: Save profile data
+      localStorage.setItem("user_profile", JSON.stringify({
+        firstName,
+        lastName,
+        phone,
+        brokerage
+      }));
+      onNext();
+    }
+  };
+
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-          <User className="w-6 h-6 text-primary" />
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center space-y-2">
+        <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+          <Phone className="w-7 h-7 text-primary" />
         </div>
-        <div>
-          <div className="text-sm text-muted-foreground">Step 1 of 5</div>
-          <h2 className="text-xl font-bold">Complete Your Profile</h2>
+        <h2 className="text-2xl font-bold">Quick Setup</h2>
+        <p className="text-muted-foreground text-sm">
+          Great! Your campaign is being created. Let's finish setting up your profile so buyers can reach you.
+        </p>
+      </div>
+
+      {/* Form */}
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
+              id="firstName"
+              placeholder="John"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              id="lastName"
+              placeholder="Smith"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number</Label>
+          <Input
+            id="phone"
+            type="tel"
+            placeholder="(555) 123-4567"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <p className="text-xs text-muted-foreground">
+            This is where interested buyers will call you
+          </p>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="brokerage">Brokerage Name</Label>
+          <Input
+            id="brokerage"
+            placeholder="ABC Realty"
+            value={brokerage}
+            onChange={(e) => setBrokerage(e.target.value)}
+          />
         </div>
       </div>
 
-      <p className="text-muted-foreground">
-        Your profile helps potential buyers connect with you. We've pre-filled it with information
-        from your brokerage, but feel free to customize.
-      </p>
-
-      <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-        <div className="font-medium">What we've added:</div>
-        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-          <li>Your photo and contact information</li>
-          <li>Brokerage details</li>
-          <li>Professional bio</li>
-        </ul>
+      {/* Step indicator */}
+      <div className="flex items-center justify-center gap-1.5 pt-2">
+        <div className="w-2 h-2 rounded-full bg-primary" />
+        <div className="w-2 h-2 rounded-full bg-muted" />
+        <div className="w-2 h-2 rounded-full bg-muted" />
       </div>
 
-      <div className="flex gap-3 justify-end mt-8">
-        <Button variant="ghost" onClick={onSkip}>
-          Skip
-        </Button>
-        <Button onClick={onNext} className="gap-2">
-          Continue
-          <ArrowRight className="w-4 h-4" />
-        </Button>
-      </div>
+      {/* Action */}
+      <Button
+        onClick={handleSubmit}
+        className="w-full gap-2"
+        size="lg"
+        disabled={!isValid}
+      >
+        Continue
+        <ArrowRight className="w-4 h-4" />
+      </Button>
     </div>
   );
 }

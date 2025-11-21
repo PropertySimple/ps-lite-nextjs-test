@@ -1,28 +1,7 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-import { HeroNew } from "@/components/marketing/HeroNew";
-import { SocialProof } from "@/components/marketing/SocialProof";
-import { CTA } from "@/components/marketing/CTA";
 import { MarketingNav } from "@/components/marketing/MarketingNav";
 import { MarketingFooter } from "@/components/marketing/MarketingFooter";
-import { ProblemAgitate } from "@/components/marketing/ProblemAgitate";
-import { HowItWorksSimple } from "@/components/marketing/HowItWorksSimple";
-
-// Lazy load below-the-fold heavy components for better initial page load
-const VideoShowcase = dynamic(() => import("@/components/marketing/VideoShowcase").then(mod => ({ default: mod.VideoShowcase })), {
-  loading: () => <div className="h-[600px] bg-muted/30 animate-pulse" />,
-  ssr: true, // Keep SSR for SEO
-});
-
-const PriceComparison = dynamic(() => import("@/components/marketing/PriceComparison").then(mod => ({ default: mod.PriceComparison })), {
-  loading: () => <div className="h-[400px] bg-muted/30 animate-pulse" />,
-  ssr: true,
-});
-
-const FAQ = dynamic(() => import("@/components/marketing/FAQ").then(mod => ({ default: mod.FAQ })), {
-  loading: () => <div className="h-[500px] bg-muted/30 animate-pulse" />,
-  ssr: true,
-});
+import { MarketingPageContent } from "@/components/marketing/MarketingPageContent";
 
 export const metadata: Metadata = {
   title: "Stop Wasting Money on Ads That Don't Work | PropertySimple Video Ads",
@@ -98,14 +77,7 @@ export default function MarketingPage() {
       />
       <main className="min-h-screen bg-background grain-texture">
         <MarketingNav />
-        <HeroNew />
-        <ProblemAgitate />
-        <VideoShowcase />
-        <HowItWorksSimple />
-        <PriceComparison />
-        <SocialProof />
-        <FAQ />
-        <CTA />
+        <MarketingPageContent />
         <MarketingFooter />
       </main>
     </>

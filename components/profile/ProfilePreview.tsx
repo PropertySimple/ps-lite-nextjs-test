@@ -9,6 +9,7 @@ import { Building2, Mail, Phone, MapPin, Pencil, Check, X, Smartphone, ChevronDo
 
 interface ProfileData {
   name: string;
+  headline: string;
   title: string;
   bio: string;
   email: string;
@@ -18,12 +19,14 @@ interface ProfileData {
   brokerage: string;
   license: string;
   experience: string;
+  yearsExperience: string;
   photoUrl: string;
 }
 
 // Mock data - Sarah auto-filled this
 const mockProfile: ProfileData = {
   name: "Sarah Mitchell",
+  headline: "Luxury Home Specialist",
   title: "Sarasota Real Estate Expert",
   bio: "15+ years helping families find their dream homes on Florida's Gulf Coast.",
   email: "sarah.mitchell@realty.com",
@@ -33,6 +36,7 @@ const mockProfile: ProfileData = {
   brokerage: "Coastal Realty Group",
   license: "FL BK3284756",
   experience: "15+ years",
+  yearsExperience: "15",
   photoUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400"
 };
 
@@ -40,7 +44,6 @@ const ProfilePreview = () => {
   const [profile, setProfile] = useState<ProfileData>(mockProfile);
   const [editingField, setEditingField] = useState<string | null>(null);
   const [tempValue, setTempValue] = useState<string>("");
-  const [showMoreDetails, setShowMoreDetails] = useState(false);
 
   const startEdit = (field: string, currentValue: string) => {
     setEditingField(field);
@@ -151,34 +154,73 @@ const ProfilePreview = () => {
                   </h2>
                 </div>
               )}
-              <p className="text-sm text-muted-foreground truncate">{profile.brokerage}</p>
-              <p className="text-sm text-muted-foreground">{profile.location}</p>
+
+              {/* Headline */}
+              {editingField === "headline" ? (
+                <div className="flex gap-2 mt-2">
+                  <Input
+                    value={tempValue}
+                    onChange={(e) => setTempValue(e.target.value)}
+                    className="h-7 text-sm"
+                    placeholder="Luxury Home Specialist"
+                    autoFocus
+                  />
+                  <Button size="sm" className="h-7" onClick={() => saveEdit("headline")}>
+                    <Check className="w-3 h-3" />
+                  </Button>
+                  <Button size="sm" variant="ghost" className="h-7" onClick={cancelEdit}>
+                    <X className="w-3 h-3" />
+                  </Button>
+                </div>
+              ) : (
+                <div
+                  className="cursor-pointer hover:text-primary transition-colors group mt-1"
+                  onClick={() => startEdit("headline", profile.headline)}
+                >
+                  <p className="text-sm text-muted-foreground">
+                    {profile.headline}
+                    <Pencil className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity inline-block ml-2" />
+                  </p>
+                </div>
+              )}
+
+              {/* Years of Experience */}
+              {profile.yearsExperience && (
+                <>
+                  {editingField === "yearsExperience" ? (
+                    <div className="flex gap-2 mt-1">
+                      <Input
+                        value={tempValue}
+                        onChange={(e) => setTempValue(e.target.value)}
+                        className="h-7 text-sm"
+                        placeholder="Years of experience"
+                        autoFocus
+                      />
+                      <Button size="sm" className="h-7" onClick={() => saveEdit("yearsExperience")}>
+                        <Check className="w-3 h-3" />
+                      </Button>
+                      <Button size="sm" variant="ghost" className="h-7" onClick={cancelEdit}>
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div
+                      className="cursor-pointer hover:text-primary transition-colors group"
+                      onClick={() => startEdit("yearsExperience", profile.yearsExperience)}
+                    >
+                      <p className="text-sm text-muted-foreground">
+                        {profile.yearsExperience}+ years of experience
+                        <Pencil className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity inline-block ml-2" />
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
-          {/* Expand/Collapse for more details */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowMoreDetails(!showMoreDetails)}
-            className="w-full mt-4 text-muted-foreground"
-          >
-            {showMoreDetails ? (
-              <>
-                <ChevronUp className="w-4 h-4 mr-2" />
-                Hide Details
-              </>
-            ) : (
-              <>
-                <ChevronDown className="w-4 h-4 mr-2" />
-                Edit Profile Details
-              </>
-            )}
-          </Button>
-
-          {/* Collapsible Details */}
-          {showMoreDetails && (
-            <div className="mt-4 pt-4 border-t space-y-3">
+          {/* Profile Details */}
+          <div className="mt-4 pt-4 border-t space-y-4">
               {/* Email */}
               {editingField === "email" ? (
                 <div className="flex items-center gap-3 text-sm">
@@ -200,11 +242,41 @@ const ProfilePreview = () => {
                 </div>
               ) : (
                 <div
-                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-2 -m-2 transition-colors"
+                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-3 -m-3 transition-colors"
                   onClick={() => startEdit("email", profile.email)}
                 >
                   <Mail className="w-4 h-4 text-muted-foreground shrink-0" />
                   <span className="flex-1 truncate">{profile.email}</span>
+                  <Pencil className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                </div>
+              )}
+
+              {/* Cell Phone */}
+              {editingField === "cellPhone" ? (
+                <div className="flex items-center gap-3 text-sm">
+                  <Smartphone className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <div className="flex gap-2 flex-1">
+                    <Input
+                      value={tempValue}
+                      onChange={(e) => setTempValue(e.target.value)}
+                      className="h-8 text-sm"
+                      autoFocus
+                    />
+                    <Button size="sm" className="h-8" onClick={() => saveEdit("cellPhone")}>
+                      <Check className="w-3 h-3" />
+                    </Button>
+                    <Button size="sm" variant="ghost" className="h-8" onClick={cancelEdit}>
+                      <X className="w-3 h-3" />
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-3 -m-3 transition-colors"
+                  onClick={() => startEdit("cellPhone", profile.cellPhone)}
+                >
+                  <Smartphone className="w-4 h-4 text-muted-foreground shrink-0" />
+                  <span className="flex-1">{profile.cellPhone} <span className="text-muted-foreground">(Cell)</span></span>
                   <Pencil className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
                 </div>
               )}
@@ -230,7 +302,7 @@ const ProfilePreview = () => {
                 </div>
               ) : (
                 <div
-                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-2 -m-2 transition-colors"
+                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-3 -m-3 transition-colors"
                   onClick={() => startEdit("phone", profile.phone)}
                 >
                   <Phone className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -260,7 +332,7 @@ const ProfilePreview = () => {
                 </div>
               ) : (
                 <div
-                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-2 -m-2 transition-colors"
+                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-3 -m-3 transition-colors"
                   onClick={() => startEdit("location", profile.location)}
                 >
                   <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -290,7 +362,7 @@ const ProfilePreview = () => {
                 </div>
               ) : (
                 <div
-                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-2 -m-2 transition-colors"
+                  className="group flex items-center gap-3 text-sm cursor-pointer hover:bg-accent/50 rounded-lg p-3 -m-3 transition-colors"
                   onClick={() => startEdit("brokerage", profile.brokerage)}
                 >
                   <Building2 className="w-4 h-4 text-muted-foreground shrink-0" />
@@ -299,7 +371,6 @@ const ProfilePreview = () => {
                 </div>
               )}
             </div>
-          )}
         </CardContent>
       </Card>
 
