@@ -46,19 +46,19 @@ export const CampaignVideos = () => {
       <div className="absolute inset-0 backdrop-blur-[100px]" />
 
       {/* Content Container */}
-      <div className="relative px-8 py-16 lg:px-16 lg:py-20">
+      <div className="relative px-4 py-10 sm:px-8 sm:py-16 lg:px-16 lg:py-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-[auto_1fr] gap-12 lg:gap-20 items-center">
 
           {/* Left: Compact Video Mockups */}
-          <div className="relative w-full max-w-md lg:max-w-lg">
-            <div className="relative flex items-center justify-center gap-6">
+          <div className="relative w-full max-w-md lg:max-w-lg mx-auto lg:mx-0">
+            <div className="relative flex items-center justify-center gap-3 sm:gap-6">
               {/* Left video */}
               <div
-                className="relative w-48 transform -rotate-3"
+                className="relative w-32 sm:w-40 md:w-48 transform -rotate-3"
                 style={{ transformOrigin: 'center center' }}
               >
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-2 shadow-2xl">
-                  <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 shadow-2xl">
+                  <div className="relative aspect-[9/16] rounded-lg sm:rounded-xl overflow-hidden bg-black">
                     <video
                       src={videos[0].videoUrl}
                       poster={videos[0].thumbnail}
@@ -74,11 +74,11 @@ export const CampaignVideos = () => {
 
               {/* Right video */}
               <div
-                className="relative w-48 transform rotate-3 translate-y-6"
+                className="relative w-32 sm:w-40 md:w-48 transform rotate-3 translate-y-4 sm:translate-y-6"
                 style={{ transformOrigin: 'center center' }}
               >
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-2 shadow-2xl">
-                  <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-black">
+                <div className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 shadow-2xl">
+                  <div className="relative aspect-[9/16] rounded-lg sm:rounded-xl overflow-hidden bg-black">
                     <video
                       src={videos[1].videoUrl}
                       poster={videos[1].thumbnail}
@@ -102,10 +102,10 @@ export const CampaignVideos = () => {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-gray-900 dark:text-white">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-tight text-gray-900 dark:text-white">
                 Your Videos Are Ready 🎉
               </h1>
-              <p className="text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
                 Your videos will be used in your ad campaigns automatically, but for best results,
                 <span className="font-semibold text-gray-900 dark:text-white"> download them and share on your social media</span>.
                 Pro tip: Tag your seller to show them how hard you're working to sell their home!

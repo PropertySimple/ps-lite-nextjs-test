@@ -56,14 +56,14 @@ export function CTA() {
               size="lg"
               className="bg-white hover:bg-white/90 text-primary px-12 py-8 text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all"
             >
-              Get Your First Video Ad Now
+              Get My Videos
               <ArrowRight className="ml-3 h-7 w-7" />
             </Button>
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-center gap-2 text-white/90">
                 <CheckCircle2 className="w-5 h-5" />
-                <span className="text-sm font-medium">Videos ready in 5 minutes • AI assistant answers instantly • Keep videos forever</span>
+                <span className="text-sm font-medium">Videos ready in 5 minutes • 7 days ad spend included • Keep videos forever</span>
               </div>
             </div>
           </div>

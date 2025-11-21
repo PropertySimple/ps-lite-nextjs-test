@@ -71,7 +71,7 @@ export function MarketingNav() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/dashboard">
+            <Link href="/campaigns">
               <Button variant="ghost" size="sm">
                 Sign In
               </Button>
@@ -134,7 +134,7 @@ export function MarketingNav() {
               About
             </Link>
             <div className="pt-4 space-y-2">
-              <Link href="/dashboard">
+              <Link href="/campaigns">
                 <Button variant="outline" size="sm" className="w-full border-primary/30 hover:border-primary hover:bg-primary/10">
                   Sign In
                 </Button>

@@ -10,19 +10,19 @@ import {
 const pricingFaqs = [
   {
     question: "What's included in the $147 per listing price?",
-    answer: "Everything! AI video creation (both property tour and influencer styles), Facebook & Instagram ad placement, 7 days of ad spend, AI assistant to handle calls and texts for that campaign, CRM access to manage leads, and you keep the videos forever.",
+    answer: "Everything! AI video creation (both property tour and influencer styles), Facebook & Instagram ad placement, 7 days of ad spend, lead capture forms, and you keep the videos forever.",
   },
   {
     question: "Why should I choose the AutoAds Subscription?",
-    answer: "If you list more than 2 properties per month, the subscription pays for itself. Plus, you get an AI phone number you can use on EVERYTHING—yard signs, business cards, flyers, website. Never miss a lead again, 24/7. The auto-run feature also means you'll never forget to advertise a new listing.",
+    answer: "If you list more than 2 properties per month, the subscription pays for itself. Plus, the auto-run feature means you'll never forget to advertise a new listing. Every property gets premium video ads automatically.",
   },
   {
     question: "How does the 'auto-run on new listings' work?",
     answer: "When you're a subscriber and add a new property to your account, we automatically create the video ads and prepare the campaign. You'll get a notification to review before we charge you the discounted $110. If you don't want to run ads for that listing, just click 'skip' and you won't be charged.",
   },
   {
-    question: "Can I use the AI phone number for non-ad purposes with the subscription?",
-    answer: "Absolutely! That's one of the biggest benefits. Use it on yard signs, business cards, flyers, your website—anywhere you want to capture leads. It handles unlimited calls and texts 24/7, qualifies leads, and sends you the hot prospects.",
+    question: "Can I download and use my videos elsewhere?",
+    answer: "Absolutely! That's one of the biggest benefits. Download your videos and use them on social media, your website, email campaigns—anywhere you want. They're yours to keep forever.",
   },
   {
     question: "What happens after the 7-day campaign ends?",

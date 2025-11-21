@@ -84,7 +84,7 @@ export function MarketingFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/campaigns" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Sign In
                 </Link>
               </li>

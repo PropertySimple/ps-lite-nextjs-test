@@ -18,7 +18,6 @@ export const Excellent: Story = {
     adSpend: '$1,200',
     impressions: '45,000',
     interactions: '1,350',
-    leadCount: 8,
   },
 };
 
@@ -27,7 +26,6 @@ export const Good: Story = {
     adSpend: '$850',
     impressions: '32,000',
     interactions: '960',
-    leadCount: 5,
   },
 };
 
@@ -36,16 +34,14 @@ export const NeedsImprovement: Story = {
     adSpend: '$2,400',
     impressions: '28,000',
     interactions: '560',
-    leadCount: 3,
   },
 };
 
-export const NoLeadsYet: Story = {
+export const NewCampaign: Story = {
   args: {
     adSpend: '$450',
     impressions: '15,000',
     interactions: '300',
-    leadCount: 0,
   },
 };
 
@@ -54,7 +50,6 @@ export const HighPerformance: Story = {
     adSpend: '$3,500',
     impressions: '125,000',
     interactions: '3,750',
-    leadCount: 25,
   },
 };
 
@@ -63,46 +58,42 @@ export const AllScenarios: Story = {
     adSpend: '$1,200',
     impressions: '45,000',
     interactions: '1,350',
-    leadCount: 8,
   },
   render: () => (
     <div className="space-y-6">
       <div>
         <h3 className="text-lg font-semibold mb-3">Excellent Performance</h3>
         <p className="text-sm text-muted-foreground mb-3">
-          Low cost per lead ($150/lead), good click rate
+          High click rate, good engagement
         </p>
         <CampaignMetrics
           adSpend="$1,200"
           impressions="45,000"
           interactions="1,350"
-          leadCount={8}
         />
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-3">New Campaign</h3>
         <p className="text-sm text-muted-foreground mb-3">
-          Just started, no leads yet but getting impressions
+          Just started, getting impressions
         </p>
         <CampaignMetrics
           adSpend="$450"
           impressions="15,000"
           interactions="300"
-          leadCount={0}
         />
       </div>
 
       <div>
         <h3 className="text-lg font-semibold mb-3">High Volume</h3>
         <p className="text-sm text-muted-foreground mb-3">
-          Large campaign with many leads
+          Large campaign with strong metrics
         </p>
         <CampaignMetrics
           adSpend="$3,500"
           impressions="125,000"
           interactions="3,750"
-          leadCount={25}
         />
       </div>
     </div>
@@ -114,7 +105,6 @@ export const DarkMode: Story = {
     adSpend: '$1,200',
     impressions: '45,000',
     interactions: '1,350',
-    leadCount: 8,
   },
   parameters: {
     backgrounds: { default: 'dark' },

@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Video, Target, Bot, BarChart3, Sparkles, Shield } from "lucide-react";
+import { Video, Target, Clapperboard, BarChart3, Sparkles, Shield } from "lucide-react";
 
 const features = [
   {
@@ -19,16 +19,16 @@ const features = [
     bgColor: "bg-purple-500/10",
   },
   {
-    icon: Bot,
-    title: "AI Inside Sales Agent",
-    description: "Your AI assistant answers every call and text about your ads. Qualifies leads, books appointments, and sends you only serious buyers.",
+    icon: Clapperboard,
+    title: "Multiple Video Styles",
+    description: "Property walkthroughs, AI influencer presentations, photo slideshows, and more. Pick the style that fits your listing and brand.",
     color: "text-green-500",
     bgColor: "bg-green-500/10",
   },
   {
     icon: BarChart3,
-    title: "Simple CRM Included",
-    description: "All your leads in one place. Export anytime, jump in whenever. Track conversations, see hot prospects, and never miss a follow-up.",
+    title: "Analytics & Insights",
+    description: "See exactly how your ads perform. Track views, clicks, and leads. Know which listings attract the most buyers.",
     color: "text-orange-500",
     bgColor: "bg-orange-500/10",
   },

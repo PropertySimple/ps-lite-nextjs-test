@@ -8,7 +8,6 @@ import { runningAds, pastAds } from "@/data/mockData";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
-import { CampaignHero } from "@/components/campaigns/CampaignHero";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
 
@@ -37,13 +36,8 @@ export default function CampaignsPage() {
 
   return (
     <>
-      <PageLayout headerActions={headerActions} pageContext="dashboard">
+      <PageLayout headerActions={headerActions}>
         <div className="space-y-6">
-          {/* Hero Section - Always visible on both tabs */}
-          <CampaignHero />
-
-        <div className="border-t border-border my-8" />
-
         <Tabs value={tab} onValueChange={(value) => router.push(`/campaigns?tab=${value}`)}>
           <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:inline-grid">
             <TabsTrigger value="current">Current</TabsTrigger>
@@ -60,8 +54,12 @@ export default function CampaignsPage() {
             />
             {runningAds.length > 0 ? (
               <div className="space-y-4">
-                {runningAds.map((ad) => (
-                  <AdCard key={ad.id} ad={ad} />
+                {runningAds.map((ad, index) => (
+                  <AdCard
+                    key={ad.id}
+                    ad={ad}
+                    newLeads={index === 0 ? 2 : index === 1 ? 1 : 0}
+                  />
                 ))}
               </div>
             ) : (

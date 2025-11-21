@@ -20,7 +20,7 @@ export const ROUTES = {
   HOME: "/",
   AD_CREATION: "/ad-creation",
   AD_BUILDER: "/ad-builder",
-  DASHBOARD: "/dashboard",
+  DASHBOARD: "/campaigns",
   REPORTS: "/reports",
   ZIP_CODES: "/zip-codes",
   CONTACTS: "/contacts",

@@ -110,18 +110,6 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">AI Assistant & Recording Consent</h2>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              If you use the AI assistant feature for calls:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-              <li>You must obtain proper consent before recording conversations where required by law</li>
-              <li>Consent laws vary by state—you bear sole responsibility for compliance</li>
-              <li>PropertySimple is not responsible for your failure to obtain required consents</li>
-            </ul>
-          </section>
-
-          <section>
             <h2 className="text-2xl font-bold mb-4">SMS Communications</h2>
             <p className="text-muted-foreground leading-relaxed">
               By providing your phone number, you opt in to receive text notifications about your account and campaigns. You can opt out anytime by texting "STOP."

@@ -10,35 +10,25 @@ export function HowItWorksSimple() {
         {/* Headline */}
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-4xl sm:text-5xl font-bold">
-            Here's How <span className="gradient-text">PropertySimple</span> Works
+            How It <span className="gradient-text">Works</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Literally 4 steps. No tech skills. No video editing. No ad management.
+            Two steps. That's it.
           </p>
         </div>
 
-        {/* Steps - SUPER simple */}
+        {/* Steps - TWO steps only */}
         <div className="space-y-8">
           {[
             {
               step: "1",
-              title: "You Upload Your Listing Photos",
-              description: "Just the basics: address, price, photos. Takes 2 minutes.",
+              title: "Upload Your Listing",
+              description: "Address, price, photos. Takes 2 minutes.",
             },
             {
               step: "2",
-              title: "We Create Professional Video Ads",
-              description: "Our AI makes both a property tour AND an influencer-style video. Ready in 5 minutes.",
-            },
-            {
-              step: "3",
-              title: "We Post Them on Facebook & Instagram",
-              description: "Ads go live targeting buyers in your area. Ad spend included for 7 days.",
-            },
-            {
-              step: "4",
-              title: "Our AI Assistant Handles All Inquiries",
-              description: "24/7 phone & text answering. Qualifies leads. You only get hot prospects ready to view.",
+              title: "We Handle Everything Else",
+              description: "We create your videos, write the ad copy, post to Facebook & Instagram, and include 7 days of ad spend. Your ad is live by tomorrow.",
             },
           ].map((item, index) => (
             <div key={index} className="flex items-start gap-6 group">
@@ -51,11 +41,6 @@ export function HowItWorksSimple() {
                 <h3 className="text-2xl font-bold text-foreground">{item.title}</h3>
                 <p className="text-lg text-muted-foreground">{item.description}</p>
               </div>
-              {index < 3 && (
-                <div className="hidden md:block ml-auto">
-                  <ArrowRight className="w-6 h-6 text-primary rotate-90 opacity-30" />
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -66,15 +51,15 @@ export function HowItWorksSimple() {
             That's It. <span className="gradient-text">Seriously.</span>
           </p>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            You don't touch Facebook Ads Manager. You don't edit videos. You don't answer every tire-kicker call at midnight.
+            You don't touch Facebook Ads Manager. You don't edit videos. You don't manage ad budgets.
             <br />
-            <strong className="text-foreground">You just upload your listing and watch the qualified leads come in.</strong>
+            <strong className="text-foreground">You upload your listing and get back to selling homes.</strong>
           </p>
           <Button
             size="lg"
             className="bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg font-bold rounded-full shadow-xl shadow-primary/30"
           >
-            Start Your First Campaign Now
+            Get My Videos
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

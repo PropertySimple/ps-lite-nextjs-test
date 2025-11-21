@@ -43,10 +43,6 @@ export function PriceComparison() {
                 </div>
                 <div className="flex items-start gap-3">
                   <X className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                  <div className="text-muted-foreground">No AI assistant (you answer every call)</div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <X className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
                   <div className="text-muted-foreground">Trial & error (expensive mistakes)</div>
                 </div>
               </div>
@@ -87,13 +83,6 @@ export function PriceComparison() {
                 <div className="flex items-start gap-3">
                   <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-foreground">AI Assistant 24/7</div>
-                    <div className="text-sm text-muted-foreground">Answers calls & texts, qualifies leads</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
-                  <div>
                     <div className="font-semibold text-foreground">Simple CRM Included</div>
                     <div className="text-sm text-muted-foreground">Manage & export leads anytime</div>
                   </div>
@@ -124,7 +113,7 @@ export function PriceComparison() {
                 size="lg"
                 className="w-full bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg font-bold rounded-full shadow-xl"
               >
-                Start Your First Campaign
+                Get My Videos
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

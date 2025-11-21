@@ -25,7 +25,7 @@ export const AdReadyEmail = ({
   campaignId = 'demo',
   expiresInHours = 24,
 }: AdReadyEmailProps) => {
-  const previewText = `Your professional video campaign is ready for ${propertyAddress} - Preview your videos and launch pricing inside`;
+  const previewText = `Your videos are ready for ${propertyAddress} - Preview and launch to start getting buyer inquiries`;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const reviewUrl = `${baseUrl}/ad-preview/${campaignId}?utm_source=email&utm_campaign=ad_ready`;
 
@@ -48,20 +48,13 @@ export const AdReadyEmail = ({
             />
           </Section>
 
-          {/* Urgency Bar */}
-          <Section style={urgencyBarTop}>
-            <Text style={urgencyTextTop}>
-              Your personalized launch pricing is ready to view
-            </Text>
-          </Section>
-
           {/* Hero Section */}
           <Section style={hero}>
-            <Text style={eyebrow}>YOUR CAMPAIGN IS READY</Text>
-            <Heading style={h1}>Reach 10,000+ Local Buyers</Heading>
+            <Text style={eyebrow}>YOUR VIDEOS ARE READY</Text>
+            <Heading style={h1}>Get Buyer Inquiries This Week</Heading>
             <Text style={propertyText}>{propertyAddress}</Text>
             <Text style={subheadline}>
-              Your professional ad campaign is ready to launch. Preview your videos and approve to start reaching buyers today.
+              Your campaign is ready to launch. Preview your videos and go live to start receiving buyer inquiries.
             </Text>
           </Section>
 
@@ -142,7 +135,7 @@ export const AdReadyEmail = ({
 
           {/* Value Section */}
           <Section style={valueSection}>
-            <Heading as="h2" style={sectionHeading}>What's Included in Your Campaign</Heading>
+            <Heading as="h2" style={sectionHeading}>What You Get</Heading>
 
             <table width="100%" cellPadding="0" cellSpacing="0">
               <tr>
@@ -151,8 +144,8 @@ export const AdReadyEmail = ({
                     <tr>
                       <td style={checkmark}>✓</td>
                       <td>
-                        <Text style={checklistTitle}>Property Tour Video</Text>
-                        <Text style={checklistDescription}>Professional photo slideshow with music</Text>
+                        <Text style={checklistTitle}>2 Custom Videos</Text>
+                        <Text style={checklistDescription}>You approve before they go live</Text>
                       </td>
                     </tr>
                   </table>
@@ -164,8 +157,8 @@ export const AdReadyEmail = ({
                     <tr>
                       <td style={checkmark}>✓</td>
                       <td>
-                        <Text style={checklistTitle}>AI Influencer Video</Text>
-                        <Text style={checklistDescription}>Engaging presenter-style walkthrough</Text>
+                        <Text style={checklistTitle}>7-Day Ad Campaign</Text>
+                        <Text style={checklistDescription}>Runs on Facebook & Instagram</Text>
                       </td>
                     </tr>
                   </table>
@@ -177,21 +170,8 @@ export const AdReadyEmail = ({
                     <tr>
                       <td style={checkmark}>✓</td>
                       <td>
-                        <Text style={checklistTitle}>7 Days of Facebook & Instagram Ads</Text>
-                        <Text style={checklistDescription}>$110+ in ad spend included</Text>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td style={checklistItem}>
-                  <table cellPadding="0" cellSpacing="0">
-                    <tr>
-                      <td style={checkmark}>✓</td>
-                      <td>
-                        <Text style={checklistTitle}>24/7 AI Lead Qualification</Text>
-                        <Text style={checklistDescription}>Automated follow-up with every inquiry</Text>
+                        <Text style={checklistTitle}>Buyer Inquiries Sent to You</Text>
+                        <Text style={checklistDescription}>Interested buyers contact you directly</Text>
                       </td>
                     </tr>
                   </table>
@@ -200,42 +180,21 @@ export const AdReadyEmail = ({
             </table>
           </Section>
 
-          {/* Value Teaser Box */}
+          {/* Pricing Box */}
           <Section style={pricingBox}>
-            <Text style={pricingLabel}>LAUNCH PRICING DETAILS</Text>
-            <Text style={valueTeaserMain}>View Your Custom Pricing Inside</Text>
-            <Text style={pricingSavings}>Early approval pricing available for {expiresInHours} hours after review</Text>
+            <Text style={pricingLabel}>TOTAL COST</Text>
+            <Text style={valueTeaserMain}>$149</Text>
+            <Text style={pricingSavings}>Videos + 7 days of ads • No hidden fees</Text>
           </Section>
 
           {/* CTA */}
           <Section style={ctaSection}>
             <Button style={button} href={reviewUrl}>
-              Preview Videos & See Pricing →
+              Preview & Launch →
             </Button>
             <Text style={guarantee}>
-              48-hour money-back guarantee • Keep videos forever • No contracts
+              48-hour money-back guarantee • Keep videos forever
             </Text>
-          </Section>
-
-          {/* Stats Section */}
-          <Section style={statsSection}>
-            <Text style={statsHeading}>Trusted by 30,000+ Real Estate Agents</Text>
-            <table width="100%" cellPadding="0" cellSpacing="0">
-              <tr>
-                <td style={statItem}>
-                  <Text style={statNumber}>67%</Text>
-                  <Text style={statLabel}>Email Open Rate</Text>
-                </td>
-                <td style={statItem}>
-                  <Text style={statNumber}>10-15K</Text>
-                  <Text style={statLabel}>Buyers Reached</Text>
-                </td>
-                <td style={statItem}>
-                  <Text style={statNumber}>8-12</Text>
-                  <Text style={statLabel}>Qualified Leads</Text>
-                </td>
-              </tr>
-            </table>
           </Section>
 
           {/* Footer */}

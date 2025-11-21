@@ -1,27 +1,23 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, Eye, MousePointerClick, DollarSign, Users } from "lucide-react";
+import { TrendingUp, Eye, MousePointerClick } from "lucide-react";
 
 interface CampaignMetricsProps {
   adSpend: string;
   impressions: string;
   interactions: string;
-  leadCount: number;
 }
 
 export const CampaignMetrics = ({
   adSpend,
   impressions,
   interactions,
-  leadCount,
 }: CampaignMetricsProps) => {
   // Parse numbers
-  const spendAmount = parseFloat(adSpend.replace('$', '').replace(',', ''));
   const impressionCount = parseFloat(impressions.replace(',', ''));
   const interactionCount = parseInt(interactions);
 
   // Calculate metrics
-  const costPerLead = leadCount > 0 ? spendAmount / leadCount : 0;
   const clickRate = impressionCount > 0 ? (interactionCount / impressionCount) * 100 : 0;
 
   return (
@@ -45,36 +41,7 @@ export const CampaignMetrics = ({
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-
-          {/* Leads - Most Important */}
-          <div className="col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Users className="w-4 h-4 text-primary" />
-              </div>
-              <span className="text-sm text-muted-foreground">Leads</span>
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-4xl lg:text-5xl font-bold tracking-tight">{leadCount}</span>
-              <span className="text-lg text-muted-foreground">total</span>
-            </div>
-          </div>
-
-          {/* Cost Per Lead */}
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
-                <DollarSign className="w-4 h-4 text-success" />
-              </div>
-              <span className="text-sm text-muted-foreground">Cost/Lead</span>
-            </div>
-            <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold tracking-tight">
-                {leadCount > 0 ? `$${costPerLead.toFixed(0)}` : '—'}
-              </span>
-            </div>
-          </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
 
           {/* Ad Spend */}
           <div>
@@ -85,7 +52,7 @@ export const CampaignMetrics = ({
               <span className="text-sm text-muted-foreground">Ad Spend</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold tracking-tight">{adSpend}</span>
+              <span className="text-2xl sm:text-3xl font-bold tracking-tight">{adSpend}</span>
             </div>
           </div>
 
@@ -98,7 +65,7 @@ export const CampaignMetrics = ({
               <span className="text-sm text-muted-foreground">Impressions</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold tracking-tight">{impressions}</span>
+              <span className="text-2xl sm:text-3xl font-bold tracking-tight">{impressions}</span>
             </div>
           </div>
 
@@ -111,7 +78,7 @@ export const CampaignMetrics = ({
               <span className="text-sm text-muted-foreground">Clicks</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold tracking-tight">{interactions}</span>
+              <span className="text-2xl sm:text-3xl font-bold tracking-tight">{interactions}</span>
             </div>
           </div>
 
@@ -124,7 +91,7 @@ export const CampaignMetrics = ({
               <span className="text-sm text-muted-foreground">Click Rate</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold tracking-tight">{clickRate.toFixed(1)}%</span>
+              <span className="text-2xl sm:text-3xl font-bold tracking-tight">{clickRate.toFixed(1)}%</span>
             </div>
           </div>
 

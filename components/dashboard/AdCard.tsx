@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Play, TrendingUp, CheckCircle, Minus, AlertTriangle, XCircle, ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { Ad } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -15,9 +15,10 @@ import { useState } from "react";
 interface AdCardProps {
   ad: Ad;
   isPast?: boolean;
+  newLeads?: number;
 }
 
-const AdCard = ({ ad, isPast = false }: AdCardProps) => {
+const AdCard = ({ ad, isPast = false, newLeads = 0 }: AdCardProps) => {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -62,41 +63,6 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
     };
   };
   const benchmark = getBenchmarkComparison();
-
-  const getPerformanceStatus = () => {
-    if (ad.leads === 0) return {
-      text: 'NO LEADS',
-      color: 'text-red-600 dark:text-red-400',
-      bgColor: 'bg-red-50 dark:bg-red-950/30',
-      icon: XCircle
-    };
-    if (costPerLead < 150) return {
-      text: 'EXCEPTIONAL',
-      color: 'text-green-600 dark:text-green-400',
-      bgColor: 'bg-green-50 dark:bg-green-950/30',
-      icon: TrendingUp
-    };
-    if (costPerLead < 400) return {
-      text: 'EXCELLENT',
-      color: 'text-green-600 dark:text-green-400',
-      bgColor: 'bg-green-50 dark:bg-green-950/30',
-      icon: CheckCircle
-    };
-    if (costPerLead < 600) return {
-      text: 'GOOD',
-      color: 'text-emerald-600 dark:text-emerald-400',
-      bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
-      icon: Minus
-    };
-    return {
-      text: 'REVIEW',
-      color: 'text-orange-600 dark:text-orange-400',
-      bgColor: 'bg-orange-50 dark:bg-orange-950/30',
-      icon: AlertTriangle
-    };
-  };
-
-  const performance = getPerformanceStatus();
 
   const renderMediaPreview = () => {
     if (!ad.videos || ad.videos.length === 0) {
@@ -202,7 +168,7 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
     <Card className="overflow-hidden transition-all hover:shadow-lg group cursor-pointer p-0" onClick={handleCardClick}>
       <div className="flex flex-col sm:flex-row">
         {/* Media Preview */}
-        <div className="w-full sm:w-48 sm:h-48 shrink-0 relative overflow-hidden">
+        <div className="w-full h-48 sm:w-48 sm:h-48 shrink-0 relative overflow-hidden">
           {renderMediaPreview()}
         </div>
 
@@ -236,7 +202,14 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
 
             {/* Lead Count - Hero Metric */}
             <div className="text-right shrink-0">
-              <div className="text-2xl sm:text-3xl font-bold">{ad.leads}</div>
+              <div className="flex items-center justify-end gap-2">
+                <div className="text-2xl sm:text-3xl font-bold">{ad.leads}</div>
+                {newLeads > 0 && (
+                  <Badge className="bg-primary text-white text-xs">
+                    {newLeads} new
+                  </Badge>
+                )}
+              </div>
               <div className="text-xs text-muted-foreground">LEADS</div>
             </div>
           </div>
@@ -273,26 +246,6 @@ const AdCard = ({ ad, isPast = false }: AdCardProps) => {
                 </TooltipProvider>
               )}
 
-              {/* Performance badge with tooltip */}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className={`px-2 py-0.5 rounded-full text-xs font-semibold flex items-center gap-1 cursor-help ${performance.bgColor} ${performance.color}`}>
-                      <performance.icon className="w-3 h-3" />
-                      {performance.text}
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm">
-                      {performance.text === 'EXCEPTIONAL' && 'Outstanding performance! Cost per lead under $150'}
-                      {performance.text === 'EXCELLENT' && 'Great results! Cost per lead under $400'}
-                      {performance.text === 'GOOD' && 'Solid performance! Cost per lead under $600'}
-                      {performance.text === 'REVIEW' && 'Cost per lead is high. Consider optimizing your campaign.'}
-                      {performance.text === 'NO LEADS' && 'This campaign has not generated any leads yet.'}
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
             </div>
 
             {/* Actions */}

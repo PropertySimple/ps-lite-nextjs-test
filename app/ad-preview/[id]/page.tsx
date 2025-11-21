@@ -146,9 +146,9 @@ export default async function AdPreviewPage(props: PageProps) {
               {[
                 'These 2 professional videos (property tour + AI influencer)',
                 '7 days of Facebook & Instagram ads ($110+ in ad spend)',
-                '24/7 AI assistant to qualify leads',
+                'Lead capture forms on your ads',
                 'Reach 10,000+ local buyers',
-                'Full lead dashboard & CRM',
+                'Campaign performance dashboard',
                 'Keep videos forever',
               ].map((item, index) => (
                 <div key={index} className="flex items-start gap-3">
@@ -264,7 +264,7 @@ export default async function AdPreviewPage(props: PageProps) {
                 name: "Sarah Martinez",
                 location: "Phoenix, AZ",
                 avatar: "SM",
-                review: "Got 8 qualified leads in the first 3 days. The AI assistant handled all the tire-kickers. This paid for itself with one buyer.",
+                review: "Got 8 qualified leads in the first 3 days. The videos looked so professional that buyers thought I hired a production company. This paid for itself with one buyer.",
                 result: "8 leads in 3 days"
               },
               {
@@ -278,7 +278,7 @@ export default async function AdPreviewPage(props: PageProps) {
                 name: "Jennifer Lopez",
                 location: "Denver, CO",
                 avatar: "JL",
-                review: "The 24/7 AI assistant is a game-changer. I got a buyer inquiry at 11pm that turned into a $450K sale. Worth every penny.",
+                review: "The video quality is a game-changer. I got a buyer inquiry from someone who saw my ad and it turned into a $450K sale. Worth every penny.",
                 result: "$450K sale"
               }
             ].map((testimonial, index) => (

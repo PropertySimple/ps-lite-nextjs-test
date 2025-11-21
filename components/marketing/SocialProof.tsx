@@ -10,7 +10,7 @@ const testimonials = [
     role: "Top Producer, Miami",
     avatar: "JM",
     rating: 5,
-    quote: "I went from spending $500/month on ads that didn't work to getting 15-20 qualified leads per listing. The AI assistant is a game-changer—it handles everything while I sleep.",
+    quote: "I went from spending $500/month on ads that didn't work to getting 15-20 leads per listing. The videos look incredible and I never have to touch Facebook Ads Manager.",
     metric: "15-20 leads/listing",
   },
   {
@@ -26,32 +26,16 @@ const testimonials = [
     role: "Broker Associate, Austin",
     avatar: "AW",
     rating: 5,
-    quote: "The video ads get WAY more engagement than static posts. My listings are getting seen by thousands more people, and the AI filters out tire-kickers so I only talk to serious buyers.",
+    quote: "The video ads get WAY more engagement than static posts. My listings are getting seen by thousands more people. My sellers love seeing their homes promoted like this.",
     metric: "10x more reach",
-  },
-  {
-    name: "Marcus Johnson",
-    role: "Team Leader, Phoenix",
-    avatar: "MJ",
-    rating: 5,
-    quote: "We rolled this out to our whole team. Everyone's getting more leads, and our agents love not having to manage ads themselves. It's become our secret weapon.",
-    metric: "Used by whole team",
   },
   {
     name: "Sarah Thompson",
     role: "Luxury Agent, Los Angeles",
     avatar: "ST",
     rating: 5,
-    quote: "High-end buyers expect high-end marketing. These AI videos look like I hired a production company for every listing. My sellers are blown away.",
+    quote: "High-end buyers expect high-end marketing. These videos look like I hired a production company for every listing. My sellers are blown away.",
     metric: "Luxury quality",
-  },
-  {
-    name: "Robert Garcia",
-    role: "Realtor, Dallas",
-    avatar: "RG",
-    rating: 5,
-    quote: "I was skeptical about AI handling my calls, but it's honestly better than most ISAs I've hired. It qualifies leads perfectly and my phone only rings when it's a hot prospect.",
-    metric: "Only hot leads",
   },
 ];
 
@@ -130,22 +114,18 @@ export function SocialProof() {
         </div>
 
         {/* Bottom Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+        <div className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
           <div className="text-center space-y-2">
             <div className="text-4xl font-bold text-primary">30K+</div>
-            <div className="text-sm text-muted-foreground">Customers Served</div>
+            <div className="text-sm text-muted-foreground">Agents Served</div>
           </div>
           <div className="text-center space-y-2">
-            <div className="text-4xl font-bold text-primary">5000+</div>
-            <div className="text-sm text-muted-foreground">5-Star Reviews</div>
+            <div className="text-4xl font-bold text-primary">100K+</div>
+            <div className="text-sm text-muted-foreground">Videos Created</div>
           </div>
           <div className="text-center space-y-2">
             <div className="text-4xl font-bold text-primary">10+</div>
             <div className="text-sm text-muted-foreground">Years Experience</div>
-          </div>
-          <div className="text-center space-y-2">
-            <div className="text-4xl font-bold text-primary">4.9★</div>
-            <div className="text-sm text-muted-foreground">Average Rating</div>
           </div>
         </div>
       </div>

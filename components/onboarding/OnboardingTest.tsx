@@ -20,7 +20,7 @@ export function OnboardingTest({ onComplete }: OnboardingTestProps) {
         <div className="text-sm text-muted-foreground">Step 5 of 5</div>
         <h2 className="text-2xl font-bold">You're All Set!</h2>
         <p className="text-muted-foreground">
-          Ready to start generating leads with AI-powered campaigns
+          Ready to start generating leads with video ad campaigns
         </p>
       </div>
 
@@ -30,7 +30,6 @@ export function OnboardingTest({ onComplete }: OnboardingTestProps) {
           <li>Review your profile (5 minutes)</li>
           <li>Add your first listing (10 minutes)</li>
           <li>Create a campaign (15 minutes)</li>
-          <li>Test the AI assistant (optional)</li>
         </ul>
       </div>
 
