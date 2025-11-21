@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Check, Play, Lock, CreditCard, Smartphone, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Mock data - in production this comes from API based on campaign ID
 const campaignData = {
@@ -22,9 +24,13 @@ const campaignData = {
 export default function LaunchPage() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showSubscriptionToggle = searchParams.get('plan') === 'sub';
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'apple' | 'google' | 'card' | null>(null);
+  const [isSubscription, setIsSubscription] = useState(false);
 
   const campaign = campaignData[id as keyof typeof campaignData] || campaignData.demo;
 
@@ -134,15 +140,88 @@ export default function LaunchPage() {
               <Check className="w-4 h-4 text-green-600" />
               <span>2 custom videos (editable)</span>
             </div>
+            {isSubscription && (
+              <div className="flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-600" />
+                <span>Cancel anytime • Keep videos forever</span>
+              </div>
+            )}
           </div>
         </div>
+
+        {/* Pricing Toggle */}
+        {showSubscriptionToggle && (
+          <div className="mb-6">
+            <div className="flex gap-2 p-1 bg-gray-100 rounded-lg">
+              <button
+                onClick={() => setIsSubscription(false)}
+                className={cn(
+                  "flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all",
+                  !isSubscription
+                    ? "bg-white shadow-sm text-gray-900"
+                    : "text-gray-600 hover:text-gray-900"
+                )}
+              >
+                One-time
+              </button>
+              <button
+                onClick={() => setIsSubscription(true)}
+                className={cn(
+                  "flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all relative",
+                  isSubscription
+                    ? "bg-white shadow-sm text-gray-900"
+                    : "text-gray-600 hover:text-gray-900"
+                )}
+              >
+                Subscribe & Save
+                {isSubscription && (
+                  <Badge
+                    variant="success"
+                    className="absolute -top-2 -right-2 text-[10px] px-1.5 py-0.5"
+                  >
+                    Save 35%
+                  </Badge>
+                )}
+              </button>
+            </div>
+
+            {/* Explainer - shown when subscription selected */}
+            {isSubscription && (
+              <div className="mt-3 p-3 bg-green-50 rounded-lg border border-green-100 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-green-900">
+                      Ads run automatically for new listings
+                    </p>
+                    <p className="text-xs text-green-700 mt-0.5">
+                      Only charged when you have listings. No commitments, no monthly fee—just set-and-forget discounts.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Payment Section */}
         <Card className="p-6 mb-6">
           {/* Price */}
           <div className="text-center mb-4">
-            <p className="text-4xl font-semibold text-gray-900">$149</p>
-            <p className="text-sm text-gray-500 mt-1">One-time payment • No hidden fees</p>
+            {isSubscription ? (
+              <>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-4xl font-semibold text-gray-900">$97<span className="text-xl text-gray-500">/mo</span></p>
+                  <Badge variant="success" className="text-xs">Save 20%</Badge>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">Billed monthly • Cancel anytime</p>
+              </>
+            ) : (
+              <>
+                <p className="text-4xl font-semibold text-gray-900">$149</p>
+                <p className="text-sm text-gray-500 mt-1">One-time payment • No hidden fees</p>
+              </>
+            )}
           </div>
 
           {/* Guarantee - Prominent */}
