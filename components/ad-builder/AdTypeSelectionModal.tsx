@@ -38,11 +38,6 @@ const adTypes: AdType[] = [
     description: "More Exposure",
     isNew: true,
   },
-  {
-    id: "just-sold",
-    title: "Just Sold",
-    description: "Win New Listings",
-  },
 ];
 
 export function AdTypeSelectionModal({

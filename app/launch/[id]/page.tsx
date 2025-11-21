@@ -34,7 +34,7 @@ export default function LaunchPage() {
     // In production: Initialize Stripe Payment Request API
     // This would trigger the native Apple Pay sheet
     setTimeout(() => {
-      router.push('/campaigns');
+      router.push('/campaign-welcome/1');
     }, 2000);
   };
 
@@ -43,7 +43,7 @@ export default function LaunchPage() {
     setIsProcessing(true);
     // In production: Initialize Stripe Payment Request API
     setTimeout(() => {
-      router.push('/campaigns');
+      router.push('/campaign-welcome/1');
     }, 2000);
   };
 
@@ -52,7 +52,7 @@ export default function LaunchPage() {
     setIsProcessing(true);
     // In production: Show Stripe card element or redirect to checkout
     setTimeout(() => {
-      router.push('/campaigns');
+      router.push('/campaign-welcome/1');
     }, 2000);
   };
 

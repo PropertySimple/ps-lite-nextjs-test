@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useListingModal } from "./ListingModalContext";
 
 export function HeroNew() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const { openModal } = useListingModal();
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 0);
@@ -90,6 +92,7 @@ export function HeroNew() {
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white px-12 py-7 text-xl font-bold rounded-full shadow-2xl shadow-primary/30 hover:shadow-primary/50 transition-all hover:scale-105"
+                onClick={openModal}
               >
                 Get My Videos
                 <ArrowRight className="ml-2 h-5 w-5" />

@@ -2,8 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Clock } from "lucide-react";
+import { useListingModal } from "./ListingModalContext";
 
 export function CTA() {
+  const { openModal } = useListingModal();
   return (
     <section className="grain-texture py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary via-primary/90 to-accent relative overflow-hidden">
       {/* Background decoration */}
@@ -55,6 +57,7 @@ export function CTA() {
             <Button
               size="lg"
               className="bg-white hover:bg-white/90 text-primary px-12 py-8 text-2xl font-black rounded-full shadow-2xl hover:scale-105 transition-all"
+              onClick={openModal}
             >
               Get My Videos
               <ArrowRight className="ml-3 h-7 w-7" />

@@ -5,9 +5,11 @@ import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLoginModal } from "@/components/marketing/LoginModalContext";
 
 export function MarketingNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openLoginModal } = useLoginModal();
 
   // Close menu on ESC key
   useEffect(() => {
@@ -71,13 +73,12 @@ export function MarketingNav() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/campaigns">
-              <Button variant="ghost" size="sm">
-                Sign In
-              </Button>
-            </Link>
-            <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20">
-              Start Free Trial
+            <Button
+              size="sm"
+              className="bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20"
+              onClick={openLoginModal}
+            >
+              Client Login
             </Button>
           </div>
 
@@ -134,13 +135,15 @@ export function MarketingNav() {
               About
             </Link>
             <div className="pt-4 space-y-2">
-              <Link href="/campaigns">
-                <Button variant="outline" size="sm" className="w-full border-primary/30 hover:border-primary hover:bg-primary/10">
-                  Sign In
-                </Button>
-              </Link>
-              <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
-                Start Free Trial
+              <Button
+                size="sm"
+                className="w-full bg-primary hover:bg-primary/90"
+                onClick={() => {
+                  openLoginModal();
+                  setMobileMenuOpen(false);
+                }}
+              >
+                Client Login
               </Button>
             </div>
           </div>

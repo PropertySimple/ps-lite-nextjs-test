@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,16 +8,6 @@ import { ArrowRight, Sparkles, Mail, TrendingUp } from "lucide-react";
 
 export default function CampaignWelcomePage() {
   const { campaignId } = useParams();
-  const router = useRouter();
-
-  // Auto-redirect after 10 seconds if user doesn't take action
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push(`/campaign-detail/${campaignId}`);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, [campaignId, router]);
 
   // Get estimated reach based on campaign (mock data for now)
   const estimatedReach = "10,000+";

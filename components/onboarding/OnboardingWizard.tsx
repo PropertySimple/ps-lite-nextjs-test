@@ -2,17 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { OnboardingWelcome } from "./OnboardingWelcome";
 import { OnboardingProfile } from "./OnboardingProfile";
 import { OnboardingListing } from "./OnboardingListing";
-import { OnboardingCampaign } from "./OnboardingCampaign";
-import { OnboardingTest } from "./OnboardingTest";
+import { OnboardingComplete } from "./OnboardingComplete";
 
-type OnboardingStep = "welcome" | "profile" | "listing" | "campaign" | "test";
+type OnboardingStep = "profile" | "listing" | "complete";
 
 export function OnboardingWizard() {
   const [open, setOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>("welcome");
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>("profile");
 
   useEffect(() => {
     // Check if onboarding has been completed
@@ -23,19 +21,13 @@ export function OnboardingWizard() {
     }
   }, []);
 
-  const handleNext = (nextStep?: OnboardingStep) => {
-    const steps: OnboardingStep[] = ["welcome", "profile", "listing", "campaign", "test"];
+  const handleNext = () => {
+    const steps: OnboardingStep[] = ["profile", "listing", "complete"];
     const currentIndex = steps.indexOf(currentStep);
 
-    if (nextStep) {
-      setCurrentStep(nextStep);
-    } else if (currentIndex < steps.length - 1) {
+    if (currentIndex < steps.length - 1) {
       setCurrentStep(steps[currentIndex + 1]);
     }
-  };
-
-  const handleSkip = () => {
-    handleComplete();
   };
 
   const handleComplete = () => {
@@ -45,16 +37,12 @@ export function OnboardingWizard() {
 
   const renderStep = () => {
     switch (currentStep) {
-      case "welcome":
-        return <OnboardingWelcome onNext={() => handleNext()} onSkip={handleSkip} />;
       case "profile":
-        return <OnboardingProfile onNext={() => handleNext()} onSkip={handleSkip} />;
+        return <OnboardingProfile onNext={handleNext} />;
       case "listing":
-        return <OnboardingListing onNext={() => handleNext()} onSkip={handleSkip} />;
-      case "campaign":
-        return <OnboardingCampaign onNext={() => handleNext()} onSkip={handleSkip} />;
-      case "test":
-        return <OnboardingTest onComplete={handleComplete} />;
+        return <OnboardingListing onNext={handleNext} onSkip={handleNext} />;
+      case "complete":
+        return <OnboardingComplete onComplete={handleComplete} />;
       default:
         return null;
     }
@@ -62,8 +50,8 @@ export function OnboardingWizard() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogTitle className="sr-only">Getting Started with PropertySimple</DialogTitle>
+      <DialogContent className="max-w-md">
+        <DialogTitle className="sr-only">Complete Your Profile</DialogTitle>
         {renderStep()}
       </DialogContent>
     </Dialog>

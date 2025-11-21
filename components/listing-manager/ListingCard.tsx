@@ -11,6 +11,7 @@ interface ListingCardProps {
   bathrooms: number;
   imageUrl?: string;
   status?: "active" | "sold" | "inactive";
+  listingType?: "sale" | "rent";
   listingId?: string;
   onPrimaryAction?: () => void;
   onEdit?: () => void;
@@ -31,6 +32,7 @@ export const ListingCard = ({
   bathrooms,
   imageUrl,
   status = "active",
+  listingType,
   listingId,
   onPrimaryAction,
   onEdit,
@@ -91,8 +93,15 @@ export const ListingCard = ({
         {/* Content */}
         <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between">
           <div>
-            <div className="font-bold text-xl mb-1">
-              {price}
+            <div className="flex items-center gap-2 mb-1">
+              <div className="font-bold text-xl">
+                {price}{listingType === "rent" ? "/month" : ""}
+              </div>
+              {listingType && (
+                <Badge variant={listingType === "rent" ? "outline" : "secondary"} className="text-xs">
+                  {listingType === "rent" ? "For Rent" : "For Sale"}
+                </Badge>
+              )}
             </div>
             <div className="text-sm text-muted-foreground mb-3 line-clamp-1">
               {address}
