@@ -1,11 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Check, Play, Lock, CreditCard, Smartphone, Shield } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Mock data - in production this comes from API based on campaign ID
 const campaignData = {
@@ -22,9 +32,14 @@ const campaignData = {
 export default function LaunchPage() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showSubscriptionToggle = searchParams.get('plan') === 'sub';
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'apple' | 'google' | 'card' | null>(null);
+  const [isSubscription, setIsSubscription] = useState(showSubscriptionToggle);
+  const [showCardCheckout, setShowCardCheckout] = useState(false);
 
   const campaign = campaignData[id as keyof typeof campaignData] || campaignData.demo;
 
@@ -49,8 +64,12 @@ export default function LaunchPage() {
 
   const handleCardPayment = async () => {
     setPaymentMethod('card');
+    setShowCardCheckout(true);
+  };
+
+  const handleContinueCheckout = async () => {
     setIsProcessing(true);
-    // In production: Show Stripe card element or redirect to checkout
+    // In production: Process Stripe checkout
     setTimeout(() => {
       router.push('/campaign-welcome/1');
     }, 2000);
@@ -137,12 +156,110 @@ export default function LaunchPage() {
           </div>
         </div>
 
+        {/* Pricing Selector - Amazon Style */}
+        {showSubscriptionToggle && (
+          <div className="mb-6">
+            <RadioGroup
+              value={isSubscription ? "subscription" : "onetime"}
+              onValueChange={(value) => setIsSubscription(value === "subscription")}
+              className="space-y-3"
+            >
+              {/* Subscribe & Save Option - Default Selected */}
+              <label
+                htmlFor="subscription"
+                className={cn(
+                  "relative flex cursor-pointer rounded-lg border-2 p-4 transition-all",
+                  isSubscription
+                    ? "border-green-600 bg-green-50/50"
+                    : "border-gray-200 hover:border-gray-300"
+                )}
+              >
+                <div className="flex items-start gap-3 w-full">
+                  <RadioGroupItem value="subscription" id="subscription" className="mt-1" />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-gray-900">Subscribe & Save</span>
+                        <Badge variant="success" className="text-[10px] px-1.5 py-0.5">
+                          Save 20%
+                        </Badge>
+                      </div>
+                    </div>
+                    <p className="text-2xl font-bold text-gray-900 mb-2">
+                      $117 <span className="text-base font-normal text-gray-600">per ad</span>
+                    </p>
+                    <div className="space-y-1.5 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span>20% off every ad you run</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span>Cancel anytime • Keep videos forever</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <span>No monthly fee • Only pay per ad</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              {/* One-time Option */}
+              <label
+                htmlFor="onetime"
+                className={cn(
+                  "relative flex cursor-pointer rounded-lg border-2 p-4 transition-all",
+                  !isSubscription
+                    ? "border-gray-400 bg-gray-50/50"
+                    : "border-gray-200 hover:border-gray-300"
+                )}
+              >
+                <div className="flex items-start gap-3 w-full">
+                  <RadioGroupItem value="onetime" id="onetime" className="mt-1" />
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold text-gray-900">One-time Purchase</span>
+                    </div>
+                    <p className="text-2xl font-bold text-gray-900 mb-2">
+                      $147 <span className="text-base font-normal text-gray-600">per ad</span>
+                    </p>
+                    <div className="space-y-1.5 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <span>Pay full price each time</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <span>No commitment required</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </RadioGroup>
+          </div>
+        )}
+
         {/* Payment Section */}
         <Card className="p-6 mb-6">
           {/* Price */}
           <div className="text-center mb-4">
-            <p className="text-4xl font-semibold text-gray-900">$149</p>
-            <p className="text-sm text-gray-500 mt-1">One-time payment • No hidden fees</p>
+            {isSubscription ? (
+              <>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-4xl font-semibold text-gray-900">$117</p>
+                  <Badge variant="success" className="text-xs">Save 20%</Badge>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">Per ad • 20% savings • Cancel anytime</p>
+              </>
+            ) : (
+              <>
+                <p className="text-4xl font-semibold text-gray-900">$147</p>
+                <p className="text-sm text-gray-500 mt-1">One-time payment • No hidden fees</p>
+              </>
+            )}
           </div>
 
           {/* Guarantee - Prominent */}
@@ -243,6 +360,53 @@ export default function LaunchPage() {
           </p>
         </div>
       </main>
+
+      {/* Stripe Checkout Modal */}
+      <Dialog open={showCardCheckout} onOpenChange={setShowCardCheckout}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-semibold">Stripe Checkout</DialogTitle>
+            <DialogDescription className="text-gray-500">
+              Complete your purchase securely
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="py-8">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+              <CreditCard className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+              <p className="text-gray-600 mb-2">Stripe checkout will show here</p>
+              <p className="text-sm text-gray-500">
+                In production, this will display the Stripe payment form
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-3">
+            <Button
+              variant="outline"
+              className="flex-1"
+              onClick={() => setShowCardCheckout(false)}
+              disabled={isProcessing}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="flex-1"
+              onClick={handleContinueCheckout}
+              disabled={isProcessing}
+            >
+              {isProcessing ? (
+                <span className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Processing...
+                </span>
+              ) : (
+                'Continue'
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

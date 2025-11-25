@@ -32,9 +32,16 @@ export const CampaignVideos = () => {
     document.body.removeChild(link);
   };
 
-  const handleEdit = () => {
-    // Navigate to ad builder in edit mode with the campaign ID
-    router.push(`/ad-builder?campaign=${campaignId}`);
+  const handleEditAdCopy = () => {
+    router.push(`/ad-builder/${campaignId}/ad-copy`);
+  };
+
+  const handleEditBasicVideo = () => {
+    router.push(`/ad-builder/${campaignId}/video-basic`);
+  };
+
+  const handleEditAIVideo = () => {
+    router.push(`/ad-builder/${campaignId}/video-ai`);
   };
 
   return (
@@ -112,25 +119,50 @@ export const CampaignVideos = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button
-                size="lg"
-                variant="default"
-                className="gap-2 text-base font-semibold px-6 shadow-lg"
-                onClick={handleEdit}
-              >
-                <Edit className="w-5 h-5" />
-                Edit Campaign
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="gap-2 text-base font-semibold px-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm"
-                onClick={() => handleDownload(videos[0].videoUrl, "all-videos")}
-              >
-                <Download className="w-5 h-5" />
-                Download All
-              </Button>
+            <div className="space-y-3 pt-2">
+              {/* Edit buttons row */}
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  size="sm"
+                  variant="default"
+                  className="gap-2 shadow-lg"
+                  onClick={handleEditAdCopy}
+                >
+                  <Edit className="w-4 h-4" />
+                  Edit Ad Copy
+                </Button>
+                <Button
+                  size="sm"
+                  variant="default"
+                  className="gap-2 shadow-lg"
+                  onClick={handleEditBasicVideo}
+                >
+                  <Edit className="w-4 h-4" />
+                  Edit Basic Video
+                </Button>
+                <Button
+                  size="sm"
+                  variant="default"
+                  className="gap-2 shadow-lg"
+                  onClick={handleEditAIVideo}
+                >
+                  <Edit className="w-4 h-4" />
+                  Edit AI Video
+                </Button>
+              </div>
+
+              {/* Download button */}
+              <div>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="gap-2 text-base font-semibold px-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm"
+                  onClick={() => handleDownload(videos[0].videoUrl, "all-videos")}
+                >
+                  <Download className="w-5 h-5" />
+                  Download All
+                </Button>
+              </div>
             </div>
           </div>
         </div>

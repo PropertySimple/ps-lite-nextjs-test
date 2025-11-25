@@ -1,7 +1,5 @@
 "use client";
 
-
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import ActorGrid from "./ActorGrid";
 import ScriptEditor from "./ScriptEditor";
@@ -20,8 +18,6 @@ interface ActorScriptEditorProps {
   onScriptChange: (script: string) => void;
   /** Callback when script review status changes */
   onScriptReviewChange: (reviewed: boolean) => void;
-  /** Callback to save the campaign */
-  onSave: () => void;
 }
 
 /**
@@ -34,8 +30,7 @@ const ActorScriptEditor = ({
   scriptReviewed,
   onActorSelect,
   onScriptChange,
-  onScriptReviewChange,
-  onSave
+  onScriptReviewChange
 }: ActorScriptEditorProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewActorIndex, setPreviewActorIndex] = useState<number | null>(null);
@@ -81,12 +76,6 @@ const ActorScriptEditor = ({
           onScriptChange={onScriptChange}
           onScriptReviewChange={onScriptReviewChange}
         />
-      </div>
-
-      <div className="flex justify-end">
-        <Button onClick={onSave} disabled={!scriptReviewed || selectedActors.length === 0}>
-          Save Campaign
-        </Button>
       </div>
 
       {/* Actor Preview Modal */}

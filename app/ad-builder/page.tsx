@@ -261,7 +261,6 @@ export default function AdBuilderPage() {
                 coverPhotoIndex={state.coverPhotoIndex}
                 onPhotoSelect={actions.handlePhotoSelect}
                 onSetCoverPhoto={actions.setCoverPhoto}
-                onContinue={() => actions.setOpenStep("step3")}
               />
             </AccordionContent>
           </AccordionItem>
@@ -292,7 +291,6 @@ export default function AdBuilderPage() {
                 onActorSelect={actions.handleActorSelect}
                 onScriptChange={actions.updateScript}
                 onScriptReviewChange={actions.updateScriptReviewed}
-                onSave={() => actions.setOpenStep("step4")}
               />
             </AccordionContent>
           </AccordionItem>
