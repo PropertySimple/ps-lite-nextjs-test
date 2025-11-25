@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard";
+import SubscriptionModal from "@/components/subscription/SubscriptionModal";
 
 export default function CampaignsPage() {
   const router = useRouter();
@@ -21,11 +22,14 @@ export default function CampaignsPage() {
   };
 
   const headerActions = (
-    <Button className="gap-2" onClick={handleCreateCampaign}>
-      <Plus className="w-4 h-4" />
-      <span className="hidden sm:inline">Create Campaign</span>
-      <span className="sm:hidden">Create</span>
-    </Button>
+    <>
+      <SubscriptionModal />
+      <Button className="gap-2" onClick={handleCreateCampaign}>
+        <Plus className="w-4 h-4" />
+        <span className="hidden sm:inline">Create Campaign</span>
+        <span className="sm:hidden">Create</span>
+      </Button>
+    </>
   );
 
   // Calculate aggregate stats for past ads
@@ -58,7 +62,8 @@ export default function CampaignsPage() {
                   <AdCard
                     key={ad.id}
                     ad={ad}
-                    newLeads={index === 0 ? 2 : index === 1 ? 1 : 0}
+                    newLeads={index === 0 ? 0 : index === 1 ? 1 : 0}
+                    isPending={ad.id === 1}
                   />
                 ))}
               </div>

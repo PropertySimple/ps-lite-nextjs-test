@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Play, ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight, Info, Loader2, AlertCircle } from "lucide-react";
 import { Ad } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -16,14 +16,15 @@ interface AdCardProps {
   ad: Ad;
   isPast?: boolean;
   newLeads?: number;
+  isPending?: boolean;
 }
 
-const AdCard = ({ ad, isPast = false, newLeads = 0 }: AdCardProps) => {
+const AdCard = ({ ad, isPast = false, newLeads = 0, isPending = false }: AdCardProps) => {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Determine campaign status
-  const campaignStatus: 'running' | 'paused' | 'ended' = ad.status || (isPast ? 'ended' : 'running');
+  const campaignStatus: 'pending' | 'running' | 'paused' | 'ended' = isPending ? 'pending' : (ad.status || (isPast ? 'ended' : 'running'));
 
   const handleCardClick = () => {
     router.push(`/campaign-detail/${ad.id}`);
@@ -182,17 +183,24 @@ const AdCard = ({ ad, isPast = false, newLeads = 0 }: AdCardProps) => {
                 {/* Campaign Status Badge - Prominent */}
                 <Badge
                   variant={
+                    campaignStatus === 'pending' ? 'secondary' :
                     campaignStatus === 'running' ? 'default' :
                     campaignStatus === 'paused' ? 'outline' :
                     'secondary'
                   }
                   className={
+                    campaignStatus === 'pending' ? 'bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-950 dark:text-blue-400' :
                     campaignStatus === 'running' ? 'bg-green-500 hover:bg-green-600 text-white' :
                     campaignStatus === 'paused' ? 'border-yellow-500 text-yellow-700 dark:text-yellow-400' :
                     ''
                   }
                 >
-                  {campaignStatus === 'running' ? 'Running' :
+                  {campaignStatus === 'pending' ? (
+                    <span className="flex items-center gap-1">
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                      Pending
+                    </span>
+                  ) : campaignStatus === 'running' ? 'Running' :
                    campaignStatus === 'paused' ? 'Paused' :
                    'Ended'}
                 </Badge>
@@ -200,53 +208,68 @@ const AdCard = ({ ad, isPast = false, newLeads = 0 }: AdCardProps) => {
               <p className="text-sm text-muted-foreground truncate">{ad.address}</p>
             </div>
 
-            {/* Lead Count - Hero Metric */}
-            <div className="text-right shrink-0">
-              <div className="flex items-center justify-end gap-2">
-                <div className="text-2xl sm:text-3xl font-bold">{ad.leads}</div>
-                {newLeads > 0 && (
-                  <Badge className="bg-primary text-white text-xs">
-                    {newLeads} new
-                  </Badge>
-                )}
+            {/* Lead Count - Hero Metric (hidden for pending) */}
+            {!isPending && (
+              <div className="text-right shrink-0">
+                <div className="flex items-center justify-end gap-2">
+                  <div className="text-2xl sm:text-3xl font-bold">
+                    {ad.leads}
+                  </div>
+                  {newLeads > 0 && (
+                    <Badge className="bg-primary text-white text-xs">
+                      {newLeads} new
+                    </Badge>
+                  )}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  LEADS
+                </div>
               </div>
-              <div className="text-xs text-muted-foreground">LEADS</div>
-            </div>
+            )}
           </div>
 
           {/* Key Metrics - Always Visible */}
           <div className="flex flex-col gap-2.5 mt-3">
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              {/* Cost per lead with benchmark tooltip */}
-              {ad.adSpend && ad.leads > 0 && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-baseline gap-1 cursor-help">
-                        <span className="text-base sm:text-lg font-semibold">${Math.round(costPerLead)}</span>
-                        <span className="text-xs text-muted-foreground">per lead</span>
-                        <Info className="w-3 h-3 text-muted-foreground ml-1" />
-                      </div>
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-xs">
-                      <div className="space-y-2">
-                        <p className="font-semibold">Cost Per Lead Benchmark</p>
-                        <div className="space-y-1 text-sm">
-                          <p>Your cost: ${Math.round(costPerLead)}/lead</p>
-                          <p>Industry average: ${industryAverage}/lead</p>
-                          {benchmark && (
-                            <p className={benchmark.isBetter ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-orange-600 dark:text-orange-400 font-semibold'}>
-                              {benchmark.isBetter ? `${benchmark.percentage}% better than average` : `${benchmark.percentage}% above average`}
-                            </p>
-                          )}
+            {!isPending && (
+              <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+                {/* Cost per lead with benchmark tooltip */}
+                {ad.adSpend && ad.leads > 0 && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-baseline gap-1 cursor-help">
+                          <span className="text-base sm:text-lg font-semibold">${Math.round(costPerLead)}</span>
+                          <span className="text-xs text-muted-foreground">per lead</span>
+                          <Info className="w-3 h-3 text-muted-foreground ml-1" />
                         </div>
-                      </div>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-xs">
+                        <div className="space-y-2">
+                          <p className="font-semibold">Cost Per Lead Benchmark</p>
+                          <div className="space-y-1 text-sm">
+                            <p>Your cost: ${Math.round(costPerLead)}/lead</p>
+                            <p>Industry average: ${industryAverage}/lead</p>
+                            {benchmark && (
+                              <p className={benchmark.isBetter ? 'text-green-600 dark:text-green-400 font-semibold' : 'text-orange-600 dark:text-orange-400 font-semibold'}>
+                                {benchmark.isBetter ? `${benchmark.percentage}% better than average` : `${benchmark.percentage}% above average`}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </div>
+            )}
 
-            </div>
+            {/* Pending Campaign Message */}
+            {isPending && (
+              <div className="text-sm text-muted-foreground flex items-center gap-2">
+                <AlertCircle className="w-4 h-4" />
+                Your videos are being created (a few minutes)
+              </div>
+            )}
 
             {/* Actions */}
             <div className="flex gap-2 pt-1">
@@ -259,9 +282,21 @@ const AdCard = ({ ad, isPast = false, newLeads = 0 }: AdCardProps) => {
                 }}
                 className="flex-1 sm:flex-initial"
               >
-                View Report
+                {isPending ? 'View Details' : 'View Report'}
               </Button>
-              {isPast ? (
+              {isPending ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    logger.log("Request refund for:", ad.title);
+                  }}
+                  className="flex-1 sm:flex-initial text-muted-foreground hover:text-destructive"
+                >
+                  Request Refund
+                </Button>
+              ) : isPast ? (
                 <Button
                   variant="outline"
                   size="sm"

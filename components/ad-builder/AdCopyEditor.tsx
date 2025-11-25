@@ -6,9 +6,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Camera } from "lucide-react";
+import { Camera, AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { OpenHouseEvent } from "./OpenHouseScheduler";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface AdCopyEditorProps {
   /** Current ad copy text */
@@ -41,19 +51,12 @@ const AdCopyEditor = ({
   onContinue
 }: AdCopyEditorProps) => {
   const [phoneNumber, setPhoneNumber] = useState("(777) 777-9999");
-  const [headshotUrl] = useState("/lovable-uploads/gray-wooden-house.jpg");
+  const [showSaveWarning, setShowSaveWarning] = useState(false);
 
   const handleChangePhoto = () => {
     toast({
       title: "Change Photo",
       description: "Photo selection coming soon...",
-    });
-  };
-
-  const handleUploadHeadshot = () => {
-    toast({
-      title: "Upload Headshot",
-      description: "Headshot upload coming soon...",
     });
   };
 
@@ -131,7 +134,7 @@ const AdCopyEditor = ({
             <label htmlFor="phone" className="text-sm font-semibold mb-2 block">
               Confirm Your Cell Phone Number
             </label>
-            <Input 
+            <Input
               id="phone"
               type="tel"
               value={phoneNumber}
@@ -139,38 +142,38 @@ const AdCopyEditor = ({
               placeholder="(777) 777-9999"
             />
           </div>
-
-          <div className="flex flex-col items-center gap-3 py-4">
-            <div
-              className="w-24 h-24 rounded-full overflow-hidden bg-muted cursor-pointer hover:opacity-80 transition-opacity"
-              onClick={handleUploadHeadshot}
-            >
-              <Image
-                src={headshotUrl}
-                alt="Headshot"
-                width={96}
-                height={96}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <Button 
-              variant="ghost" 
-              size="sm"
-              onClick={handleUploadHeadshot}
-              className="text-sm font-semibold"
-            >
-              Upload Headshot
-            </Button>
-          </div>
         </div>
 
-        <Button 
-          onClick={onContinue}
+        <Button
+          onClick={() => setShowSaveWarning(true)}
           size="lg"
           className="w-full bg-slate-900 hover:bg-slate-800 text-white"
         >
-          Continue to Photos Selection
+          Save Changes
         </Button>
+
+        <AlertDialog open={showSaveWarning} onOpenChange={setShowSaveWarning}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                  <AlertTriangle className="w-5 h-5 text-amber-600" />
+                </div>
+                <AlertDialogTitle>Confirm Changes</AlertDialogTitle>
+              </div>
+              <AlertDialogDescription className="text-base">
+                Making frequent changes to your ad copy after it goes live can negatively
+                impact your campaign's performance. Meta's algorithm works best with stable ads.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={onContinue}>
+                Save Changes
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );

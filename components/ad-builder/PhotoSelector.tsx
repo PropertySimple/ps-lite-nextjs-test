@@ -1,7 +1,6 @@
 
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Star } from "lucide-react";
@@ -15,8 +14,6 @@ interface PhotoSelectorProps {
   onPhotoSelect: (index: number) => void;
   /** Callback function to set cover photo */
   onSetCoverPhoto: (index: number) => void;
-  /** Callback function to proceed to next step */
-  onContinue: () => void;
 }
 
 // Property photos array
@@ -37,12 +34,11 @@ const propertyPhotos = [
  * PhotoSelector component for Step 1 of the Ad Builder
  * Allows users to select up to 9 photos with cover photo designation
  */
-const PhotoSelector = ({ 
-  selectedPhotos, 
-  coverPhotoIndex, 
-  onPhotoSelect, 
-  onSetCoverPhoto, 
-  onContinue 
+const PhotoSelector = ({
+  selectedPhotos,
+  coverPhotoIndex,
+  onPhotoSelect,
+  onSetCoverPhoto
 }: PhotoSelectorProps) => {
   const isAtSelectionLimit = selectedPhotos.length >= 9;
 
@@ -142,18 +138,9 @@ const PhotoSelector = ({
           })}
         </div>
 
-        <div className="flex justify-between items-center">
-          <p className="text-sm text-muted-foreground">
-            {selectedPhotos.length} of 9 photos selected
-          </p>
-          <Button 
-            onClick={onContinue} 
-            disabled={selectedPhotos.length === 0}
-            aria-label="Save photos and continue to next step"
-          >
-            Save & Continue
-          </Button>
-        </div>
+        <p className="text-sm text-muted-foreground">
+          {selectedPhotos.length} of 9 photos selected
+        </p>
       </div>
     </TooltipProvider>
   );
