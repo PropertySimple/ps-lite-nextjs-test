@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Save, Check } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import Logo from "@/components/Logo";
 import AdCopyEditor from "@/components/ad-builder/AdCopyEditor";
 import { OpenHouseEvent } from "@/components/ad-builder/OpenHouseScheduler";
@@ -16,6 +16,10 @@ import { campaignData } from "@/data/mockData";
 export default function AdCopyEditorPage() {
   const router = useRouter();
   const { campaignId } = useParams();
+  const searchParams = useSearchParams();
+
+  // Get ad type from URL parameter (e.g., ?type=openhouse)
+  const adType = searchParams.get('type') === 'openhouse' ? 'openhouse' : 'standard';
 
   // Load campaign data
   const campaign = campaignData[campaignId as keyof typeof campaignData] || campaignData["1"];
@@ -120,16 +124,6 @@ export default function AdCopyEditorPage() {
               )}
 
               <Button
-                variant="outline"
-                size="sm"
-                onClick={handleSave}
-                disabled={saveStatus === 'saving'}
-              >
-                <Save className="w-4 h-4 mr-2" />
-                Save Draft
-              </Button>
-
-              <Button
                 size="sm"
                 onClick={handleSaveAndClose}
                 disabled={saveStatus === 'saving'}
@@ -154,6 +148,7 @@ export default function AdCopyEditorPage() {
           adCopy={adCopy}
           callToAction={callToAction}
           openHouses={openHouses}
+          adType={adType}
           onAdCopyChange={setAdCopy}
           onCallToActionChange={setCallToAction}
           onOpenHousesChange={setOpenHouses}

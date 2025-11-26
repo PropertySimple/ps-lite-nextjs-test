@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Play, ChevronLeft, ChevronRight, Info, Loader2, AlertCircle } from "lucide-react";
+import { RefundModal } from "@/components/campaigns/RefundModal";
 import { Ad } from "@/data/types";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -22,22 +23,32 @@ interface AdCardProps {
 const AdCard = ({ ad, isPast = false, newLeads = 0, isPending = false }: AdCardProps) => {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showRefundModal, setShowRefundModal] = useState(false);
 
   // Determine campaign status
-  const campaignStatus: 'pending' | 'running' | 'paused' | 'ended' = isPending ? 'pending' : (ad.status || (isPast ? 'ended' : 'running'));
+  const campaignStatus: 'pending' | 'running' | 'paused' | 'ended' = isPending ? 'pending' : isPast ? 'ended' : (ad.status || 'running');
 
   const handleCardClick = () => {
+    if (showRefundModal) return; // Don't navigate if modal is open
     router.push(`/campaign-detail/${ad.id}`);
   };
 
   const handleExtend = (e: React.MouseEvent) => {
     e.stopPropagation();
-    logger.log("Extending ad:", ad.title);
+    router.push(`/checkout/extend/${ad.id}`);
   };
 
   const handleRunAgain = (e: React.MouseEvent) => {
     e.stopPropagation();
     logger.log("Running ad again:", ad.title);
+  };
+
+  const handleRefundConfirm = () => {
+    logger.log("Refund confirmed for:", ad.title);
+  };
+
+  const handleRefundSuccess = () => {
+    router.push("/campaigns?tab=current");
   };
 
   const _formatDateRange = () => {
@@ -290,7 +301,7 @@ const AdCard = ({ ad, isPast = false, newLeads = 0, isPending = false }: AdCardP
                   size="sm"
                   onClick={(e) => {
                     e.stopPropagation();
-                    logger.log("Request refund for:", ad.title);
+                    setShowRefundModal(true);
                   }}
                   className="flex-1 sm:flex-initial text-muted-foreground hover:text-destructive"
                 >
@@ -319,6 +330,14 @@ const AdCard = ({ ad, isPast = false, newLeads = 0, isPending = false }: AdCardP
           </div>
         </div>
       </div>
+
+      <RefundModal
+        open={showRefundModal}
+        onOpenChange={setShowRefundModal}
+        campaignTitle={ad.title}
+        onConfirmRefund={handleRefundConfirm}
+        onSuccess={handleRefundSuccess}
+      />
     </Card>
   );
 };

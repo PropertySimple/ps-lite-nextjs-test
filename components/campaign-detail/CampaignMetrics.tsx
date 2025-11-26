@@ -33,10 +33,6 @@ export const CampaignMetrics = ({
               <div className="w-2 h-2 rounded-full bg-blue-500" />
               Meta Ads
             </Badge>
-            <Badge variant="secondary" className="gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-green-500" />
-              Google Ads
-            </Badge>
           </div>
         </div>
 

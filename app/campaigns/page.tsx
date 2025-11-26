@@ -98,7 +98,7 @@ export default function CampaignsPage() {
                 {/* Past Ad Cards */}
                 <div className="space-y-4">
                   {pastAds.map((ad) => (
-                    <AdCard key={ad.id} ad={ad} />
+                    <AdCard key={ad.id} ad={ad} isPast />
                   ))}
                 </div>
               </>
