@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Camera, AlertTriangle } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
-import { OpenHouseEvent } from "./OpenHouseScheduler";
+import OpenHouseScheduler, { OpenHouseEvent } from "./OpenHouseScheduler";
+import { PhotoSelectionModal, PhotoOption } from "./PhotoSelectionModal";
+import { sedonaListing } from "@/data/mockListingData";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,6 +28,8 @@ interface AdCopyEditorProps {
   callToAction: string;
   /** Open house events */
   openHouses: OpenHouseEvent[];
+  /** Ad type - determines if open house fields are shown */
+  adType?: 'standard' | 'openhouse';
   /** Callback when ad copy changes */
   onAdCopyChange: (copy: string) => void;
   /** Callback when call-to-action changes */
@@ -41,23 +44,34 @@ interface AdCopyEditorProps {
  * AdCopyEditor component for Step 2 of the Ad Builder
  * Allows users to review and edit ad copy with AI assistance
  */
+// Convert listing images to PhotoOption format
+const listingPhotos: PhotoOption[] = sedonaListing.images.map((img) => ({
+  id: img.id,
+  url: img.url,
+  alt: img.alt,
+}));
+
 const AdCopyEditor = ({
   adCopy,
   callToAction: _callToAction,
-  openHouses: _openHouses,
+  openHouses,
+  adType = 'standard',
   onAdCopyChange,
   onCallToActionChange: _onCallToActionChange,
-  onOpenHousesChange: _onOpenHousesChange,
+  onOpenHousesChange,
   onContinue
 }: AdCopyEditorProps) => {
   const [phoneNumber, setPhoneNumber] = useState("(777) 777-9999");
   const [showSaveWarning, setShowSaveWarning] = useState(false);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
+  const [selectedPhotoUrl, setSelectedPhotoUrl] = useState(listingPhotos[0]?.url || "/listing-images/white-house-listing.jpg");
 
   const handleChangePhoto = () => {
-    toast({
-      title: "Change Photo",
-      description: "Photo selection coming soon...",
-    });
+    setShowPhotoModal(true);
+  };
+
+  const handlePhotoSelect = (url: string) => {
+    setSelectedPhotoUrl(url);
   };
 
   return (
@@ -79,11 +93,12 @@ const AdCopyEditor = ({
             
             <div className="relative mb-3">
               <Image
-                src="/listing-images/white-house-listing.jpg"
+                src={selectedPhotoUrl}
                 alt="Listing"
                 width={600}
                 height={600}
                 className="w-full aspect-square object-cover rounded-lg"
+                unoptimized={selectedPhotoUrl.startsWith("http")}
               />
               <Button 
                 variant="secondary"
@@ -142,6 +157,14 @@ const AdCopyEditor = ({
               placeholder="(777) 777-9999"
             />
           </div>
+
+          {/* Open House Scheduler - only shown for open house ads */}
+          {adType === 'openhouse' && (
+            <OpenHouseScheduler
+              openHouses={openHouses}
+              onOpenHousesChange={onOpenHousesChange}
+            />
+          )}
         </div>
 
         <Button
@@ -175,6 +198,14 @@ const AdCopyEditor = ({
           </AlertDialogContent>
         </AlertDialog>
       </div>
+
+      <PhotoSelectionModal
+        open={showPhotoModal}
+        onOpenChange={setShowPhotoModal}
+        photos={listingPhotos}
+        currentPhotoUrl={selectedPhotoUrl}
+        onSelectPhoto={handlePhotoSelect}
+      />
     </div>
   );
 };

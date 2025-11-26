@@ -135,6 +135,28 @@ The application uses a warm, modern design system:
 - **Public Listings**: `/listing/[id]` - SEO-optimized property detail pages
 - **Campaign Details**: `/campaign-detail/[id]`
 
+## URL Parameter Variants
+
+The application supports URL parameters to enable different form variants:
+
+### Ad Copy Editor - Open House Mode
+**URL:** `/ad-builder/[campaignId]/ad-copy?type=openhouse`
+
+When the `type=openhouse` parameter is present, the ad copy editor displays:
+- Standard ad copy editing fields
+- **Open House Scheduler** - date/time selector for open house events
+
+Without the parameter, the standard ad copy editor is shown without open house scheduling.
+
+### Launch Page - Subscribe & Save Toggle
+**URL:** `/launch/[id]?plan=sub`
+
+When the `plan=sub` parameter is present, the checkout page displays:
+- **Pricing toggle** - Choose between Subscribe & Save ($117/ad with 20% savings) or One-time ($147/ad)
+- Default selection is Subscribe & Save
+
+Without the parameter, only the one-time $147 pricing is shown.
+
 ## Deploy on Vercel
 
 The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new).

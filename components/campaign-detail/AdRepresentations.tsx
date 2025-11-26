@@ -22,8 +22,8 @@ const AdRepresentations = () => {
           <DialogHeader>
             <DialogTitle>View Live Ad on Facebook</DialogTitle>
             <DialogDescription className="leading-relaxed space-y-2">
-              <p>Sign in to Facebook if needed, then click "Show Ad" to preview your live ad.</p>
-              <p>Most ads go live within a few minutes of placement, but can take up to 24 hours for Facebook to review and approve. You can only view your ad once it's live.</p>
+              <span className="block">Sign in to Facebook if needed, then click "Show Ad" to preview your live ad.</span>
+              <span className="block">Most ads go live within a few minutes of placement, but can take up to 24 hours for Facebook to review and approve. You can only view your ad once it's live.</span>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

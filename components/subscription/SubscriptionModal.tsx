@@ -71,10 +71,10 @@ const SubscriptionModal = () => {
               <DialogTitle>Subscribe & Save Active</DialogTitle>
             </div>
             <DialogDescription className="text-left space-y-4 pt-2">
-              <p>
+              <span className="block">
                 You're enrolled in Subscribe & Save! Ads are created automatically
                 for your listings, and you save 20% on every campaign.
-              </p>
+              </span>
               <div className="bg-muted/50 rounded-lg p-4 space-y-2">
                 <p className="font-medium text-foreground">What's included:</p>
                 <ul className="text-sm space-y-1.5">
@@ -125,17 +125,17 @@ const SubscriptionModal = () => {
               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             </div>
             <AlertDialogDescription className="text-left space-y-3">
-              <p>
+              <span className="block">
                 If you unsubscribe from Subscribe & Save, you'll lose access to:
-              </p>
+              </span>
               <ul className="text-sm space-y-1 list-disc list-inside text-muted-foreground">
                 <li>20% discount on all listing ads</li>
                 <li>Automatic ad creation for your listings</li>
                 <li>24-hour preview and skip window</li>
               </ul>
-              <p className="text-sm">
+              <span className="block text-sm">
                 You can re-enroll in Subscribe & Save at any time.
-              </p>
+              </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

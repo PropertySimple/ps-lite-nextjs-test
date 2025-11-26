@@ -393,12 +393,12 @@ export const AddListingModal = ({ open, onOpenChange, onSaveListing, editingList
             <DialogHeader>
               <DialogTitle>Add Your Listing</DialogTitle>
               <DialogDescription className="space-y-2">
-                <p>
+                <span className="block">
                   Please paste a link to your listing, must be a public page so the crawlers can scrape it.
-                </p>
-                <p className="text-sm">
+                </span>
+                <span className="block text-sm">
                   The AI will import your listing and you can edit it if needed before running your ad.
-                </p>
+                </span>
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">

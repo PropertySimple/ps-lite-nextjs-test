@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Pause, Play, Clock, Loader2, AlertCircle, Rocket } from "lucide-react";
 import { CountdownTimer } from "@/components/countdown-timer";
+import { RefundModal } from "@/components/campaigns/RefundModal";
 import { useRouter } from "next/navigation";
 import {
   Breadcrumb,
@@ -40,6 +41,7 @@ export default function CampaignDetailPage() {
 
   // Pending campaign state
   const [isLaunching, setIsLaunching] = useState(false);
+  const [showRefundModal, setShowRefundModal] = useState(false);
   const [launchTime] = useState(() => {
     const time = new Date();
     time.setHours(time.getHours() + 24);
@@ -57,23 +59,46 @@ export default function CampaignDetailPage() {
     handleGoLive();
   };
 
+  // Handler for refund confirmation
+  const handleRefundConfirm = () => {
+    // In real app: API call to process refund
+  };
+
+  // Handler for refund success - redirect to campaigns
+  const handleRefundSuccess = () => {
+    router.push("/campaigns?tab=current");
+  };
+
   return (
     <PageLayout>
-      <Breadcrumb className="mb-6">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/campaigns">Campaigns</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>
-              {isPendingCampaign ? "123 Main St, Anytown, USA" : campaign.property}
-            </BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="flex items-center justify-between mb-6">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/campaigns">Campaigns</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>
+                {isPendingCampaign ? "123 Main St, Anytown, USA" : campaign.property}
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        {isPendingCampaign && (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground hover:text-destructive"
+            onClick={() => setShowRefundModal(true)}
+          >
+            Request Refund
+          </Button>
+        )}
+      </div>
 
       {/* Campaign Status Banner */}
       {isPendingCampaign ? (
@@ -96,8 +121,8 @@ export default function CampaignDetailPage() {
                   </AlertDescription>
                 </div>
 
-                {/* Actions row - all on one line */}
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                {/* Actions row - Go Live and Countdown grouped */}
+                <div className="flex items-center gap-3">
                   <Button
                     size="sm"
                     className="gap-2"
@@ -108,19 +133,13 @@ export default function CampaignDetailPage() {
                     {isLaunching ? 'Launching...' : 'Go Live Now'}
                   </Button>
 
+                  <span className="text-sm text-muted-foreground">or</span>
+
                   <div className="text-sm text-muted-foreground flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5" />
-                    <span>Auto-launches in</span>
+                    <span>auto-launches in</span>
                     <CountdownTimer expiresAt={launchTime} onExpire={handleAutoLaunch} />
                   </div>
-
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-muted-foreground hover:text-destructive"
-                  >
-                    Request Refund
-                  </Button>
                 </div>
               </div>
             </div>
@@ -195,7 +214,12 @@ export default function CampaignDetailPage() {
                       <Pause className="w-4 h-4" />
                       <span className="hidden sm:inline">Pause</span>
                     </Button>
-                    <Button variant="default" size="sm" className="gap-2">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="gap-2"
+                      onClick={() => router.push(`/checkout/extend/${id}`)}
+                    >
                       <Clock className="w-4 h-4" />
                       <span className="hidden sm:inline">Extend</span>
                     </Button>
@@ -228,6 +252,14 @@ export default function CampaignDetailPage() {
           </div>
         </>
       )}
+
+      <RefundModal
+        open={showRefundModal}
+        onOpenChange={setShowRefundModal}
+        campaignTitle={isPendingCampaign ? "123 Main St, Anytown, USA" : campaign.property}
+        onConfirmRefund={handleRefundConfirm}
+        onSuccess={handleRefundSuccess}
+      />
     </PageLayout>
   );
 }

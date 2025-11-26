@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import Logo from "@/components/Logo";
 import { SidebarModeToggle } from "@/components/sidebar-mode-toggle";
-import { BarChart3, User, FolderOpen, LogOut } from "lucide-react";
+import { BarChart3, User, FolderOpen, LogOut, HelpCircle } from "lucide-react";
 import { logger } from "@/lib/logger";
 
 const getProfileCompletionStatus = () => {
@@ -36,6 +36,11 @@ const youItems = [
     title: "Profile",
     href: "/profile",
     icon: User
+  },
+  {
+    title: "Help",
+    href: "/help",
+    icon: HelpCircle
   },
   {
     title: "Sign Out",

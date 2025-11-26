@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 import { Playfair_Display, Source_Sans_3 } from 'next/font/google';
-import { ChevronLeft, ChevronRight, Phone, Mail, MapPin, Home, Maximize, Bath, BedDouble, Sparkles, List, GraduationCap, Calculator, TreePine } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Phone, Mail, MapPin, Home, Maximize, Bath, BedDouble, Sparkles, List, GraduationCap, Calculator, TreePine, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { sedonaListing } from '@/data/mockListingData';
 
 const playfair = Playfair_Display({
@@ -26,13 +27,94 @@ export default function JobsListingPage() {
   const [showGallery, setShowGallery] = useState(false);
   const [activeTab, setActiveTab] = useState<'summary' | 'details'>('summary');
   const [showMap, setShowMap] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
   // Get listing data
   const listing = id === sedonaListing.id ? sedonaListing : sedonaListing;
 
   useEffect(() => {
-    setIsLoaded(true);
+    const frame = requestAnimationFrame(() => setIsLoaded(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Gallery navigation functions
+  const nextGalleryImage = useCallback(() => {
+    setGalleryIndex((prev) => (prev + 1) % listing.images.length);
+    setIsZoomed(false);
+  }, [listing.images.length]);
+
+  const prevGalleryImage = useCallback(() => {
+    setGalleryIndex((prev) => (prev - 1 + listing.images.length) % listing.images.length);
+    setIsZoomed(false);
+  }, [listing.images.length]);
+
+  const closeGallery = useCallback(() => {
+    setShowGallery(false);
+    setIsZoomed(false);
+  }, []);
+
+  // Keyboard navigation for gallery
+  useEffect(() => {
+    if (!showGallery) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowRight':
+          nextGalleryImage();
+          break;
+        case 'ArrowLeft':
+          prevGalleryImage();
+          break;
+        case 'Escape':
+          closeGallery();
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    // Prevent body scroll when gallery is open
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [showGallery, nextGalleryImage, prevGalleryImage, closeGallery]);
+
+  // Touch handlers for swipe gestures
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextGalleryImage();
+    } else if (isRightSwipe) {
+      prevGalleryImage();
+    }
+  };
+
+  // Open gallery at specific image
+  const openGallery = (index: number) => {
+    setGalleryIndex(index);
+    setShowGallery(true);
+  };
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % listing.images.length);
@@ -60,9 +142,9 @@ export default function JobsListingPage() {
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${isLoaded ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
           <div className="bg-white/80 backdrop-blur-xl border-b border-black/5">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-              <a href="/" className="text-xl font-editorial font-semibold tracking-tight text-[#2a1f1a]">
+              <Link href="/" className="text-xl font-editorial font-semibold tracking-tight text-[#2a1f1a]">
                 PropertySimple
-              </a>
+              </Link>
               <a
                 href={`tel:${listing.agent.phone}`}
                 className="flex items-center gap-2 px-5 py-2.5 bg-[#2a1f1a] text-white rounded-full text-sm font-medium hover:bg-[#1a1210] transition-colors"
@@ -138,8 +220,8 @@ export default function JobsListingPage() {
 
           {/* View All Button */}
           <button
-            onClick={() => setShowGallery(true)}
-            className="absolute bottom-6 right-6 md:right-8 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm font-medium hover:bg-white/20 transition-all flex items-center gap-2"
+            onClick={() => openGallery(currentImage)}
+            className="absolute bottom-6 right-6 md:right-8 z-10 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm font-medium hover:bg-white/20 transition-all flex items-center gap-2"
           >
             <Maximize className="w-4 h-4" />
             View All
@@ -419,23 +501,14 @@ export default function JobsListingPage() {
                   <p className="text-[#6b5b4f] mb-3">{listing.agent.title}</p>
                   <div className="flex items-center gap-4 text-sm text-[#8b7b6f]">
                     <span>{listing.agent.experience} experience</span>
-                    <span className="w-1 h-1 bg-[#d4c4b4] rounded-full" />
-                    <span>{listing.agent.reviewCount} reviews</span>
                   </div>
                 </div>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col gap-3 md:w-48">
                   <a
-                    href={`tel:${listing.agent.phone}`}
-                    className="w-full py-4 bg-[#2a1f1a] text-white rounded-xl text-center font-semibold hover:bg-[#1a1210] transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Phone className="w-4 h-4" />
-                    Schedule Showing
-                  </a>
-                  <a
                     href={`mailto:${listing.agent.email}`}
-                    className="w-full py-4 bg-[#f5f1eb] text-[#2a1f1a] rounded-xl text-center font-medium hover:bg-[#ebe5dc] transition-colors flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-[#2a1f1a] text-white rounded-xl text-center font-semibold hover:bg-[#1a1210] transition-colors flex items-center justify-center gap-2"
                   >
                     <Mail className="w-4 h-4" />
                     Send Message
@@ -464,51 +537,148 @@ export default function JobsListingPage() {
           </footer>
         </main>
 
-        {/* Full Gallery Modal */}
+        {/* Full Gallery Modal - Optimized */}
         {showGallery && (
           <div
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
-            onClick={() => setShowGallery(false)}
+            ref={galleryRef}
+            className="fixed inset-0 z-[100] bg-black flex flex-col"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo gallery"
           >
-            <button
-              onClick={() => setShowGallery(false)}
-              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
-              aria-label="Close gallery"
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 md:p-6">
+              <div className="flex items-center gap-4">
+                <span className="text-white/80 text-sm font-medium">
+                  {galleryIndex + 1} / {listing.images.length}
+                </span>
+                <span className="text-white/50 text-sm hidden md:block">
+                  {listing.images[galleryIndex].alt}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsZoomed(!isZoomed)}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label={isZoomed ? "Zoom out" : "Zoom in"}
+                >
+                  {isZoomed ? <ZoomOut className="w-5 h-5" /> : <ZoomIn className="w-5 h-5" />}
+                </button>
+                <button
+                  onClick={closeGallery}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  aria-label="Close gallery"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Main Image Area */}
+            <div
+              className="flex-1 relative flex items-center justify-center overflow-hidden"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
             >
-              <span className="text-2xl">&times;</span>
-            </button>
+              {/* Previous Button */}
+              <button
+                onClick={prevGalleryImage}
+                className="absolute left-2 md:left-6 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/60 transition-all group"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+              </button>
 
-            <div className="relative w-full max-w-6xl mx-auto px-4" onClick={(e) => e.stopPropagation()}>
-              <Image
-                src={listing.images[currentImage].url}
-                alt={listing.images[currentImage].alt}
-                width={1200}
-                height={800}
-                className="w-full h-auto rounded-lg"
-              />
+              {/* Image Container */}
+              <div
+                className={`relative w-full h-full flex items-center justify-center transition-transform duration-300 ${
+                  isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'
+                }`}
+                onClick={() => setIsZoomed(!isZoomed)}
+              >
+                <div className={`relative transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'}`}>
+                  <Image
+                    src={listing.images[galleryIndex].url}
+                    alt={listing.images[galleryIndex].alt}
+                    width={1400}
+                    height={900}
+                    className="max-h-[70vh] md:max-h-[75vh] w-auto h-auto object-contain"
+                    priority
+                    sizes="100vw"
+                  />
+                </div>
+              </div>
 
-              {/* Thumbnails */}
-              <div className="flex gap-2 mt-4 justify-center overflow-x-auto pb-4">
+              {/* Next Button */}
+              <button
+                onClick={nextGalleryImage}
+                className="absolute right-2 md:right-6 z-10 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-black/60 transition-all group"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+
+              {/* Keyboard hint */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-4 text-white/40 text-xs">
+                <span className="flex items-center gap-1">
+                  <kbd className="px-2 py-1 bg-white/10 rounded">←</kbd>
+                  <kbd className="px-2 py-1 bg-white/10 rounded">→</kbd>
+                  <span className="ml-1">Navigate</span>
+                </span>
+                <span className="flex items-center gap-1">
+                  <kbd className="px-2 py-1 bg-white/10 rounded">ESC</kbd>
+                  <span className="ml-1">Close</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Thumbnail Strip */}
+            <div className="p-4 md:p-6 bg-black/80 backdrop-blur-sm">
+              <div className="flex gap-2 justify-center overflow-x-auto pb-2 scrollbar-hide">
                 {listing.images.map((image, index) => (
                   <button
                     key={image.id}
-                    onClick={() => setCurrentImage(index)}
-                    className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all ${
-                      index === currentImage
-                        ? 'ring-2 ring-white opacity-100'
-                        : 'opacity-50 hover:opacity-75'
+                    onClick={() => {
+                      setGalleryIndex(index);
+                      setIsZoomed(false);
+                    }}
+                    className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden transition-all duration-200 ${
+                      index === galleryIndex
+                        ? 'ring-2 ring-white opacity-100 scale-105'
+                        : 'opacity-40 hover:opacity-70'
                     }`}
                   >
                     <Image
                       src={image.url}
                       alt={image.alt}
-                      width={64}
-                      height={64}
+                      width={80}
+                      height={80}
                       className="w-full h-full object-cover"
                     />
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Preload adjacent images */}
+            <div className="hidden">
+              {galleryIndex > 0 && (
+                <Image
+                  src={listing.images[galleryIndex - 1].url}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+              )}
+              {galleryIndex < listing.images.length - 1 && (
+                <Image
+                  src={listing.images[galleryIndex + 1].url}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+              )}
             </div>
           </div>
         )}
