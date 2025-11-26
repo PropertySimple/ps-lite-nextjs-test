@@ -1,45 +1,41 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Mail, Edit3 } from "lucide-react";
+import { Rocket, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface OnboardingCompleteProps {
   onComplete: () => void;
 }
 
 export function OnboardingComplete({ onComplete }: OnboardingCompleteProps) {
+  const router = useRouter();
+
+  const handleViewCampaign = () => {
+    onComplete();
+    router.push("/campaign-detail/1");
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="w-14 h-14 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto">
-          <CheckCircle2 className="w-7 h-7 text-green-600 dark:text-green-400" />
+        <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+          <Rocket className="w-7 h-7 text-primary" />
         </div>
-        <h2 className="text-2xl font-bold">You're All Set!</h2>
+        <h2 className="text-2xl font-bold">Your Campaign is Being Created!</h2>
         <p className="text-muted-foreground text-sm">
-          Here's what happens next
+          We're building your videos now
         </p>
       </div>
 
-      {/* Next steps */}
-      <div className="space-y-3">
-        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-          <Mail className="w-5 h-5 text-primary mt-0.5" />
-          <div>
-            <div className="font-medium text-sm">Check your email</div>
-            <div className="text-xs text-muted-foreground">
-              We'll notify you when your campaign is ready to review
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-          <Edit3 className="w-5 h-5 text-primary mt-0.5" />
-          <div>
-            <div className="font-medium text-sm">Edit before launch</div>
-            <div className="text-xs text-muted-foreground">
-              You can customize your videos before they go live
-            </div>
+      {/* Info box */}
+      <div className="flex items-start gap-3 p-4 rounded-lg bg-primary/5 border border-primary/10">
+        <Sparkles className="w-5 h-5 text-primary mt-0.5" />
+        <div>
+          <div className="font-medium text-sm">Videos ready in minutes</div>
+          <div className="text-xs text-muted-foreground">
+            Your campaign will auto-launch in 24 hours, or you can go live sooner
           </div>
         </div>
       </div>
@@ -53,11 +49,11 @@ export function OnboardingComplete({ onComplete }: OnboardingCompleteProps) {
 
       {/* Action */}
       <Button
-        onClick={onComplete}
+        onClick={handleViewCampaign}
         className="w-full"
         size="lg"
       >
-        Go to My Campaigns
+        View Your Campaign
       </Button>
     </div>
   );
